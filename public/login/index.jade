@@ -1,0 +1,79 @@
+doctype html
+html(lang='en')
+  head
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    // Meta, title, CSS, favicons, etc.
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title
+    // Bootstrap
+    link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css')
+    // Font Awesome
+    link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css')
+    // NProgress
+    link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css')
+    // Animate.css
+    link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css')
+    // Custom Theme Style
+    link(rel='stylesheet', href='./style.css')
+  body.login
+    div
+      a#signup.hiddenanchor
+      a#signin.hiddenanchor
+      .login_wrapper
+        .animate.form.login_form
+          section.login_content
+            form
+              h1 {{ 'Login Form' | translate }}
+              div
+                input.form-control(type='text', placeholder='Username', required='')
+              div
+                input.form-control(type='password', placeholder='Password', required='')
+              .clearfix.text-left
+                a(href='restore.html') {{ 'Lost your password?' | translate }}
+                hr
+              .form-group
+                .col-md-6.col-sm-6.col-xs-12.text-left
+                  .checkbox
+                    label
+                      input(type='checkbox', value='')
+                      | {{ 'Check here to confirm that you are not a U.S. citizen, resident or entity (a “U.S. Person”) nor are you obtaining PGL Tokens or signing on behalf of a U.S. Person.' | translate }}
+                .col-md-6.col-sm-6.col-xs-12.text-left
+                  .checkbox
+                    label
+                      input(type='checkbox', value='')
+                      | {{ 'Check here to confirm that you have read, understand and agree to the' | translate }} 
+                      a(href='#') {{ 'Terms of Use' | translate }}
+                      |  {{ 'and' | translate }}  
+                      a(href='#') {{ 'Privacy Policy' | translate }}
+                      | .
+              .clearfix
+              div
+                a.btn.btn-theme.btn-block.btn-lg.submit(href='index.html') {{ 'Log in' | translate }}
+              .clearfix
+              .separator
+                p.change_link
+                  | {{ 'New to site?' | translate }}
+                  a.to_register(href='#signup')  {{ 'Create Account' | translate }} 
+                .clearfix
+                br
+        #register.animate.form.registration_form
+          section.login_content
+            form
+              h1 {{ 'Create Account' | translate }}
+              div
+                input.form-control(type='text', placeholder='Username', required='')
+              div
+                input.form-control(type='email', placeholder='Email', required='')
+              div
+                input.form-control(type='password', placeholder='Password', required='')
+              div
+                a.btn.btn-theme.btn-block.btn-lg.submit(href='index.html') {{ 'Submit' | translate }}
+              .clearfix
+              .separator
+                p.change_link
+                  | {{ 'Already a member ?' | translate }}
+                  a.to_register(href='#signin')  {{ 'Log in' | translate }} 
+                .clearfix
+                br

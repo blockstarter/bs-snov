@@ -1,0 +1,23 @@
+{
+  "name": "bs-snov",
+  "version": "0.0.1",
+  "description": "Blockstarter SNOV",
+  "main": "index.js",
+  "scripts": {
+    "start": "lsc -c server.ls && node server.js",
+    "setup": "npm i nixar jade-cli livescript -g && npm i",
+    "compile-jade": "fs 'public/**/*.jade' | map 'jade *' | bash",
+    "compile-ls": "fs 'public/**/*.ls' | map 'livescript -c *' | bash",
+    "compile-sass": "fs 'public/**/*.sass' | before '.sass' | map 'sass *.sass *.css' | bash",
+    "compile": "npm run compile-jade && npm run compile-ls && npm run compile-sass",
+    "update": "npm un blockstarter-wl --save && npm i blockstarter-wl --save",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "blockstarter-wl": "0.0.18",
+    "ddos": "^0.1.24",
+    "express": "^4.15.4"
+  }
+}
