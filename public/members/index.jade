@@ -1,12 +1,13 @@
 doctype html
-html(lang='en')
+html(lang='en' ng:app="app" ng:controller="members")
   head
     meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
     // Meta, title, CSS, favicons, etc.
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title {{ 'ICO snovio dashboard' | translate }} 
+    title(ng:if="false") Loading...
+    title(ng:if="true") {{ 'ICO snovio dashboard' | translate }} 
     // Bootstrap
     link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css')
     // Font Awesome
@@ -14,13 +15,13 @@ html(lang='en')
     // NProgress
     link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css')
     // bootstrap-progressbar
-    link(rel='stylesheet prefetch', href='./bootstrap-progressbar.css')
+    link(rel='stylesheet prefetch', href='vendors/bootstrap-progressbar.css')
     // countdown
     link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/jquery-countdown/2.0.2/jquery.countdown.css')
-    link(rel='stylesheet prefetch', href='./countdown.css')
+    link(rel='stylesheet prefetch', href='vendors/countdown.css')
     // Custom ICO Style
-    link(rel='stylesheet', href='./style.css')
-  body.nav-md
+    link(rel='stylesheet', href='../style.css')
+  body.nav-md(ng:class="{visible: !model.loading}")
     .full-container.body
       .main_container
         // top navigation
@@ -28,7 +29,7 @@ html(lang='en')
           .nav_menu
             nav
               .allert-box
-                | {{ 'Thank you for registration. Please' | translate }}
+                | {{ 'Thank you for registration. Please' | translate }} 
                 a(href='#') {{ 'confirm your email' | translate }}
               a.navbar-brand.page-scroll(href='index.html')
                 img.logo(src='https://snov.io/assets/img/logo-white.svg', alt='Snov.io')
@@ -47,11 +48,11 @@ html(lang='en')
                     span.fa.fa-angle-down
                   ul.dropdown-menu.dropdown-usermenu.pull-right
                     li
-                      a(href='profile.html')  {{ 'Profile' | translate }}
+                      a(href='/profile')  {{ 'Profile' | translate }}
                     li
-                      a(href='settings.html') {{ 'Settings' | translate }}
+                      a(href='/settings') {{ 'Settings' | translate }}
                     li
-                      a(href='login.html')
+                      a(href='/login' ng:click="logout($event)")
                         i.fa.fa-sign-out.pull-right
                         |  {{ 'Log Out' | translate }}
                 li.dropdown(role='presentation')
@@ -125,47 +126,29 @@ html(lang='en')
                             .inner
                               #canvas-days.clock-canvas
                               .text
-                                p.val 0
+                                p.val {{model.timer.days}}
                                 p.type-days.type-time {{ 'Days' | translate }}
-                              // /.text
-                            // /.inner
-                          // /.wrap
-                        // /.clock-item
                         .clock-item.clock-hours.countdown-time-value.col-xs-3.col-sm-3.col-md-3
                           .wrap
                             .inner
                               #canvas-hours.clock-canvas
                               .text
-                                p.val 0
-                                p.type-hours.type-time {{ 'Days' | translate }}
-                              // /.text
-                            // /.inner
-                          // /.wrap
-                        // /.clock-item
+                                p.val {{model.timer.hours}}
+                                p.type-hours.type-time {{ 'Hours' | translate }}
                         .clock-item.clock-minutes.countdown-time-value.col-xs-3.col-sm-3.col-md-3
                           .wrap
                             .inner
                               #canvas-minutes.clock-canvas
                               .text
-                                p.val 0
+                                p.val {{model.timer.minutes}}
                                 p.type-minutes.type-time {{ 'Minutes' | translate }}
-                              // /.text
-                            // /.inner
-                          // /.wrap
-                        // /.clock-item
                         .clock-item.clock-seconds.countdown-time-value.col-xs-3.col-sm-3.col-md-3
                           .wrap
                             .inner
                               #canvas-seconds.clock-canvas
                               .text
-                                p.val 0
+                                p.val {{model.timer.seconds}}
                                 p.type-seconds.type-time {{ 'Seconds' | translate }}
-                              // /.text
-                            // /.inner
-                          // /.wrap
-                        // /.clock-item
-                      // /.clock
-                    // /.countdown-wrapper
                     .clearfix
                 .x_panel.saleprogress
                   .x_title
@@ -184,10 +167,10 @@ html(lang='en')
                         strong 0
                       .w_center.w_100
                         .progress
-                          .progress-bar.bg-purple(role='progressbar', data-transitiongoal='11652256', aria-valuemin='0', aria-valuemax='15000000') 11,652,256
+                          .progress-bar.bg-purple(role='progressbar' aria-valuenow='{{model.progress.current.usd }}' aria-valuemin='0' aria-valuemax='{{model.progress.max }}' ng:style="{width: model.progress.current.percent}") {{model.progress.current.usd | currency}}
                         .text-right.softcap {{ 'Softcap' | translate }}
                       .w_right
-                        strong  15,000,000
+                        strong  {{model.progress.max | currency }}
                 .x_panel.status
                   .x_title
                     h2 {{ 'Tokensale status' | translate }}
@@ -204,17 +187,23 @@ html(lang='en')
                       .col-md-4.col-sm-4.col-xs-12.text-center.tile_stats_count
                         .count
                           i.fa.fa-dollar.purple
-                          | 11,652,256 USD
+                          | {{model.progress.current.usd | currency | remove_sign}} USD
                       .col-md-4.col-sm-4.col-xs-12.text-center.tile_stats_count
                         .count
                           i.fa.fa-diamond.purple
-                          |  5,256.356 ETH
+                          | {{model.progress.current.eth | currency | remove_sign}} ETH
                       .col-md-4.col-sm-4.col-xs-12.text-center.tile_stats_count
                         .count
                           i.fa.fa-user.purple
-                          |  200
+                          | {{model.progress.current.contributors}}
                     .clearfix
                     .currency.tile_count
+                      .col-md-3.col-sm-3.col-xs-6.tile_stats_count(ng:repeat="row in model.rates")
+                        span.count_top
+                          img(src='{{row.img}}' alt='{{row.token}}')
+                        .count {{row.change}}
+                        span.count_bottom {{row.token}}
+                    //-.currency.tile_count
                       .col-md-3.col-sm-3.col-xs-6.tile_stats_count
                         span.count_top
                           img(src='https://tokensale.snov.io/members/images/co-dollar.svg', alt='USD')
@@ -271,38 +260,24 @@ html(lang='en')
                       .left
                         .form-group
                           h5 {{ 'Your buy' | translate }}
-                          input#coin-amount.form-control(type='text', value='100 000')
+                          input#coin-amount.form-control(type='text' ng:model="model.youBuy" ng:change="changePrice()")
                           label {{ 'Snov tokens' | translate }}
                         a.direction(href='javascript:void(0)', data-direction='right')
                           i.fa.fa-arrow-right(aria-hidden='true')
                       .right
                         .form-group.is-empty
                           h5 {{ 'Your pay' | translate }}
-                          input#coin-price.form-control(type='text', value='0.005', disabled='')
+                          input#coin-price.form-control(type='text' value='{{model.youPay}}' disabled='')
                           .btn-group
-                            button.btn.btn-dark.dropdown-toggle(data-toggle='dropdown', type='button', aria-expanded='false')
-                              a#calculator-currency-btn.btn-select.current-currency(data-code='BTC', href='javascript:void(0)') Ether
+                            button.btn.btn-dark.dropdown-toggle(data-toggle='dropdown' type='button' aria-expanded='false')
+                              a#calculator-currency-btn.btn-select.current-currency(data-code='{{model.currentRate.token}}') {{model.currentRate.fullname}}
                               span.caret
                             ul.dropdown-menu(role='menu')
-                              li
-                                a.calculator-currency(data-code='BTC', href='javascript:void(0)') Bitcoin
-                              li
-                                a.calculator-currency(data-code='LTC', href='javascript:void(0)') Litecoin
-                              li
-                                a.calculator-currency(data-code='DASH', href='javascript:void(0)') Dash
-                              li
-                                a.calculator-currency(data-code='ETH', href='javascript:void(0)') Ether
-                              li
-                                a.calculator-currency(data-code='EUR', href='javascript:void(0)') EUR
-                              li
-                                a.calculator-currency(data-code='USD', href='javascript:void(0)') USD
-                              li
-                                a.calculator-currency(data-code='DOGE', href='javascript:void(0)') DOGE
-                              li
-                                a.calculator-currency(data-code='WAVES', href='javascript:void(0)') WAVES
+                              li(ng:repeat="row in model.rates")
+                                a.calculator-currency(data-code='{{row.token}}' ng:click="setCurrent(row)") {{row.fullname}}
                       .clearfix
                       .total
-                        button.btn.btn-lg.btn-theme(type='button', data-toggle='modal', data-target='.bs-buy-modal') {{ 'Buy now' | translate }}
+                        button.btn.btn-lg.btn-theme(ng:click="buy($event)" type='button', data-toggle='modal', data-target='.bs-buy-modal') {{ 'Buy now' | translate }}
                       .modal.fade.bs-buy-modal(tabindex='-1', role='dialog', aria-hidden='true')
                         .modal-dialog.modal-lg.text-left
                           .modal-content
@@ -343,40 +318,22 @@ html(lang='en')
                             th {{ 'Address Source' | translate }}
                             th {{ 'Snov assigned' | translate }}
                         tbody
-                          tr
-                            th(scope='row') 09/01/2017 12:53
+                          tr(ng:repeat="row in model.transactions")
+                            th(scope='row') {{row.date | date: 'dd/MM/yyyy hh:mm'}}
                             td
-                              a(href='#') l6atQTwZjeTP9TiUiVUwR3z0CBN7
-                            td G52ZZ9bLbzvs
-                            td 0.12
-                          tr
-                            th(scope='row') 09/01/2017 08:10
-                            td
-                              a(href='#') i7qtg2tyPHL6IivTuaAAwpRmT7B8
-                            td ZFlAPUdnq0ob
-                            td 2.44
-                          tr
-                            th(scope='row') 09/03/2017 07:45
-                            td
-                              a(href='#') T6XM5Eek58gwpvxkzPhRwasSR7QT
-                            td sQimNHZBeYtt
-                            td 3.00
-                          tr
-                            th(scope='row') 08/031/2017 23:15
-                            td
-                              a(href='#') 9PLOJ967EeCKuQkTjYJZB4WonpZj
-                            td 952K8GLGMLKjCHn
-                            td 13.00
+                              a(href='{{row.url}}') {{row.tx}}
+                            td {{row.address}}
+                            td {{row.assigned}}
               .col-md-3.col-sm-3.col-xs-12.sidebar
                 .x_panel
                   .x_content.tile_count
                     .tile_stats_count
                       span.count_top {{ 'Token crowdsale pool:' | translate }}
-                      .count 1,500,000,000
+                      .count {{model.progress.max | currency }}
                     hr
                     .tile_stats_count
                       span.count_top {{ 'Snov token price:' | translate }}
-                      .count 0.015 ETH
+                      .count {{model.tokenPriceEth }} ETH
                   .item
                     table.table.bonuses
                       thead
@@ -386,20 +343,20 @@ html(lang='en')
                       tbody
                         tr
                           td {{ 'First day' | translate }}
-                          th.lead.text-right 15%
+                          th.lead.text-right {{model.bonuses.firstDay}}%
                         tr
                           td {{ 'First week' | translate }}
-                          th.lead.text-right 5%
+                          th.lead.text-right {{model.bonuses.firstWeek}}%
                   hr
                   .item
                     table.table.personalinfo.no-border
                       tbody
                         tr
                           td {{ 'You contributed' | translate }}
-                          th.lead.text-right 12 ETH
+                          th.lead.text-right {{model.you.contributedEth}} ETH
                         tr
                           td {{ 'Tokens you hold' | translate }}
-                          th.lead.text-right 3
+                          th.lead.text-right {{model.you.tokensYouHold}}
                   a.btn.btn-block.btn-lg.btn-theme(href='index.html#calculate') {{ 'Buy now' | translate }}
                   hr
                   ul.list-inline.social-buttons
@@ -440,12 +397,10 @@ html(lang='en')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.js')
     // JavaScript countdown
     script(src='https://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.1.9/kinetic.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.js')
+    // script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.js')
+    script(src="vendors/final-countdown.js")
     // Angular
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js')
-    script(src='https://cdn.rawgit.com/VividCortex/angular-recaptcha/master/release/angular-recaptcha.min.js')
-    script(src='https://root.flyber.net/cdn/flyber-angular.js')
-    script(src='https://cdn.jsdelivr.net/ngstorage/0.3.10/ngStorage.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.6.1/angular-translate.js')
+    include ../common.jade
     // Custom Theme Scripts
-    script(src='./logic.js')
+    script(src='../common.js')
+    script(src='logic.js')

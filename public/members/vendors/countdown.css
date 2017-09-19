@@ -113,19 +113,18 @@
     }
 }
 
-@media (min-width: 701px) and (max-width:766px) {
-    .clock>.clock-item {
-        margin:10px
-    }
-}
+/*@media (min-width: 701px) and (max-width:766px) {*/
+/*    .clock>.clock-item {*/
+/*        margin:10px*/
+/*    }*/
+/*}*/
 
 @media (max-width: 767px) {
-    .clock>.clock-item:last-child {
-        opacity:0;
-        position: absolute;
-        left: -10000px
-    }
-
+    /*.clock>.clock-item:last-child {*/
+    /*    opacity:0;*/
+    /*    position: absolute;*/
+    /*    left: -10000px*/
+    /*}*/
     .my-counter>* {
         margin-top: -30px;
         margin-bottom: 0!important
@@ -150,7 +149,7 @@
     }
 
     .text .type-time {
-        zoom:2}
+        zoom:1.5}
 
     .clock-item .text .val::before {
         display: none

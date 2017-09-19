@@ -1,5 +1,13 @@
 {
     "project" : "KickCity",
     "apiKey": "TEST-APIKEY",
-    "transport" : ""
+    "transport" : "",
+    "baseUrl": "http://root.flyber.net",
+    "requestLimits": {
+        "burst": 10, 
+        "limit": 15
+    },
+    "server" : {
+        "port": 8080
+    }
 }

@@ -1,6 +1,10 @@
 html, body
   height: 100%
 
+body
+  visibility: hidden
+  &.visible
+    visibility: visible
 .full-width
   width: 100%
 
@@ -1350,6 +1354,8 @@ ul.msg_list li
     &.open .dropdown-menu
       width: 55px
       min-width: 55px
+    .fa-angle-down
+      margin-left: 3px
   .open .dropdown-menu.msg_list
     width: 300px
 
@@ -1553,6 +1559,10 @@ span.right
     font-size: 22px
     line-height: 36px
     font-weight: 300
+    overflow: hidden
+    text-overflow: ellipsis
+    @media (min-width: 768px) and (max-width: 1199px)
+      font-size: 16px
   &:before
     margin-top: -10px
   padding: 0
@@ -1596,6 +1606,8 @@ span.right
     border: none
     box-shadow: none
     background: #ecf0f1
+    overflow: hidden
+    text-overflow: ellipsis
   .form-group
     display: inline-block
     width: 230px
@@ -2283,8 +2295,11 @@ ul.social-buttons li a
   .status .tile_count .tile_stats_count
     .count i.fa
       margin-right: 20px
-    padding: 0 20px
-
+@media (max-width: 991px)
+  .status .tile_count .tile_stats_count
+    .count i.fa
+      margin-right: 10px
+      
 .tile_count .tile_stats_count
   .count
     font-size: 30px
@@ -2296,12 +2311,15 @@ ul.social-buttons li a
     width: 12px
 
 @media (min-width: 768px)
-  .tile_count .tile_stats_count .count
-    font-size: 40px
+  .sidebar .tile_count .tile_stats_count .count
+    font-size: 24px
 
 @media (min-width: 992px) and (max-width: 1100px)
-  .tile_count .tile_stats_count .count
-    font-size: 30px
+  .sidebar .tile_count .tile_stats_count .count, th.lead
+    font-size: 24px
+@media (min-width: 768px) and (max-width: 991px)
+  .sidebar .tile_count .tile_stats_count .count, th.lead
+    font-size: 17px
 
 @media (min-width: 768px)
   .tile_count .tile_stats_count span
@@ -2548,6 +2566,8 @@ a.star
 button, .buttons, .btn, .modal-footer .btn + .btn
   margin-bottom: 5px
   margin-right: 5px
+  .caret
+    margin-left: 3px
 
 .btn-group-vertical .btn, .btn-group .btn
   margin-bottom: 0
@@ -2839,7 +2859,7 @@ input.parsley-error, textarea.parsley-error, select.parsley-error
 
 .btn
   border-radius: 3px
-  letter-spacing: 1
+  letter-spacing: 1px
   font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif
 
 a
@@ -4513,54 +4533,6 @@ ul.notifications
 @media (max-width: 767px)
   .dataTables_length
     float: none
-
-/* CSS3 Checkbox
-/*
- *.checkbox-input { display:block;position:relative; }
- *.checkbox-input:before { display:block;content:"";position:absolute;top:2px;left:0;height:20px;width:20px;background:red;border-radius:3px; }
- *
- *
- * #input + label:after {
- *    content: 'click my input';
- *    color: blue;
- *  }
- *
- *  #input:focus + label:after {
- *    content: 'not valid yet';
- *    color: blue;
- *  }
- *
- *  #input:valid + label:after {
- *    content: 'looks good';
- *    color: red;
- *  }
- *
- */* CSS3 Checkbox - end
-/*
- *
- */*
- *.checkbox 																										{ display: block;position:relative;cursor:pointer; }
- *.checkbox input 																								{ position:absolute;z-index:-1;opacity:0;left:0;top:0; }
- *.checkbox div 																									{ position:absolute;top:2px;left:0;height:20px;width:20px;background:#e6e6e6;border-radius:3px; }
- *.checkbox input:checked ~ div 																			{ background: #1ABC9C; }
- *.checkbox:hover input:not([disabled]):checked ~ div,
- *.checkbox input:checked:focus ~ div 																	{ background: #1ABC9C; }
- *.checkbox input:disabled ~ div 																			{ background: #1ABC9C;opacity: 0.6;pointer-events: none; }
- *.checkbox div:after 																							{ content: '';position: absolute;display: none; }
- *.checkbox input:checked ~ div:after 																	{ display: block; }
- *.checkbox-wp div:after 																					{ left: 7px;top: 3px;width: 7px;height: 11px;border: solid #fff;border-width: 0 2px 2px 0;transform: rotate(40deg); }
- *.checkbox-wp input:disabled ~ div:after 																{ border-color: #F2F2F2; }
- *
- *
- *.checkbox-radio div 																							{ border-radius: 50%; }
- *.checkbox-radio div:after 																					{ left: 7px;top: 7px;height: 6px;width: 6px;border-radius: 50%;background: #fff; }
- *.checkbox-radio input:disabled ~ div:after 															{ background: #F2F2F2; }
- *
- *
- *.checkbox, .radio { margin-top:-3px; }
- *
- *table thead .checkbox { margin-top:-7px;margin-top:-21px; }
- *table thead .checkbox.radio { margin-top:-7px;margin-top:-21px; }
 
 .daterangepicker.xdisplay
   width: 228px

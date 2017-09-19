@@ -1,12 +1,13 @@
 doctype html
-html
+html(ng:app="app" ng:controller="restore")
   head
     meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
     // Meta, title, CSS, favicons, etc.
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title
+    title(ng:if="false") Loading...
+    title(ng:if="true") {{ 'Restore Password' | translate }}
     // Bootstrap
     link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css')
     // Font Awesome
@@ -16,8 +17,8 @@ html
     // Animate.css
     link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css')
     // Custom Theme Style
-    link(href='./style.css', rel='stylesheet')
-  body.login
+    link(href='../style.css', rel='stylesheet')
+  body.login(ng:class="{visible: true}")
     div
       .login_wrapper
         #restore.animate.form.restore_form
@@ -29,8 +30,11 @@ html
               div
                 input.form-control(type='email', placeholder='Email', required='')
               div
-                a.btn.btn-theme.btn-block.btn-lg.submit(href='index.html') {{ 'Restore the access to your account' | translate }}
+                a.btn.btn-theme.btn-block.btn-lg.submit(href='/members') {{ 'Restore the access to your account' | translate }}
               .clearfix
               .separator
                 .clearfix
                 br
+    include ../common.jade
+    //Custom
+    script(src='logic.js')

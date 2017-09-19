@@ -1,12 +1,13 @@
 doctype html
-html(lang='en')
+html(lang='en' ng:app="app"  ng:controller="settings")
   head
     meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
     // Meta, title, CSS, favicons, etc.
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title {{ 'ICO snovio dashboard ' | translate }}
+    title(ng:if="false") Loading...
+    title(ng:if="true") {{ 'ICO snovio dashboard ' | translate }}
     // Bootstrap
     link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css')
     // Font Awesome
@@ -14,8 +15,8 @@ html(lang='en')
     // NProgress
     link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css')
     // Custom ICO Style
-    link(rel='stylesheet', href='./style.css')
-  body.nav-md
+    link(rel='stylesheet', href='../style.css')
+  body.nav-md(ng:class="{visible: true}")
     .full-container.body
       .main_container
         // top navigation
@@ -42,11 +43,11 @@ html(lang='en')
                     span.fa.fa-angle-down
                   ul.dropdown-menu.dropdown-usermenu.pull-right
                     li
-                      a(href='profile.html')  {{ 'Profile' | translate }}
+                      a(href='/profile')  {{ 'Profile' | translate }}
                     li
-                      a(href='settings.html') {{ 'Settings' | translate }}
+                      a(href='/setting') {{ 'Settings' | translate }}
                     li
-                      a(href='login.html')
+                      a(href='/login')
                         i.fa.fa-sign-out.pull-right
                         |  {{ 'Log Out' | translate }}
                 li.dropdown(role='presentation')
@@ -108,22 +109,13 @@ html(lang='en')
                   .x_content
                     #userinfo.animate.form
                       p
-                        | {{ 'You are able to buy SNOV Tokens using BTC, ETH, LTC, DASH, ZEC, ETC, or USD (wire
-                        | transfer for any amount over $1,000).' | translate }}
+                        {{ 'You are able to buy SNOV Tokens using BTC, ETH, LTC, DASH, ZEC, ETC, or USD (wire transfer for any amount over $1,000).' | translate }}
                       p
-                        | {{ 'The calculator is provided for your convenience. You can enter a number of SNOV
-                        | Tokens you wish to buy and calculate the amount you would need to have in your
-                        | account wallets.' | translate }}
+                        {{ 'The calculator is provided for your convenience. You can enter a number of SNOV Tokens you wish to buy and calculate the amount you would need to have in your account wallets.' | translate }}
                       p
-                        | {{ 'Please note that transfer of funds to your account wallets does not constitute a
-                        | purchase of the SNOV Tokens. After the funds are deposited, you would need to
-                        | complete Step 3 to purchase the required number of SNOV tokens with the
-                        | deposited funds.' | translate }}
+                        {{ 'Please note that transfer of funds to your account wallets does not constitute a purchase of the SNOV Tokens. After the funds are deposited, you would need to complete Step 3 to purchase the required number of SNOV tokens with the deposited funds.' | translate }}
                       p
-                        | {{ 'If you are purchasing SNOV Tokens with any currency other than BTC, please note
-                        | that price of SNOV Tokens would be calculated at the time of actual purchase of
-                        | the SNOV Tokens and not at the time of transfer of the funds to your account
-                        | wallets.' | translate }}
+                        {{ 'If you are purchasing SNOV Tokens with any currency other than BTC, please note that price of SNOV Tokens would be calculated at the time of actual purchase of the SNOV Tokens and not at the time of transfer of the funds to your account wallets.' | translate }}
                       section.well
                         form.form-horizontal
                           .form-group
@@ -167,7 +159,7 @@ html(lang='en')
                         tr
                           td {{ 'Tokens you hold' | translate }}
                           th.lead.text-right 3
-                  a.btn.btn-block.btn-lg.btn-theme(href='index.html#calculate') {{ 'Buy now' | translate }}
+                  a.btn.btn-block.btn-lg.btn-theme(href='/members/#calculate') {{ 'Buy now' | translate }}
                   hr
                   ul.list-inline.social-buttons
                     li
@@ -209,10 +201,7 @@ html(lang='en')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.2.0/kinetic.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.min.js')
     // Angular
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js')
-    script(src='https://cdn.rawgit.com/VividCortex/angular-recaptcha/master/release/angular-recaptcha.min.js')
-    script(src='https://root.flyber.net/cdn/flyber-angular.js')
-    script(src='https://cdn.jsdelivr.net/ngstorage/0.3.10/ngStorage.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/angular-translate/2.6.1/angular-translate.js')
+    include ../common.jade
     // Custom Theme Scripts
-    script(src='./logic.js')
+    script(src='../common.js')
+    script(src='logic.js')

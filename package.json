@@ -7,7 +7,7 @@
     "start": "lsc -c server.ls && node server.js",
     "setup": "npm i nixar jade-cli livescript -g && npm i",
     "compile-jade": "fs 'public/**/*.jade' | map 'jade *' | bash",
-    "compile-ls": "fs 'public/**/*.ls' | map 'livescript -c *' | bash",
+    "compile-ls": "fs 'public/**/*.ls' | map 'lsc -c *' | bash",
     "compile-sass": "fs 'public/**/*.sass' | before '.sass' | map 'sass *.sass *.css' | bash",
     "compile": "npm run compile-jade && npm run compile-ls && npm run compile-sass",
     "update": "npm un blockstarter-wl --save && npm i blockstarter-wl --save",
@@ -17,7 +17,9 @@
   "license": "ISC",
   "dependencies": {
     "blockstarter-wl": "0.0.18",
+    "body-parser": "^1.18.1",
     "ddos": "^0.1.24",
-    "express": "^4.15.4"
+    "express": "^4.15.4",
+    "prelude-ls": "^1.1.2"
   }
 }
