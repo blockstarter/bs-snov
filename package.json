@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "lsc -c server.ls && node server.js",
-    "setup": "cp config.json.sample config.json && npm i nixar jade-cli livescript forever nodemon -g && npm i",
+    "setup": "cp config.json.sample config.json && npm i nixar jade-cli livescript forever nodemon -g && npm i && npm run compile",
     "forever": "forever stop server.js && forever start server.js",
     "compile-jade": "fs 'public/**/*.jade' | map 'jade *' | bash",
     "compile-ls": "fs 'public/**/*.ls' | map 'lsc -c *' | bash",
