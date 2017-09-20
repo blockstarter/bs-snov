@@ -37,7 +37,9 @@ angular
             reference: \native
             accept-location: no 
             accept-privacy: no
-        
+            autoregister: no
+        export register = (bool)->
+            form.autoregister = bool
         export enter = ($event)->
             $event.prevent-default!
             return alert "Please accept location" if not form.accept-location

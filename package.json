@@ -5,21 +5,27 @@
   "main": "index.js",
   "scripts": {
     "start": "lsc -c server.ls && node server.js",
-    "setup": "npm i nixar jade-cli livescript -g && npm i",
+    "setup": "npm i nixar jade-cli livescript forever nodemon -g && npm i",
+    "forever": "forever start server.js",
     "compile-jade": "fs 'public/**/*.jade' | map 'jade *' | bash",
     "compile-ls": "fs 'public/**/*.ls' | map 'lsc -c *' | bash",
     "compile-sass": "fs 'public/**/*.sass' | before '.sass' | map 'sass *.sass *.css' | bash",
-    "compile": "npm run compile-jade && npm run compile-ls && npm run compile-sass",
+    "compile": "npm run compile-ls && npm run compile-sass && npm run compile-jade",
     "update": "npm un blockstarter-wl --save && npm i blockstarter-wl --save",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon --exec 'npm run compile' --ext .ls,.sass,.jade"
   },
   "author": "",
   "license": "ISC",
+  "nodemonConfig": {
+    "delay": "0"
+  },
   "dependencies": {
-    "blockstarter-wl": "0.0.18",
+    "blockstarter-wl": "0.0.34",
     "body-parser": "^1.18.1",
     "ddos": "^0.1.24",
     "express": "^4.15.4",
+    "express-static-cache": "0.0.6",
     "prelude-ls": "^1.1.2"
   }
 }

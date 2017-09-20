@@ -7,7 +7,7 @@ html(ng:app="app" ng:controller="restore")
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     title(ng:if="false") Loading...
-    title(ng:if="true") {{ 'Restore Password' | translate }}
+    title(ng:if="true") {{ 'Reset Password' | translate }}
     // Bootstrap
     link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css')
     // Font Awesome
@@ -25,20 +25,24 @@ html(ng:app="app" ng:controller="restore")
         #restore.animate.form.restore_form
           section.login_content
             form
-              h1 {{ 'Forgot password' | translate }}
+              h1 {{ 'Reset password' | translate }}
               
-              div(ng:if='!model.emailSent')
+              div(ng:if='!model.passwordReset')
                 p.text-left
-                  | {{ 'Please enter your email so we can send you a link to restore the access to your account.' | translate }}
+                  | {{ 'Please enter your new password.' | translate }}
                 div
-                  input.form-control(type='email', name='email', placeholder='Email', required='' ng:model="form.email")
+                  input.form-control(type='password', name='password', placeholder='New password', required='' ng:model="form.newPassword")
                 div
-                  a.btn.btn-theme.btn-block.btn-lg.submit(href='/members/index.html' ng:click="restore($event)") {{ 'Restore the access to your account' | translate }}
+                  input.form-control(type='password', name='password', placeholder='Repeat new password', required='' ng:model="form.newPasswordAgain")
+                div
+                  a.btn.btn-theme.btn-block.btn-lg.submit(href='/members/index.html' ng:click="reset($event)") {{ 'Reset password' | translate }}
               
-              div(ng:if='model.emailSent')
+              div(ng:if='model.passwordReset')
                 p.text-left
-                  | {{ 'A link to resent your password has been sent to your email address, please check it.' | translate }}
-                
+                  | {{ 'Your password has been reset.' | translate }}
+                p.text-left
+                  a(href='/login/index.html') {{ 'Login into your account' | translate }}
+              
               .clearfix
               .separator
                 .clearfix

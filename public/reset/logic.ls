@@ -27,22 +27,38 @@ angular
             $local-storage.language = language
             change-language language
 
+        getUrlParam = (name, url) ->
+          if !url
+            url = window.location.href
+          name = name.replace(/[\[\]]/g, '\\$&')
+          regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)')
+          results = regex.exec(url)
+          if !results
+            return null
+          if !results[2]
+            return ''
+          decodeURIComponent results[2].replace(/\+/g, ' ')
+
         export model =
-            emailSent: false
+            passwordReset: false
         
         export form =
-            email: null
+            new-password: null
+            new-password-again: null
+            restoreKey: getUrlParam 'restore-key'
             
-        export restore = ($event)->
+        export reset = ($event)->
             $event.prevent-default!
-            return alert "Email is required" if not form.email?
+            return alert "New password is required" if not form.new-password?
+            return alert "Repeat your new password" if not form.new-password-again?
+            return alert "Passwords do not match" if form.new-password-again isnt form.new-password
             
-            $http.post \/api/forgotPassword, form 
+            $http.post \/api/resetPassword, form 
                .then (resp)->
-                   console.log resp.data
-                   model.emailSent = true
+                   model.passwordReset = true
                .catch (resp)->
                    alert resp.data
                    
         init.all!
         $scope <<<< out$
+        window.ngscope = {} <<<< out$

@@ -32,14 +32,18 @@
     });
     return $translateProvider.preferredLanguage('en');
   }).controller('login', function($scope, $http, $localStorage){
-    var form, enter;
+    var form, register, enter;
     out$.form = form = {
       email: null,
       username: "",
       password: null,
       reference: 'native',
       acceptLocation: false,
-      acceptPrivacy: false
+      acceptPrivacy: false,
+      autoregister: false
+    };
+    out$.register = register = function(bool){
+      return form.autoregister = bool;
     };
     out$.enter = enter = function($event){
       $event.preventDefault();

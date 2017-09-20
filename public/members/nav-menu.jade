@@ -1,0 +1,41 @@
+.nav_menu
+    nav
+      .allert-box(ng:hide="model.you.confirmed")
+        | {{ 'Thank you for registration. Please' | translate }} 
+        a(href="{{confirmEmailAddress()}}" target="blank") {{ 'confirm your email' | translate }}
+      a.navbar-brand.page-scroll(href='/members/index.html')
+        img.logo(src='https://snov.io/assets/img/logo-white.svg', alt='Snov.io')
+      ul.nav.navbar-nav.navbar-right
+        li.dropdown.language-picker
+          a.dropdown-toggle(href='', data-toggle='dropdown', role='button', aria-expanded='false')
+            | {{ 'En' | translate }}
+            span.fa.fa-angle-down
+          ul.dropdown-menu.pull-right
+            li(ng:repeat="language in model.languages" ng:class="{ current: $localStorage.language == language.name }")
+              a(ng:click="setLanguage(language.name)") {{ language.title | translate }}
+        li
+          a.user-profile.dropdown-toggle(href='', data-toggle='dropdown', aria-expanded='false')
+            span.fa.fa-angle-down
+          ul.dropdown-menu.dropdown-usermenu.pull-right
+            li
+              a(href='/profile/index.html')  {{ 'Profile' | translate }}
+            li
+              a(href='/settings/index.html') {{ 'Settings' | translate }}
+            li
+              a(href='/login/index.html' ng:click="logout($event)")
+                i.fa.fa-sign-out.pull-right
+                |  {{ 'Log Out' | translate }}
+        li.dropdown(role='presentation')
+          a.dropdown-toggle.info-number(href='javascript:;', data-toggle='dropdown', aria-expanded='false')
+            i.fa.fa-envelope-o
+            span.badge.bg-orange(ng:if="model.notifications.length > 0") {{model.notifications.length}}
+          ul#menu1.dropdown-menu.list-unstyled.msg_list(role='menu')
+            li(ng:repeat="notification in model.notifications")
+              a(ng:click="notificationReadComplete(notification)")
+                span.image
+                  img(src='{{notification.icon}}', alt='Notification Icon')
+                span
+                  span {{ notification.sender | translate }}
+                  span.time {{ notification.ago | translate }}
+                span.message
+                  | {{ notification.text | translate }}

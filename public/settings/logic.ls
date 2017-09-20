@@ -1,5 +1,5 @@
 angular
-    .module \app, [\flyber, \ngStorage, \pascalprecht.translate ]
+    .module \app, [\flyber, \ngStorage, \pascalprecht.translate, \members ]
     .config ($translate-provider) ->
         $translate-provider.translations \en , 
             "Copyright © Snov.io 2017" : "Copyright © Snov.io 2017" 
@@ -59,5 +59,14 @@ angular
             "ICO snovio dashboard " : "snovio ICO панель управления"
         $translate-provider.preferred-language \en
     .controller \settings, ($scope, $http, $local-storage)->
-        
-        #$scope <<<< out$
+        export form =
+            address: ""
+        export confirm = ->
+            return alert "Addresses length is wrong" if form.address.length isnt "0x0000000000000000000000000000000000000000"
+            $http
+              .post \/api/updateProfile, { form.address, ...$local-storage }
+              .then ->
+                  alert "Done"
+              .catch (resp)->
+                  alert resp.data
+        $scope <<<< out$

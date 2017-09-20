@@ -17,7 +17,7 @@ html(lang='en' ng:app="app" ng:controller="members")
     // Custom ICO Style
     style 
       include ../style.css
-  body.nav-md(ng:class="{visible: true}" ng:controller="settings")
+  body.nav-md(ng:class="{visible: true}" ng:controller="confirm")
     .full-container.body
       .main_container
         // top navigation
@@ -32,23 +32,13 @@ html(lang='en' ng:app="app" ng:controller="members")
                     h2 {{ 'User Settings' | translate }}
                     .clearfix
                   .x_content
-                    #userinfo.animate.form
+                    #userinfo.animate.form(ng:if="form.confirmed")
                       p
-                        {{ 'You are able to buy SNOV Tokens using BTC, ETH, LTC, DASH, ZEC, ETC, or USD (wire transfer for any amount over $1,000).' | translate }}
-                      p
-                        {{ 'The calculator is provided for your convenience. You can enter a number of SNOV Tokens you wish to buy and calculate the amount you would need to have in your account wallets.' | translate }}
-                      p
-                        {{ 'Please note that transfer of funds to your account wallets does not constitute a purchase of the SNOV Tokens. After the funds are deposited, you would need to complete Step 3 to purchase the required number of SNOV tokens with the deposited funds.' | translate }}
-                      p
-                        {{ 'If you are purchasing SNOV Tokens with any currency other than BTC, please note that price of SNOV Tokens would be calculated at the time of actual purchase of the SNOV Tokens and not at the time of transfer of the funds to your account wallets.' | translate }}
+                        {{ 'Your email is confirmed' | translate }}
                       section.well
                         form.form-horizontal
-                          .form-group
-                            label.control-label.col-md-4.col-sm-4.col-xs-12(for='wallet') {{ 'Enter your ETH wallet number' | translate }}
-                            .col-md-6.col-sm-6.col-xs-12
-                              input#wallet.form-control.col-md-7.col-xs-12(type='text' required='' placeholder='0x0000000000000000000000000000000000000000' ng:model="form.address")
                           .col-md-3.col-sm-3.col-md-offset-4.col-sm-offset-4.col-xs-12
-                            a.btn.btn-theme.btn-lg.submit.btn-block(ng:click="confirm()") {{ 'Confirm' | translate }}
+                            a.btn.btn-theme.btn-lg.submit.btn-block(ng:click="goToMembers()") {{ 'Go To Members' | translate }}
                           .clearfix
                     .clearfix
               include ../members/sidebar

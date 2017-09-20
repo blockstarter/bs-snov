@@ -1,17 +1,21 @@
 require! {
     \express
     \body-parser
+    \express-static-cache
     \blockstarter-wl
     \ddos
     \./config.json
     \prelude-ls : { map }
 }
 
-
-
 app = express!
 app.use body-parser.json!
-app.use express.static( __dirname + \/public )
+
+__path = __dirname + \/public
+if config.server.use-static
+  app.use express-static-cache(__path , config.server.static)
+else
+  app.use express.static( __path )
 
 do 
   protection = new ddos config.request-limits
@@ -20,7 +24,8 @@ do
 console.log "init route /"
 app.get \/ , (req, res)->
     
-    res.redirect \/login
+    res.redirect \/login/index.html
+
 
 create-route = (key)->
     console.log "init route /api/#{key}"
@@ -30,8 +35,7 @@ create-route = (key)->
     console.log "response #{key} -> err: #{err}"
     #console.log err, data
     return resp.status(400).send(err.response?text) if err?
-    resp.send data 
-      
+    resp.send data
 
 blockstarter-wl |> Object.keys |> map create-route
 

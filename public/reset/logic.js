@@ -14,7 +14,7 @@
     });
     return $translateProvider.preferredLanguage('en');
   }).controller('restore', function($scope, $http, $localStorage, $translate){
-    var init, changeLanguage, setLanguage, model, form, restore;
+    var init, changeLanguage, setLanguage, getUrlParam, model, form, reset;
     init = function(func){
       var s, ref$;
       s = init.scripts = (ref$ = init.scripts) != null
@@ -38,26 +38,50 @@
       $localStorage.language = language;
       return changeLanguage(language);
     };
+    getUrlParam = function(name, url){
+      var regex, results;
+      if (!url) {
+        url = window.location.href;
+      }
+      name = name.replace(/[\[\]]/g, '\\$&');
+      regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+      results = regex.exec(url);
+      if (!results) {
+        return null;
+      }
+      if (!results[2]) {
+        return '';
+      }
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    };
     out$.model = model = {
-      emailSent: false
+      passwordReset: false
     };
     out$.form = form = {
-      email: null
+      newPassword: null,
+      newPasswordAgain: null,
+      restoreKey: getUrlParam('restore-key')
     };
-    out$.restore = restore = function($event){
+    out$.reset = reset = function($event){
       $event.preventDefault();
-      if (form.email == null) {
-        return alert("Email is required");
+      if (form.newPassword == null) {
+        return alert("New password is required");
       }
-      return $http.post('/api/forgotPassword', form).then(function(resp){
-        console.log(resp.data);
-        return model.emailSent = true;
+      if (form.newPasswordAgain == null) {
+        return alert("Repeat your new password");
+      }
+      if (form.newPasswordAgain !== form.newPassword) {
+        return alert("Passwords do not match");
+      }
+      return $http.post('/api/resetPassword', form).then(function(resp){
+        return model.passwordReset = true;
       })['catch'](function(resp){
         return alert(resp.data);
       });
     };
     init.all();
-    return importAll$($scope, out$);
+    importAll$($scope, out$);
+    return window.ngscope = importAll$({}, out$);
   });
   function importAll$(obj, src){
     for (var key in src) obj[key] = src[key];

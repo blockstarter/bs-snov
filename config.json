@@ -1,13 +1,20 @@
 {
+    "isBrowser" : false,
     "project" : "KickCity",
     "apiKey": "TEST-APIKEY",
-    "transport" : "",
+    "transport" : null,
     "baseUrl": "http://root.flyber.net",
+    "returnUrl" : "https://bs-snov-askucher.c9users.io/reset/index.html",
+    "confirmUrl" : "https://bs-snov-askucher.c9users.io/confirm-email/index.html",
     "requestLimits": {
         "burst": 10, 
         "limit": 15
     },
     "server" : {
-        "port": 8080
+        "port": 8080,
+        "useStatic" : false,
+        "static": {
+            "maxAge" : 31536000
+        }
     }
 }

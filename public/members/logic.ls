@@ -1,5 +1,5 @@
 angular
-    .module \app, [\flyber, \ngStorage, \pascalprecht.translate ]
+    .module \members, [\flyber, \ngStorage, \pascalprecht.translate ]
     .filter \remove_sign, ->
         -> it.replace('$', '')
     .config ($translate-provider) ->
@@ -66,7 +66,7 @@ angular
             "Your buy" : "Вы покупаете" 
             "Snov tokens" : "Snov токены"
             "Your pay" : "Вы платите" 
-            "Please make sure your deposit equals or exceeds the minimum purchase amount (at the current exchange rate it is 0.012 BTC)" : "Пожалуйста, убедитесь, что ваш депозит равен или превышает минимальную сумму покупки (при текущем обменном курсе это 0,012 BTC)" 
+            "Please make sure your deposit equals or exceeds the minimum purchase amount (please check the minimum amount in WP)" : "Пожалуйста, убедитесь, что ваш депозит равен или превышает минимальную сумму покупки (посмотрите минимальный курс в ВП)" 
             "Snov assigned" : "количество Snov" 
             "Address Source" : "Источник адреса" 
             "Transaction ID" : "Номер транзакции" 
@@ -82,14 +82,16 @@ angular
             "Token crowdsale pool:" : "Пул предпродажи токенов:"
             "Copyright © Snov.io 2017" : "Copyright © Snov.io 2017"
         $translate-provider.preferred-language \en
-    .controller \members, ($scope, $http, $local-storage, $window)->
+    .directive \qrcode, ->
+        restrict: \A
+        scope: 
+            qrcode: \=
+        controller: ($scope, $element)->
+            $scope.$watch \qrcode, (value)->
+                $element.empty!
+                new QRCode($element.0, value)
+    .controller \members, ($scope, $http, $local-storage, $window, $translate, $timeout)->
         m = 1000000
-        create-transaction = ->
-          url: "http://google.com.ua"
-          date: new Date!
-          tx: "2424234234234234234234234234234234"
-          address: "0x23423432423443423423423"
-          assigned: 0.12
         init = (func)->
             s = init.scripts = init.scripts ? []
             init.all = -> s.for-each(-> it!)
@@ -98,11 +100,22 @@ angular
         export set-current = init (rate)->
             model.current-rate = rate ? model.rates.0
             change-price!
+        export show = {}
         export change-price = ->
             model.you-pay = 
                 model.you-buy * model.current-rate.change
+        update-time = init ->
+            update = ([head, ...tail])->
+                if model.timer[head] > 0
+                   model.timer[head] -= 1
+                else if head isnt \days
+                   model.timer[head] = 59
+                   update tail
+            update <[ seconds minutes hours days ]>
+            $timeout update-time, 1000
         export model =
             loading: yes
+            address: "Loading..."
             you-buy: 100000
             you-pay: 0.05
             current-rate: {}
@@ -112,50 +125,86 @@ angular
                 * title: \En 
                   name: \en
             timer: 
-                days: 0
-                hours: 0
-                minutes: 0
+                days: 30
+                hours: 2
+                minutes: 15
                 seconds: 0
             progress: 
-                min: 5 * m
-                max: 15 * m
+                min: 0
+                max: 0
                 current:
-                    usd: 11 * m
-                    eth: 18 * m / 300
-                    percent: "70%"
-                    contributors: 200
-                
-            token-price-eth: 0.015
+                    usd: 0
+                    eth: 0
+                    percent: "0%"
+                    contributors: 0
+            token-price-eth: 0
             bonuses: 
                 first-day: 15
                 first-week: 5
             rates: []
-            transactions:
-                * create-transaction!
-                * create-transaction!
-                * create-transaction!
-                * create-transaction!
+            transactions: []
             you:
                 contributed-eth: 12
                 tokens-you-hold: 3
-        $window.model = model
-        
+                email: null
+                confirmed: no
         transform-rates = (rate)->
             rate.change = rate.rate
             rate
+        export notification-read-complete = (notification)->
+            notification.is-read = yes 
+            $http
+              .post \/api/notificationReadComplete, { notification.id,  ...$local-storage } 
+              .then (resp)->
+              .catch ->
+                  notification.is-read = no
         $http
           .post \/api/panel, $local-storage
           .then (resp)->
+             #BS to SNOVIO transformation
+             usd = resp.data.rates.filter(-> it.token is \USD).0
              model.loading = no
              model.rates = resp.data.rates.map(transform-rates)
+             model.you.email = resp.data.user.profile.email
+             model.you.confirmed = resp.data.user.profile.confirmed
+             model.you.contributed-eth = resp.data.user.contribution.total
+             model.you.tokens-you-hold = resp.data.user.contribution.own
+             model.transactions = resp.data.user.transactions
+             model.progress.max = resp.data.config.panelinfo.max_cap_in_eth * usd.rate
+             model.progress.min = resp.data.config.panelinfo.min_cap_in_eth * usd.rate
+             model.progress.current.usd = resp.data.campaign.total
+             model.progress.current.eth = resp.data.campaign.total / usd.rate
+             model.progress.current.percent = "#{resp.data.campaign.percent}%"
+             model.progress.current.contributors = resp.data.campaign.contributions
+             model.progress.token-price-eth = 1 / resp.data.campaign.price
+             
              init.all!
           .catch (resp)->
-             location.href = \/login
-        export buy = ($event)->
-            $event.prevent-default!
+             #location.href = \/login
             
+        export $local-storage
+        change-language = init (language)->
+            $translate.use(language ? $local-storage.language)
+        export set-language = (language)->
+            $local-storage.language = language
+            change-language language
+        export confirm-email-address = ->
+            return if not model.you.email?
+            "https://" + model.you.email.replace(/^[^@]+@/ig,'')
+        export buy = ($event) !->
+            { token } = model.current-rate
+            model.address = "Loading..."
+            $http
+              .post \/api/address , { type: token, ...$local-storage } 
+              .then (resp)->
+                  { model.address } = resp.data 
+                  
+              .catch ->
+                  alert "Oops. Server error :("
         export logout = ($event)->
             $event.prevent-default!
-            $local-storage.session-id = null
+            $local-storage.session-id = "N"
             { location.href } = $event.target
         $scope <<<< out$
+        $window.debug = {}
+        $window.debug <<<< out$

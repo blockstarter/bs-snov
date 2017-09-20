@@ -1,5 +1,5 @@
 doctype html
-html(lang='en' ng:app="app" ng:controller="profile")
+html(lang='en' ng:app="app" ng:controller="members")
   head
     meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
     // Meta, title, CSS, favicons, etc.
@@ -15,87 +15,14 @@ html(lang='en' ng:app="app" ng:controller="profile")
     // NProgress
     link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css')
     // Custom ICO Style
-    link(rel='stylesheet', href='../style.css')
-  body.nav-md(ng:class="{visible: true}")
+    style 
+      include ../style.css
+  body.nav-md(ng:class="{visible: true}" ng:controller="profile")
     .full-container.body
       .main_container
         // top navigation
         .top_nav
-          .nav_menu
-            nav
-              .allert-box
-                | {{ 'Thank you for registration. Please' | translate }} 
-                a(href='#') {{ 'confirm your email' | translate }}
-              a.navbar-brand.page-scroll(href='index.html')
-                img.logo(src='https://snov.io/assets/img/logo-white.svg', alt='Snov.io')
-              ul.nav.navbar-nav.navbar-right
-                li.dropdown.language-picker
-                  a.dropdown-toggle(href='', data-toggle='dropdown', role='button', aria-expanded='false')
-                    | {{ 'En' | translate }}
-                    span.fa.fa-angle-down
-                  ul.dropdown-menu.pull-right
-                    li
-                      a(href='/ru/') {{ 'Ru' | translate }}
-                    li.current
-                      a(href='/') {{ 'En' | translate }}
-                li
-                  a.user-profile.dropdown-toggle(href='', data-toggle='dropdown', aria-expanded='false')
-                    span.fa.fa-angle-down
-                  ul.dropdown-menu.dropdown-usermenu.pull-right
-                    li
-                      a(href='/profile')  {{ 'Profile' | translate }}
-                    li
-                      a(href='/settings') {{ 'Settings' | translate }}
-                    li
-                      a(href='/login')
-                        i.fa.fa-sign-out.pull-right
-                        |  {{ 'Log Out' | translate }}
-                li.dropdown(role='presentation')
-                  a.dropdown-toggle.info-number(href='javascript:;', data-toggle='dropdown', aria-expanded='false')
-                    i.fa.fa-envelope-o
-                    span.badge.bg-orange 6
-                  ul#menu1.dropdown-menu.list-unstyled.msg_list(role='menu')
-                    li
-                      a
-                        span.image
-                          img(src='images/picture.jpg', alt='Profile Image')
-                        span
-                          span {{ 'John Smith' | translate }}
-                          span.time {{ '3 mins ago' | translate }}
-                        span.message
-                          | {{ 'Film festivals used to be do-or-die moments for movie makers. They were where...' | translate }}
-                    li
-                      a
-                        span.image
-                          img(src='images/picture.jpg', alt='Profile Image')
-                        span
-                          span {{ 'John Smith' | translate }}
-                          span.time {{ '3 mins ago' | translate }}
-                        span.message
-                          | {{ 'Film festivals used to be do-or-die moments for movie makers. They were where...' | translate }}
-                    li
-                      a
-                        span.image
-                          img(src='images/picture.jpg', alt='Profile Image')
-                        span
-                          span {{ 'John Smith' | translate }}
-                          span.time {{ '3 mins ago' | translate }}
-                        span.message
-                          | {{ 'Film festivals used to be do-or-die moments for movie makers. They were where...' | translate }}
-                    li
-                      a
-                        span.image
-                          img(src='images/picture.jpg', alt='Profile Image')
-                        span
-                          span {{ 'John Smith' | translate }}
-                          span.time {{ '3 mins ago' | translate }}
-                        span.message
-                          | {{ 'Film festivals used to be do-or-die moments for movie makers. They were where...' | translate }}
-                    li
-                      .text-center
-                        a
-                          strong {{ 'See All Alerts' | translate }}
-                          i.fa.fa-angle-right
+          include ../members/nav-menu
         // /top navigation
         // page content
         .container(role='main')
@@ -113,123 +40,29 @@ html(lang='en' ng:app="app" ng:controller="profile")
                           .form-group
                             label.control-label.col-md-3.col-sm-3.col-xs-12(for='username') {{ 'Username' | translate }}
                             .col-md-6.col-sm-6.col-xs-12
-                              input#username.form-control.col-md-7.col-xs-12(type='text', required='', placeholder='username')
+                              input#username.form-control.col-md-7.col-xs-12(type='text', required='', placeholder='username' ng:model="form.username")
                           .form-group
                             label.control-label.col-md-3.col-sm-3.col-xs-12(for='email') {{ 'Email' | translate }}
                             .col-md-6.col-sm-6.col-xs-12
-                              input#email.form-control.col-md-7.col-xs-12(type='email', required='', placeholder='email')
+                              input#email.form-control.col-md-7.col-xs-12(type='email', required='', placeholder='email' ng:model="form.email")
                           .form-group
                             label.control-label.col-md-3.col-sm-3.col-xs-12(for='curpass') {{ 'Current password' | translate }}
                             .col-md-6.col-sm-6.col-xs-12
-                              input#curpass.form-control.col-md-7.col-xs-12(type='password', required='required', placeholder='Current password')
+                              input#curpass.form-control.col-md-7.col-xs-12(type='password', required='required', placeholder='Current password' ng:model="form.oldPassword")
                           .form-group
                             label.control-label.col-md-3.col-sm-3.col-xs-12(for='newpass') {{ 'New password' | translate }}
                             .col-md-6.col-sm-6.col-xs-12
-                              input#newpass.form-control.col-md-7.col-xs-12(type='password', required='required', placeholder='New password')
+                              input#newpass.form-control.col-md-7.col-xs-12(type='password', required='required', placeholder='New password' ng:model="form.newPassword")
                           .form-group
                             label.control-label.col-md-3.col-sm-3.col-xs-12(for='confirmpass') {{ 'Confirm password' | translate }}
                             .col-md-6.col-sm-6.col-xs-12
-                              input#confirmpass.form-control.col-md-7.col-xs-12(type='password', required='required', placeholder='Confirm password')
+                              input#confirmpass.form-control.col-md-7.col-xs-12(type='password', required='required', placeholder='Confirm password' ng:model="form.newPasswordRepeat")
                           .col-md-3.col-sm-3.col-md-offset-3.col-sm-offset-3.col-xs-12
-                            a.btn.btn-theme.btn-lg.submit.btn-block(href='#') {{ 'Save changes' | translate }}
+                            a.btn.btn-theme.btn-lg.submit.btn-block(ng:click="save()") {{ 'Save changes' | translate }}
                           .clearfix
                     .clearfix
-                .x_panel.transaction-history
-                  .x_title
-                    h2 {{ 'Your transaction history' | translate }}
-                    ul.nav.navbar-right.panel_toolbox
-                      li
-                        a.collapse-link
-                          i.fa.fa-chevron-up
-                      li
-                        a.close-link
-                          i.fa.fa-close
-                    .clearfix
-                  .x_content
-                    #datatable_wrapper.dataTables_wrapper.form-inline.dt-bootstrap.no-footer
-                      table#datatable-checkbox.table.table-striped.bulk_action(role='grid', aria-describedby='datatable-checkbox_info')
-                        thead
-                          tr
-                            th {{ 'Date' | translate }}
-                            th {{ 'Transaction ID' | translate }}
-                            th {{ 'Address Source' | translate }}
-                            th {{ 'Snov assigned' | translate }}
-                        tbody
-                          tr
-                            th(scope='row') 09/01/2017 12:53
-                            td
-                              a(href='#') l6atQTwZjeTP9TiUiVUwR3z0CBN7
-                            td G52ZZ9bLbzvs
-                            td 0.12
-                          tr
-                            th(scope='row') 09/01/2017 08:10
-                            td
-                              a(href='#') i7qtg2tyPHL6IivTuaAAwpRmT7B8
-                            td ZFlAPUdnq0ob
-                            td 2.44
-                          tr
-                            th(scope='row') 09/03/2017 07:45
-                            td
-                              a(href='#') T6XM5Eek58gwpvxkzPhRwasSR7QT
-                            td sQimNHZBeYtt
-                            td 3.00
-                          tr
-                            th(scope='row') 08/031/2017 23:15
-                            td
-                              a(href='#') 9PLOJ967EeCKuQkTjYJZB4WonpZj
-                            td 952K8GLGMLKjCHn
-                            td 13.00
-              .col-md-3.col-sm-3.col-xs-12.sidebar
-                .x_panel
-                  .x_content.tile_count
-                    .tile_stats_count
-                      span.count_top {{ 'Token crowdsale pool:' | translate }}
-                      .count 1,500,000,000
-                    hr
-                    .tile_stats_count
-                      span.count_top {{ 'Snov token price:' | translate }}
-                      .count 0.015 ETH
-                  .item
-                    table.table.bonuses
-                      thead
-                        tr
-                          th(colspan='2')
-                            h4 {{ 'Bonuses:' | translate }}
-                      tbody
-                        tr
-                          td {{ 'First day' | translate }}
-                          th.lead.text-right 15%
-                        tr
-                          td {{ 'First week' | translate }}
-                          th.lead.text-right 5%
-                  hr
-                  .item
-                    table.table.personalinfo.no-border
-                      tbody
-                        tr
-                          td {{ 'You contributed' | translate }}
-                          th.lead.text-right 12 ETH
-                        tr
-                          td {{ 'Tokens you hold' | translate }}
-                          th.lead.text-right 3
-                  a.btn.btn-block.btn-lg.btn-theme(href='/members/#calculate') {{ 'Buy now' | translate }}
-                  hr
-                  ul.list-inline.social-buttons
-                    li
-                      a(href='https://t.me/snovio_ico', alt='telegram', title='telegram', target='_blank')
-                        i.fa.fa-paper-plane
-                    li
-                      a(href='https://www.reddit.com/user/Snovio_ICO/', alt='reddit', title='reddit', target='_blank')
-                        i.fa.fa-reddit
-                    li
-                      a(href='https://medium.com/@ico_snovio', alt='medium', title='medium', target='_blank')
-                        i.fa.fa-medium
-                    li
-                      a(href='https://bitcointalk.org/index.php?topic=2111272.0', alt='btc', title='btc', target='_blank')
-                        i.fa.fa-btc
-                    li
-                      a(href='mailto', alt='mail', title='mail', target='_blank')
-                        i.fa.fa-envelope
+                include ../members/history
+              include ../members/sidebar
         // /page content
         // footer content
         footer
@@ -242,19 +75,10 @@ html(lang='en' ng:app="app" ng:controller="profile")
     script(src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js')
     // FastClick
     script(src='https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js')
-    // NProgress
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.js')
-    // bootstrap-progressbar
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-progressbar/0.9.0/bootstrap-progressbar.min.js')
-    // iCheck
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js')
-    // Chart.js
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js')
-    // JavaScript countdown
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.2.0/kinetic.min.js')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.min.js')
     // Angular
     include ../common.jade
     // Custom Theme Scripts
-    script(src='../common.js')
-    script(src='logic.js')
+    script 
+       include ../common.js
+       include ../members/logic.js
+       include ./logic.js

@@ -1,5 +1,5 @@
 angular
-    .module \app, [\flyber, \ngStorage, \pascalprecht.translate ]
+    .module \app, [\flyber, \ngStorage, \pascalprecht.translate , \members ]
     .config ($translate-provider) ->
         $translate-provider.translations \en , 
             "ICO snovio dashboard" : "ICO snovio dashboard"  
@@ -71,6 +71,22 @@ angular
             "En" : "Анг" 
         $translate-provider.preferred-language \en
     .controller \profile, ($scope, $http, $local-storage)->
-        
-        #$scope <<<< out$
+        export form =
+            username: ""
+            email: ""
+            new-password: ""
+            new-password-repeat: ""
+            old-password: ""
+        export save = ->
+            return alert "Passwords do not match" if form.new-password isnt form.new-password-repeat
+            return alert "New password cannot be empty" if form.new-password.length is 0
+            return alert "Old password cannot be empty" if form.old-password.length is 0
+            request = {} <<< form <<< $local-storage
+            $http
+              .post \/api/updateProfile, request
+              .then (resp)->
+                  alert "Your profile is changed"
+              .catch (resp)->
+                  alert resp.data
+        $scope <<<< out$
             

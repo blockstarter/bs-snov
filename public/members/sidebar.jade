@@ -1,0 +1,51 @@
+.col-md-3.col-sm-3.col-xs-12.sidebar
+    .x_panel
+      .x_content.tile_count
+        .tile_stats_count
+          span.count_top {{ 'Token crowdsale pool:' | translate }}
+          .count {{model.progress.max | currency }}
+        hr
+        .tile_stats_count
+          span.count_top {{ 'Snov token price:' | translate }}
+          .count {{model.tokenPriceEth }} ETH
+      .item
+        table.table.bonuses
+          thead
+            tr
+              th(colspan='2')
+                h4 {{ 'Bonuses:' | translate }}
+          tbody
+            tr
+              td {{ 'First day' | translate }}
+              th.lead.text-right {{model.bonuses.firstDay}}%
+            tr
+              td {{ 'First week' | translate }}
+              th.lead.text-right {{model.bonuses.firstWeek}}%
+      hr
+      .item
+        table.table.personalinfo.no-border
+          tbody
+            tr
+              td {{ 'You contributed' | translate }}
+              th.lead.text-right {{model.you.contributedEth}} ETH
+            tr
+              td {{ 'Tokens you hold' | translate }}
+              th.lead.text-right {{model.you.tokensYouHold}}
+      a.btn.btn-block.btn-lg.btn-theme(href='/members/#calculate') {{ 'Buy now' | translate }}
+      hr
+      ul.list-inline.social-buttons
+        li
+          a(href='https://t.me/snovio_ico', alt='telegram', title='telegram', target='_blank')
+            i.fa.fa-paper-plane
+        li
+          a(href='https://www.reddit.com/user/Snovio_ICO/', alt='reddit', title='reddit', target='_blank')
+            i.fa.fa-reddit
+        li
+          a(href='https://medium.com/@ico_snovio', alt='medium', title='medium', target='_blank')
+            i.fa.fa-medium
+        li
+          a(href='https://bitcointalk.org/index.php?topic=2111272.0', alt='btc', title='btc', target='_blank')
+            i.fa.fa-btc
+        li
+          a(href='mailto', alt='mail', title='mail', target='_blank')
+            i.fa.fa-envelope

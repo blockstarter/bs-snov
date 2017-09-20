@@ -1,0 +1,27 @@
+.x_panel.transaction-history(ng:show="show.history != false")
+  .x_title
+    h2 {{ 'Your transaction history' | translate }}
+    ul.nav.navbar-right.panel_toolbox
+      li
+        a.collapse-link
+          i.fa.fa-chevron-up
+      li
+        a.close-link(ng:click="show.history = false")
+          i.fa.fa-close
+    .clearfix
+  .x_content
+    #datatable_wrapper.dataTables_wrapper.form-inline.dt-bootstrap.no-footer
+      table#datatable-checkbox.table.table-striped.bulk_action(role='grid', aria-describedby='datatable-checkbox_info')
+        thead
+          tr
+            th {{ 'Date' | translate }}
+            th {{ 'Transaction ID' | translate }}
+            th {{ 'Address Source' | translate }}
+            th {{ 'Snov assigned' | translate }}
+        tbody
+          tr(ng:repeat="row in model.transactions")
+            th(scope='row') {{row.date | date: 'dd/MM/yyyy hh:mm'}}
+            td
+              a(href='{{row.url}}') {{row.tx}}
+            td {{row.address}}
+            td {{row.assigned}}

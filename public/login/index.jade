@@ -9,24 +9,15 @@ html(lang='en' ng:app="app" ng:controller="login")
     title(ng:if="false") Loading...
     title(ng:if="true") {{ 'Login' | translate }}
     include ../common-style.jade
-    link(rel='stylesheet', href='../style.css')
+    style 
+      include ../style.css
   body.login(ng:class="{visible: true}")
     div
       a#signup.hiddenanchor
       a#signin.hiddenanchor
       .login_wrapper
-        .animate.form.login_form
-          section.login_content
-            form
-              h1 {{ 'Login Form' | translate }}
-              div
-                input.form-control(type='text', placeholder='Username', required='', ng:model="form.email")
-              div
-                input.form-control(type='password', placeholder='Password', required='', ng:model="form.password")
-              .clearfix.text-left
-                a(href='/restore') {{ 'Lost your password?' | translate }}
-                hr
-              .form-group
+        mixin accept-conditions
+           .form-group
                 .col-md-6.col-sm-6.col-xs-12.text-left
                   .checkbox
                     label
@@ -41,14 +32,26 @@ html(lang='en' ng:app="app" ng:controller="login")
                       |  {{ 'and' | translate }}  
                       a(href='#') {{ 'Privacy Policy' | translate }}
                       | .
+        .animate.form.login_form
+          section.login_content
+            form
+              h1 {{ 'Login Form' | translate }}
+              div
+                input.form-control(type='text', placeholder='Username', required='', ng:model="form.email")
+              div
+                input.form-control(type='password', placeholder='Password', required='', ng:model="form.password")
+              .clearfix.text-left
+                a(href='/restore/index.html') {{ 'Lost your password?' | translate }}
+                hr
+              +accept-conditions
               .clearfix
               div
-                a.btn.btn-theme.btn-block.btn-lg.submit(href='/members' ng:click="enter($event)") {{ 'Log in' | translate }}
+                a.btn.btn-theme.btn-block.btn-lg.submit(href='/members/index.html' ng:click="enter($event)") {{ 'Log in' | translate }}
               .clearfix
               .separator
                 p.change_link
                   | {{ 'New to site?' | translate }}
-                  a.to_register(href='#signup')  {{ 'Create Account' | translate }} 
+                  a.to_register(href='#signup' ng:click="register(true)")  {{ 'Create Account' | translate }} 
                 .clearfix
                 br
         #register.animate.form.registration_form
@@ -58,17 +61,20 @@ html(lang='en' ng:app="app" ng:controller="login")
               div
                 input.form-control(type='text', placeholder='Username', required='' ng:model="form.username")
               div
-                input.form-control(type='email', placeholder='Email', required='' ng:model="form.email")
+                input.form-control(type='email', name='email' placeholder='Email', required='' ng:model="form.email")
               div
                 input.form-control(type='password', placeholder='Password', required='' ng:model="form.password")
+              +accept-conditions
+              .clearfix
               div
-                a.btn.btn-theme.btn-block.btn-lg.submit(href='/members' ng:click="enter($event)") {{ 'Submit' | translate }}
+                a.btn.btn-theme.btn-block.btn-lg.submit(href='/members/index.html' ng:click="enter($event)") {{ 'Submit' | translate }}
               .clearfix
               .separator
                 p.change_link
                   | {{ 'Already a member ?' | translate }}
-                  a.to_register(href='#signin')  {{ 'Log in' | translate }} 
+                  a.to_register(href='#signin' ng:click="register(false)")  {{ 'Log in' | translate }} 
                 .clearfix
                 br
     include ../common.jade
-    script(src='logic.js')
+    script 
+      include ./logic.js
