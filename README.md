@@ -4,7 +4,12 @@
 
 ### Setup 
 
+1. Please check `sass -v` or install it http://sass-lang.com/install
+
+2. Run
 ```sh
+
+
 
 npm run setup
 
@@ -26,14 +31,24 @@ npm run compile
 
 ```
 
+## Run Server (Debug)
+
+```sh
+npm run start 
+```
+
 ## Run Server
 
 ```sh
-
-npm run start 
 
 #npm run forever
 
 # --> http://localhost:8080
 
+```
+
+## Stop Server 
+
+```
+npm run stop
 ```
