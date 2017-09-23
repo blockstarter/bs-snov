@@ -93,7 +93,9 @@ angular
     .controller \members, ($scope, $http, $local-storage, $window, $translate, $timeout, proofofwork)->
         $scope.loaded = ->
             $scope.model?loading is false
-        <-! proofofwork.make \panel
+        
+        
+
         
         m = 1000000
         init = (func)->
@@ -101,6 +103,25 @@ angular
             init.all = -> s.for-each(-> it!)
             s.push func
             func
+        setup = init ->
+             { dashboard } = $local-storage
+             usd = dashboard.rates.filter(-> it.token is \USD).0
+             model.rates = dashboard.rates.map(transform-rates dashboard)
+             model.you.email = dashboard.user.profile.email
+             model.you.confirmed = dashboard.user.profile.confirmed
+             model.you.contributed-eth = dashboard.user.contribution.total
+             model.you.tokens-you-hold = dashboard.user.contribution.own
+             model.transactions = dashboard.user.transactions
+             model.progress.max = dashboard.config.panelinfo.max_cap_in_eth * usd.rate
+             model.progress.min = dashboard.config.panelinfo.min_cap_in_eth * usd.rate
+             model.progress.current.usd = dashboard.campaign.total
+             model.progress.current.eth = dashboard.campaign.total / usd.rate
+             model.progress.current.percent = "#{dashboard.campaign.percent}%"
+             model.progress.current.contributors = dashboard.campaign.contributions
+             model.progress.token-price-eth = 1 / dashboard.campaign.price
+             model.loading = no
+             delete $http.defaults.headers.common.request-payment
+             proofofwork.make \address
         export set-current = init (rate)->
             model.current-rate = rate ? model.rates.0
             change-price!
@@ -124,6 +145,12 @@ angular
         time-part = (name)->
            parse-int start.filter(-> it.1 is name).0?0 ? 0
         
+
+        transform-rates = (all, rate)-->
+            { tokens_per_eth } = all.config.panelinfo
+            
+            rate.change = rate.rate / tokens_per_eth
+            rate
         export model =
             loading: yes
             address: "Loading..."
@@ -159,11 +186,6 @@ angular
                 tokens-you-hold: 3
                 email: null
                 confirmed: no
-        transform-rates = (all, rate)-->
-            { tokens_per_eth } = all.config.panelinfo
-            
-            rate.change = rate.rate / tokens_per_eth
-            rate
         export notification-read-complete = (notification)->
             notification.is-read = yes 
             $http
@@ -171,35 +193,19 @@ angular
               .then (resp)->
               .catch ->
                   notification.is-read = no
-        $http
-          .post \/api/panel, $local-storage
-          .then (resp)->
-             #BS to SNOVIO transformation
-             usd = resp.data.rates.filter(-> it.token is \USD).0
-             model.loading = no
-             model.rates = resp.data.rates.map(transform-rates resp.data)
-             model.you.email = resp.data.user.profile.email
-             model.you.confirmed = resp.data.user.profile.confirmed
-             model.you.contributed-eth = resp.data.user.contribution.total
-             model.you.tokens-you-hold = resp.data.user.contribution.own
-             model.transactions = resp.data.user.transactions
-             model.progress.max = resp.data.config.panelinfo.max_cap_in_eth * usd.rate
-             model.progress.min = resp.data.config.panelinfo.min_cap_in_eth * usd.rate
-             model.progress.current.usd = resp.data.campaign.total
-             model.progress.current.eth = resp.data.campaign.total / usd.rate
-             model.progress.current.percent = "#{resp.data.campaign.percent}%"
-             model.progress.current.contributors = resp.data.campaign.contributions
-             model.progress.token-price-eth = 1 / resp.data.campaign.price
-             init.all!
-             
-             set-timeout do
-               * ->  
-                     delete $http.defaults.headers.common.request-payment
-                     proofofwork.make \address
-               * 100
-          .catch (resp)->
-             location.href = \/login
-            
+        
+        if location.href.indexOf(\members) > -1
+            <-! proofofwork.make \panel
+            $http
+              .post \/api/panel, { $local-storage.session-id }
+              .then (resp)->
+                 $local-storage.dashboard = resp.data
+                 init.all!
+              .catch (resp)->
+                 location.href = \/login/index.html
+        else 
+            init.all!
+
         export $local-storage
         change-language = init (language)->
             $translate.use(language ? $local-storage.language)
@@ -225,5 +231,3 @@ angular
             $local-storage.session-id = "N"
             { location.href } = $event.target
         $scope <<<< out$
-        $window.debug = {}
-        $window.debug <<<< out$
