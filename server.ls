@@ -1,7 +1,7 @@
 require! {
     \express
     \body-parser
-    \express-static-cache
+    \serve-static
     \blockstarter-wl
     \ddos
     \./config.json
@@ -12,8 +12,9 @@ app = express!
 app.use body-parser.json!
 
 __path = __dirname + \/public
+
 if config.server.use-static
-  app.use express-static-cache(__path , config.server.static)
+  app.use(serve-static(__path, { max-age: \1y }))
 else
   app.use express.static( __path )
 

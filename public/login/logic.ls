@@ -49,7 +49,6 @@ angular
             
             $http.post \/api/auth, form 
                .then (resp)->
-                   console.log resp.data
                    { $local-storage.session-id } = resp.data
                    { location.href } = $event.target
                .catch (resp)->

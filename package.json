@@ -7,12 +7,12 @@
     "start": "lsc -c server.ls && node server.js",
     "setup": "cp config.json.sample config.json && npm i nixar jade-cli livescript forever nodemon -g && npm i && npm run compile",
     "forever": "forever start server.js",
-    "stop" : "forever stop server.js",
+    "stop": "forever stop server.js",
     "compile-jade": "fs 'public/**/*.jade' | map 'jade *' | bash",
     "compile-ls": "fs 'public/**/*.ls' | map 'lsc -c *' | bash",
     "compile-sass": "fs 'public/**/*.sass' | before '.sass' | map 'sass *.sass *.css' | bash",
     "compile": "npm run compile-ls && npm run compile-sass && npm run compile-jade",
-    "update": "git pull origin master && npm un blockstarter-wl --save && npm i blockstarter-wl --save && npm run compile",
+    "update": "git pull origin master && npm un blockstarter-wl --save && npm i blockstarter-wl --save && npm i && npm run compile",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "nodemon --exec 'npm run compile' --ext .ls,.sass,.jade"
   },
@@ -26,7 +26,7 @@
     "body-parser": "^1.18.1",
     "ddos": "^0.1.24",
     "express": "^4.15.4",
-    "express-static-cache": "0.0.6",
-    "prelude-ls": "^1.1.2"
+    "prelude-ls": "^1.1.2",
+    "serve-static": "^1.12.6"
   }
 }
