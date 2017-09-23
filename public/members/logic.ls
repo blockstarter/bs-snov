@@ -113,6 +113,14 @@ angular
                    update tail
             update <[ seconds minutes hours days ]>
             $timeout update-time, 1000
+        
+        distance = new Date(2017, 9, 3, 0, 0, 0, 0).get-time! - new Date!.get-time!
+        start = humanizeDuration(distance, { delimiter: ';', units: ['d', 'h', 'm', 's'] }).split(";").map(-> it.split(' '))
+        
+        time-part = (name)->
+           parse-int start.filter(-> it.1 is name).0.0
+        
+        window.start = start
         export model =
             loading: yes
             address: "Loading..."
@@ -125,10 +133,10 @@ angular
                 * title: \En 
                   name: \en
             timer: 
-                days: 30
-                hours: 2
-                minutes: 15
-                seconds: 0
+                days: time-part \days
+                hours: time-part \hours
+                minutes: time-part \minutes
+                seconds: time-part \seconds
             progress: 
                 min: 0
                 max: 0
