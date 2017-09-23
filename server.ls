@@ -3,34 +3,43 @@ require! {
     \body-parser
     \serve-static
     \blockstarter-wl
+    \hashcash-token
     \ddos
     \./config.json
     \prelude-ls : { map }
 }
 
 app = express!
-app.use body-parser.json!
+
 
 __path = __dirname + \/public
 
-if config.server.use-static
+if config.performance.keep-static-in-memory
   app.use(serve-static(__path, { max-age: \1y }))
 else
   app.use express.static( __path )
 
-do 
+if config.performance.use-ddos-protection
   protection = new ddos config.request-limits
   app.use protection.express
 
 console.log "init route /"
 app.get \/ , (req, res)->
-    
     res.redirect \/login/index.html
 
+app.use body-parser.json!
+
+hashcash-config = (data)->
+  difficulty: 20000
+  data: data
 
 create-route = (key)->
     console.log "init route /api/#{key}"
     req, resp <-! app.post "/api/#{key}"
+    if config.performance.require-request-payment
+      valid =
+         hashcash-token.validate(req.headers[\requestPayment], hashcash-config(req.connection.remote-address) ) 
+      return resp.status(401).end! if not valid 
     request = {} <<<< req.body <<<< config
     err, data <-! blockstarter-wl[key] request
     console.log "response #{key} -> err: #{err}"

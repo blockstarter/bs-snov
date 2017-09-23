@@ -10,9 +10,13 @@
         "burst": 10, 
         "limit": 15
     },
+    "performance" : {
+        "keepStaticInMemory" : false,
+        "useDdosProtection" : true,
+        "requireRequestPayment" : false
+    },
     "server" : {
-        "port": 8080,
-        "useStatic" : false,
+        "port": 80,
         "static": {
             "maxAge" : 31536000
         }
