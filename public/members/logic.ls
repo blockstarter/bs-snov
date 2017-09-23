@@ -118,9 +118,8 @@ angular
         start = humanizeDuration(distance, { delimiter: ';', units: ['d', 'h', 'm', 's'] }).split(";").map(-> it.split(' '))
         
         time-part = (name)->
-           parse-int start.filter(-> it.1 is name).0.0
-        
-        window.start = start
+           parse-int start.filter(-> it.1 is name).0?0 ? 0
+
         export model =
             loading: yes
             address: "Loading..."
