@@ -51,17 +51,11 @@ html(lang='en' ng:app="app" ng:controller="members")
         footer
           .text-center {{ 'Copyright © Snov.io 2017' | translate }}
           .clearfix
-        // /footer content
-    // jQuery
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js')
-    // Bootstrap
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js')
-    // FastClick
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js')
     // Angular
     include ../common.jade
     // Custom Theme Scripts
     script 
-       include ../common.js
+       //-include ../common.js
+       include ../proofofwork.js
        include ../members/logic.js
        include ./logic.js

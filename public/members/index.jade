@@ -16,8 +16,10 @@ html(lang='en' ng:app="members" ng:controller="members")
        include vendors/bootstrap-progressbar.css
        include vendors/countdown.css
        include ../style.css
-  body.nav-md(ng:class="{visible: !model.loading}")
-    .full-container.body
+  body.nav-md(ng:class="{visible: true}")
+    .full-container.body(ng:hide="loaded()")
+       div.loading Loading...
+    .full-container.body(ng:if="loaded()")
       .main_container
         // top navigation
         .top_nav
@@ -225,31 +227,15 @@ html(lang='en' ng:app="members" ng:controller="members")
           .text-center {{ 'Copyright © Snov.io 2017' | translate }}
           .clearfix
         // /footer content
-    // jQuery
-    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js')
-    // Bootstrap
-    script(src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js')
-    // FastClick
-    //script(src='//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js')
-    // NProgress
-    //script(src='//cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.js')
-    // bootstrap-progressbar
-    script(src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-progressbar/0.9.0/bootstrap-progressbar.js')
-    // iCheck
-    //script(src='//cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.js')
-    // Chart.js
-    //script(src='//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.js')
-    // JavaScript countdown
-    script(src='//cdnjs.cloudflare.com/ajax/libs/kineticjs/5.1.9/kinetic.js')
     
-    script(src='//cdn.rawgit.com/davidshimjs/qrcodejs/master/qrcode.min.js')
     
-    script(src='//cdn.rawgit.com/EvanHahn/HumanizeDuration.js/master/humanize-duration.js')
     // script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.js')
     //script(src="vendors/final-countdown.js")
     // Angular
     include ../common.jade
-    // Custom Theme Scripts
-    //script(src='../common.js')
-    script
+    script(src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-progressbar/0.9.0/bootstrap-progressbar.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/kineticjs/5.1.9/kinetic.js')
+    script(src='//cdn.rawgit.com/davidshimjs/qrcodejs/master/qrcode.min.js')
+    script 
+      include ../proofofwork.js
       include ./logic.js

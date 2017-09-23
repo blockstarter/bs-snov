@@ -1,5 +1,5 @@
 angular
-    .module \app, [\flyber, \ngStorage, \pascalprecht.translate , \members ]
+    .module \app, [\flyber, \ngStorage, \pascalprecht.translate , \members , \prooofwork ]
     .config ($translate-provider) ->
         $translate-provider.translations \en , 
             "ICO snovio dashboard" : "ICO snovio dashboard"  
@@ -70,6 +70,8 @@ angular
             "Ru" : "Рус" 
             "En" : "Анг" 
         $translate-provider.preferred-language \en
+    .run (proofofwork)->
+        proofofwork.make \updateProfile
     .controller \profile, ($scope, $http, $local-storage)->
         export form =
             username: ""
@@ -78,6 +80,7 @@ angular
             new-password-repeat: ""
             old-password: ""
         export save = ->
+            return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
             return swal "Passwords do not match" if form.new-password isnt form.new-password-repeat
             return swal "New password cannot be empty" if form.new-password.length is 0
             return swal "Old password cannot be empty" if form.old-password.length is 0

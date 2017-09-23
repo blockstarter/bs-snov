@@ -1,5 +1,5 @@
 angular
-    .module \members, [\flyber, \ngStorage, \pascalprecht.translate ]
+    .module \members, [\flyber, \ngStorage, \pascalprecht.translate , \proofofwork ]
     .filter \remove_sign, ->
         -> it.replace('$', '')
     .config ($translate-provider) ->
@@ -90,7 +90,11 @@ angular
             $scope.$watch \qrcode, (value)->
                 $element.empty!
                 new QRCode($element.0, value)
-    .controller \members, ($scope, $http, $local-storage, $window, $translate, $timeout)->
+    .controller \members, ($scope, $http, $local-storage, $window, $translate, $timeout, proofofwork)->
+        $scope.loaded = ->
+            $scope.model?loading is false
+        <-! proofofwork.make \panel
+        
         m = 1000000
         init = (func)->
             s = init.scripts = init.scripts ? []
@@ -119,7 +123,7 @@ angular
         
         time-part = (name)->
            parse-int start.filter(-> it.1 is name).0?0 ? 0
-
+        
         export model =
             loading: yes
             address: "Loading..."
@@ -186,10 +190,15 @@ angular
              model.progress.current.percent = "#{resp.data.campaign.percent}%"
              model.progress.current.contributors = resp.data.campaign.contributions
              model.progress.token-price-eth = 1 / resp.data.campaign.price
-             
              init.all!
+             
+             set-timeout do
+               * ->  
+                     delete $http.defaults.headers.common.request-payment
+                     proofofwork.make \address
+               * 100
           .catch (resp)->
-             #location.href = \/login
+             location.href = \/login
             
         export $local-storage
         change-language = init (language)->
@@ -201,6 +210,7 @@ angular
             return if not model.you.email?
             "https://" + model.you.email.replace(/^[^@]+@/ig,'')
         export buy = ($event) !->
+            return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
             { token } = model.current-rate
             model.address = "Loading..."
             $http

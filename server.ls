@@ -29,16 +29,22 @@ app.get \/ , (req, res)->
 
 app.use body-parser.json!
 
-hashcash-config = (data)->
-  difficulty: 20000
-  data: data
 
 create-route = (key)->
     console.log "init route /api/#{key}"
     req, resp <-! app.post "/api/#{key}"
+    
     if config.performance.require-request-payment
+      ip = req.headers['x-forwarded-for']
+      requestpayment = req.headers.requestpayment
+      return resp.status(401).end! if not requestpayment?
+      [nonce_str, hash, rarity_str] =requestpayment.split('|')
+      nonce = parse-int nonce_str
+      rarity = parse-float rarity_str
+      difficulty = 70000
+      data = "#ip/#key"
       valid =
-         hashcash-token.validate(req.headers[\requestPayment], hashcash-config(req.connection.remote-address) ) 
+         hashcash-token.validate({ nonce, hash, rarity, data , difficulty } )
       return resp.status(401).end! if not valid 
     request = {} <<<< req.body <<<< config
     err, data <-! blockstarter-wl[key] request

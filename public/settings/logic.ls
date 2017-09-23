@@ -1,5 +1,5 @@
 angular
-    .module \app, [\flyber, \ngStorage, \pascalprecht.translate, \members ]
+    .module \app, [\flyber, \ngStorage, \pascalprecht.translate, \members , \proofofwork ]
     .config ($translate-provider) ->
         $translate-provider.translations \en , 
             "Copyright © Snov.io 2017" : "Copyright © Snov.io 2017" 
@@ -58,10 +58,13 @@ angular
             "Thank you for registration. Please" : "Спасибо, что зарегистрировались. Пожалуйста"  
             "ICO snovio dashboard " : "snovio ICO панель управления"
         $translate-provider.preferred-language \en
+    .run (proofofwork)->
+        proofofwork.make \updateProfile
     .controller \settings, ($scope, $http, $local-storage)->
         export form =
             address: ""
         export confirm = ->
+            return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
             return swal "Addresses length is wrong" if form.address.length isnt "0x0000000000000000000000000000000000000000"
             $http
               .post \/api/updateProfile, { form.address, ...$local-storage }

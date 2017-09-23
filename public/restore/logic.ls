@@ -1,5 +1,5 @@
 angular
-    .module \app, [\flyber, \ngStorage, \pascalprecht.translate ]
+    .module \app, [\flyber, \ngStorage, \pascalprecht.translate , \proofofwork ]
     .config ($translate-provider) ->
         $translate-provider.translations \en , 
             "Forgot password" : "Forgot password" 
@@ -10,6 +10,8 @@ angular
             "Please enter your email so we can send you a link to restore the access to your account." : "Пожалуйста, введите адрес электронной почты, чтобы мы могли отправить вам ссылку для восстановления доступа к вашей учетной записи." 
             "Restore the access to your account" : "Восстановить доступ к вашей учетной записи" 
         $translate-provider.preferred-language \en
+    .run (proofofwork)->
+        proofofwork.make \forgotPassword
     .controller \restore, ($scope, $http, $local-storage, $translate)->
         
         init = (func)->
@@ -35,8 +37,8 @@ angular
             
         export restore = ($event)->
             $event.prevent-default!
+            return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
             return swal "Email is required" if not form.email?
-            
             $http.post \/api/forgotPassword, form 
                .then (resp)->
                    console.log resp.data

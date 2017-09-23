@@ -11,9 +11,9 @@
         "limit": 15
     },
     "performance" : {
-        "keepStaticInMemory" : false,
+        "keepStaticInMemory" : true,
         "useDdosProtection" : true,
-        "requireRequestPayment" : false
+        "requireRequestPayment" : true
     },
     "server" : {
         "port": 80,

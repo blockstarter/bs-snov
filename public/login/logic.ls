@@ -1,6 +1,6 @@
 
 angular
-    .module \app, [\flyber, \ngStorage, \pascalprecht.translate ]
+    .module \app, [\flyber, \ngStorage, \pascalprecht.translate , \proofofwork ]
     .config ($translate-provider) ->
         $translate-provider.translations \en , 
             "Login Form" : "Login Form" 
@@ -29,10 +29,8 @@ angular
             "Already a member ?" : "Уже участник ?" 
             "Log in" : "Авторизоваться"
         $translate-provider.preferred-language \en
-    .run ($http)->
-        resp <-! $http.get \https://api.ipify.org?format=json .then
-        request-payment = hashcash.generate({difficulty: 70000, data: resp.data.ip})
-        $http.defaults.headers.common.request-payment = request-payment
+    .run (proofofwork)->
+        proofofwork.make \auth
     .controller \login, ($scope, $http, $local-storage)->
         export form =
             email: null
