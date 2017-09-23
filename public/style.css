@@ -2786,11 +2786,11 @@ a.btn-success, a.btn-primary, a.btn-warning, a.btn-danger {
   background-color: #394D5F;
   border-color: #394D5F; }
 
-.btn-theme {
+.btn-theme, .btn-primary {
   color: #E9EDEF;
   background-color: #8376d9;
   border-color: #8b6bd9; }
-  .btn-theme:hover, .btn-theme:focus, .btn-theme:active, .btn-theme.active {
+  .btn-theme:hover, .btn-theme:focus, .btn-theme:active, .btn-theme.active, .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active {
     color: #FFFFFF;
     background-color: #8b6bd9;
     border-color: #8b6bd9; }

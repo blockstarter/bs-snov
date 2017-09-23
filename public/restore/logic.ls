@@ -35,14 +35,14 @@ angular
             
         export restore = ($event)->
             $event.prevent-default!
-            return alert "Email is required" if not form.email?
+            return swal "Email is required" if not form.email?
             
             $http.post \/api/forgotPassword, form 
                .then (resp)->
                    console.log resp.data
                    model.emailSent = true
                .catch (resp)->
-                   alert resp.data
+                   swal resp.data
                    
         init.all!
         $scope <<<< out$

@@ -29,6 +29,6 @@ angular
               .then ->
                   form.confirmed = yes
               .catch (resp)->
-                  alert resp.data
+                  swal resp.data
         confirm!
         $scope <<<< out$

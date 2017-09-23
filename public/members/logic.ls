@@ -207,7 +207,7 @@ angular
                   { model.address } = resp.data 
                   
               .catch ->
-                  alert "Oops. Server error :("
+                  swal "Oops. Server error :("
         export logout = ($event)->
             $event.prevent-default!
             $local-storage.session-id = "N"

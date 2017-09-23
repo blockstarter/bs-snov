@@ -49,15 +49,15 @@ angular
             
         export reset = ($event)->
             $event.prevent-default!
-            return alert "New password is required" if not form.new-password?
-            return alert "Repeat your new password" if not form.new-password-again?
-            return alert "Passwords do not match" if form.new-password-again isnt form.new-password
+            return swal "New password is required" if not form.new-password?
+            return swal "Repeat your new password" if not form.new-password-again?
+            return swal "Passwords do not match" if form.new-password-again isnt form.new-password
             
             $http.post \/api/resetPassword, form 
                .then (resp)->
                    model.passwordReset = true
                .catch (resp)->
-                   alert resp.data
+                   swal resp.data
                    
         init.all!
         $scope <<<< out$

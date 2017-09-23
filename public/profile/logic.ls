@@ -78,15 +78,15 @@ angular
             new-password-repeat: ""
             old-password: ""
         export save = ->
-            return alert "Passwords do not match" if form.new-password isnt form.new-password-repeat
-            return alert "New password cannot be empty" if form.new-password.length is 0
-            return alert "Old password cannot be empty" if form.old-password.length is 0
+            return swal "Passwords do not match" if form.new-password isnt form.new-password-repeat
+            return swal "New password cannot be empty" if form.new-password.length is 0
+            return swal "Old password cannot be empty" if form.old-password.length is 0
             request = {} <<< form <<< $local-storage
             $http
               .post \/api/updateProfile, request
               .then (resp)->
-                  alert "Your profile is changed"
+                  swal "Your profile is changed"
               .catch (resp)->
-                  alert resp.data
+                  swal resp.data
         $scope <<<< out$
             

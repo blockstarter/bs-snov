@@ -42,10 +42,10 @@ angular
             form.autoregister = bool
         export enter = ($event)->
             $event.prevent-default!
-            return alert "Please accept location" if not form.accept-location
-            return alert "Please accept privacy" if not form.accept-privacy
-            return alert "Email is required" if not form.email?
-            return alert "Password is required" if not form.password?
+            return swal "Please accept location" if not form.accept-location
+            return swal "Please accept privacy" if not form.accept-privacy
+            return swal "Email is required" if not form.email?
+            return swal "Password is required" if not form.password?
             
             $http.post \/api/auth, form 
                .then (resp)->
@@ -53,6 +53,6 @@ angular
                    { $local-storage.session-id } = resp.data
                    { location.href } = $event.target
                .catch (resp)->
-                   alert resp.data
+                   swal resp.data
         $scope <<<< out$
             

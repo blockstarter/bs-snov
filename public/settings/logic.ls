@@ -62,11 +62,11 @@ angular
         export form =
             address: ""
         export confirm = ->
-            return alert "Addresses length is wrong" if form.address.length isnt "0x0000000000000000000000000000000000000000"
+            return swal "Addresses length is wrong" if form.address.length isnt "0x0000000000000000000000000000000000000000"
             $http
               .post \/api/updateProfile, { form.address, ...$local-storage }
               .then ->
-                  alert "Done"
+                  swal "Done"
               .catch (resp)->
-                  alert resp.data
+                  swal resp.data
         $scope <<<< out$

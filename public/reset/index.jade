@@ -8,14 +8,7 @@ html(ng:app="app" ng:controller="restore")
     meta(name='viewport', content='width=device-width, initial-scale=1')
     title(ng:if="false") Loading...
     title(ng:if="true") {{ 'Reset Password' | translate }}
-    // Bootstrap
-    link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css')
-    // Font Awesome
-    link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css')
-    // NProgress
-    link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.css')
-    // Animate.css
-    link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css')
+    include ../common-style
     // Custom Theme Style
     style 
       include ../style.css
