@@ -155,8 +155,10 @@ angular
                 tokens-you-hold: 3
                 email: null
                 confirmed: no
-        transform-rates = (rate)->
-            rate.change = rate.rate
+        transform-rates = (all, rate)-->
+            { tokens_per_eth } = all.config.panelinfo
+            
+            rate.change = rate.rate / tokens_per_eth
             rate
         export notification-read-complete = (notification)->
             notification.is-read = yes 
@@ -171,7 +173,7 @@ angular
              #BS to SNOVIO transformation
              usd = resp.data.rates.filter(-> it.token is \USD).0
              model.loading = no
-             model.rates = resp.data.rates.map(transform-rates)
+             model.rates = resp.data.rates.map(transform-rates resp.data)
              model.you.email = resp.data.user.profile.email
              model.you.confirmed = resp.data.user.profile.confirmed
              model.you.contributed-eth = resp.data.user.contribution.total
