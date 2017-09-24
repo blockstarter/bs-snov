@@ -106,7 +106,7 @@ angular
         setup = init ->
              { dashboard } = $local-storage
              usd = dashboard.rates.filter(-> it.token is \USD).0
-             model.rates = dashboard.rates.map(transform-rates dashboard)
+             model.rates = dashboard.rates.filter(-> it.disabled is no).map(transform-rates dashboard)
              model.you.email = dashboard.user.profile.email
              model.you.confirmed = dashboard.user.profile.confirmed
              model.you.contributed-eth = dashboard.user.contribution.total
