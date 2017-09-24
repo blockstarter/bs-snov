@@ -8,7 +8,7 @@
       ul.nav.navbar-nav.navbar-right
         li.dropdown.language-picker
           a.dropdown-toggle(href='', data-toggle='dropdown', role='button', aria-expanded='false')
-            | {{ 'En' | translate }}
+            | {{ $localStorage.language | translate }}
             span.fa.fa-angle-down
           ul.dropdown-menu.pull-right
             li(ng:repeat="language in model.languages" ng:class="{ current: $localStorage.language == language.name }")
