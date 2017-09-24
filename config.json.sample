@@ -7,8 +7,10 @@
     "returnUrl" : "https://bs-snov-askucher.c9users.io/reset/index.html",
     "confirmUrl" : "https://bs-snov-askucher.c9users.io/confirm-email/index.html",
     "requestLimits": {
-        "burst": 10, 
-        "limit": 15
+        "burst": 5, 
+        "limit": 5,
+        "maxexpiry" : 30,
+        "errormessage" : "Too much requests. Please do not request the server for a while in order to be unblocked"
     },
     "performance" : {
         "keepStaticInMemory" : true,
