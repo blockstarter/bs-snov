@@ -103,10 +103,8 @@ angular
             func
             
         setup = init ->
-            
             # Ensure that default language is selected
             $local-storage.language = 'en' if not $local-storage.language
-            console.log('setup $local-storage.language', $local-storage.language)
             
             { dashboard } = $local-storage
             usd = dashboard.rates.filter(-> it.token is \USD).0
@@ -125,6 +123,7 @@ angular
             model.progress.token-price-eth = 1 / dashboard.campaign.price
             model.loading = no
             delete $http.defaults.headers.common.request-payment
+            
             proofofwork.make \address
              
         export set-current = init (rate)->
@@ -182,7 +181,7 @@ angular
                     contributors: 0
             token-price-eth: 0
             bonuses: 
-                first-day: 15
+                first-day: 10
                 first-week: 5
             rates: []
             transactions: []
