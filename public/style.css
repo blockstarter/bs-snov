@@ -1417,7 +1417,8 @@ ul.quick-list {
     overflow: visible;
     text-align: right;
     padding-right: 10px;
-    font-weight: 600; }
+    font-weight: 600;
+    text-shadow: 1px 1px #9B59B6; }
   .progress:before {
     content: "";
     position: absolute;
@@ -1510,7 +1511,8 @@ span.right {
     line-height: 36px;
     font-weight: 300;
     overflow: hidden;
-    text-overflow: ellipsis; }
+    text-overflow: ellipsis;
+    margin: 0 1rem; }
     @media (min-width: 768px) and (max-width: 1199px) {
       .status .tile_count .tile_stats_count .count {
         font-size: 16px; } }
