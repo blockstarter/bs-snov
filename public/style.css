@@ -1302,7 +1302,7 @@ ul.msg_list li {
     width: 55px;
     min-width: 55px; }
   .navbar-nav .language-picker .fa-angle-down {
-    margin-left: 3px; }
+    margin-left: 0.5rem; }
 .navbar-nav .open .dropdown-menu.msg_list {
   width: 300px; }
 

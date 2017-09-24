@@ -22,13 +22,6 @@ angular
             
         export $local-storage
         
-        change-language = init (language)->
-            $translate.use(language ? $local-storage.language)
-            
-        export set-language = (language)->
-            $local-storage.language = language
-            change-language language
-
         getUrlParam = (name, url) ->
           if !url
             url = window.location.href

@@ -95,33 +95,38 @@ angular
             $scope.model?loading is false
         
         
-
-        
         m = 1000000
         init = (func)->
             s = init.scripts = init.scripts ? []
             init.all = -> s.for-each(-> it!)
             s.push func
             func
+            
         setup = init ->
-             { dashboard } = $local-storage
-             usd = dashboard.rates.filter(-> it.token is \USD).0
-             model.rates = dashboard.rates.filter(-> it.disabled is no).map(transform-rates dashboard)
-             model.you.email = dashboard.user.profile.email
-             model.you.confirmed = dashboard.user.profile.confirmed
-             model.you.contributed-eth = dashboard.user.contribution.total
-             model.you.tokens-you-hold = dashboard.user.contribution.own
-             model.transactions = dashboard.user.transactions
-             model.progress.max = dashboard.config.panelinfo.max_cap_in_eth * usd.rate
-             model.progress.min = dashboard.config.panelinfo.min_cap_in_eth * usd.rate
-             model.progress.current.usd = dashboard.campaign.total
-             model.progress.current.eth = dashboard.campaign.total / usd.rate
-             model.progress.current.percent = "#{dashboard.campaign.percent}%"
-             model.progress.current.contributors = dashboard.campaign.contributions
-             model.progress.token-price-eth = 1 / dashboard.campaign.price
-             model.loading = no
-             delete $http.defaults.headers.common.request-payment
-             proofofwork.make \address
+            
+            # Ensure that default language is selected
+            $local-storage.language = 'en' if not $local-storage.language
+            console.log('setup $local-storage.language', $local-storage.language)
+            
+            { dashboard } = $local-storage
+            usd = dashboard.rates.filter(-> it.token is \USD).0
+            model.rates = dashboard.rates.filter(-> it.disabled is no).map(transform-rates dashboard)
+            model.you.email = dashboard.user.profile.email
+            model.you.confirmed = dashboard.user.profile.confirmed
+            model.you.contributed-eth = dashboard.user.contribution.total
+            model.you.tokens-you-hold = dashboard.user.contribution.own
+            model.transactions = dashboard.user.transactions
+            model.progress.max = dashboard.config.panelinfo.max_cap_in_eth * usd.rate
+            model.progress.min = dashboard.config.panelinfo.min_cap_in_eth * usd.rate
+            model.progress.current.usd = dashboard.campaign.total
+            model.progress.current.eth = dashboard.campaign.total / usd.rate
+            model.progress.current.percent = "#{dashboard.campaign.percent}%"
+            model.progress.current.contributors = dashboard.campaign.contributions
+            model.progress.token-price-eth = 1 / dashboard.campaign.price
+            model.loading = no
+            delete $http.defaults.headers.common.request-payment
+            proofofwork.make \address
+             
         export set-current = init (rate)->
             model.current-rate = rate ? model.rates.0
             change-price!
@@ -145,12 +150,12 @@ angular
         time-part = (name)->
            parse-int start.filter(-> it.1 is name).0?0 ? 0
         
-
         transform-rates = (all, rate)-->
             { tokens_per_eth } = all.config.panelinfo
             
             rate.change = rate.rate / tokens_per_eth
             rate
+            
         export model =
             loading: yes
             address: "Loading..."
@@ -186,6 +191,7 @@ angular
                 tokens-you-hold: 3
                 email: null
                 confirmed: no
+                
         export notification-read-complete = (notification)->
             notification.is-read = yes 
             $http
@@ -194,6 +200,36 @@ angular
               .catch ->
                   notification.is-read = no
         
+        export $local-storage
+        
+        change-language = init (language)->
+            $translate.use(language ? $local-storage.language)
+            
+        export set-language = (language)->
+            $local-storage.language = language
+            change-language language
+            
+        export confirm-email-address = ->
+            return if not model.you.email?
+            "https://" + model.you.email.replace(/^[^@]+@/ig,'')
+            
+        export buy = ($event) !->
+            return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
+            { token } = model.current-rate
+            model.address = "Loading..."
+            $http
+              .post \/api/address , { type: token, ...$local-storage } 
+              .then (resp)->
+                  model.address = resp.data 
+                  
+              .catch ->
+                  swal "Oops. Server error :("
+                  
+        export logout = ($event)->
+            $event.prevent-default!
+            $local-storage.session-id = "N"
+            { location.href } = $event.target
+
         if location.href.indexOf(\members) > -1
             <-! proofofwork.make \panel
             $http
@@ -206,28 +242,4 @@ angular
         else 
             init.all!
 
-        export $local-storage
-        change-language = init (language)->
-            $translate.use(language ? $local-storage.language)
-        export set-language = (language)->
-            $local-storage.language = language
-            change-language language
-        export confirm-email-address = ->
-            return if not model.you.email?
-            "https://" + model.you.email.replace(/^[^@]+@/ig,'')
-        export buy = ($event) !->
-            return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
-            { token } = model.current-rate
-            model.address = "Loading..."
-            $http
-              .post \/api/address , { type: token, ...$local-storage } 
-              .then (resp)->
-                  model.address = resp.data 
-                  
-              .catch ->
-                  swal "Oops. Server error :("
-        export logout = ($event)->
-            $event.prevent-default!
-            $local-storage.session-id = "N"
-            { location.href } = $event.target
         $scope <<<< out$
