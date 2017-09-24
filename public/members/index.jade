@@ -18,7 +18,9 @@ html(lang='en' ng:app="members" ng:controller="members")
        include ../style.css
   body.nav-md(ng:class="{visible: true}")
     .full-container.body(ng:hide="loaded()")
-       div.loading Loading...
+       div.loading 
+          .spinner
+          .loading-text Loading
     .full-container.body(ng:if="loaded()")
       .main_container
         // top navigation
