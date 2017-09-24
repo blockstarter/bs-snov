@@ -32,7 +32,7 @@
     return app.post("/api/" + key, function(req, resp){
       var ip, requestpayment, ref$, nonce_str, hash, rarity_str, nonce, rarity, difficulty, data, valid, request;
       if (config.performance.requireRequestPayment) {
-        ip = req.headers['x-forwarded-for'];
+        ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
         requestpayment = req.headers.requestpayment;
         if (requestpayment == null) {
           return resp.status(401).end();
