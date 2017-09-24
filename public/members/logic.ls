@@ -222,7 +222,7 @@ angular
             $http
               .post \/api/address , { type: token, ...$local-storage } 
               .then (resp)->
-                  { model.address } = resp.data 
+                  model.address = resp.data 
                   
               .catch ->
                   swal "Oops. Server error :("
