@@ -11,7 +11,7 @@ html(lang='en' ng:app="app" ng:controller="members")
     // Bootstrap
     include ../common-style
     style 
-      include ../style.css
+      include ../style.min.css
   body.nav-md(ng:class="{visible: true}" ng:controller="confirm")
     .full-container.body
       .main_container
@@ -46,7 +46,7 @@ html(lang='en' ng:app="app" ng:controller="members")
     include ../common
     // Custom Theme Scripts
     script 
-       include ../proofofwork.js
        //-include ../common.js
+       include ../proofofwork.js
        include ../members/logic.js
        include ./logic.js

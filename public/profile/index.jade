@@ -11,7 +11,7 @@ html(lang='en' ng:app="app" ng:controller="members")
     include ../common-style
     // Custom ICO Style
     style 
-      include ../style.css
+      include ../style.min.css
   body.nav-md(ng:class="{visible: true}" ng:controller="profile")
     .full-container.body
       .main_container
@@ -67,7 +67,7 @@ html(lang='en' ng:app="app" ng:controller="members")
     include ../common.jade
     // Custom Theme Scripts
     script 
-       include ../proofofwork.js
        //-include ../common.js
+       include ../proofofwork.js
        include ../members/logic.js
        include ./logic.js

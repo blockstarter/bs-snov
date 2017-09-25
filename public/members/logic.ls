@@ -1,5 +1,5 @@
 angular
-    .module \members, [\flyber, \ngStorage, \pascalprecht.translate , \proofofwork ]
+    .module \members, [\flyber, \ngStorage, \pascalprecht.translate , \proofofwork, \contract ]
     .filter \remove_sign, ->
         -> it.replace('$', '')
     .config ($translate-provider) ->
@@ -90,7 +90,7 @@ angular
             $scope.$watch \qrcode, (value)->
                 $element.empty!
                 new QRCode($element.0, value)
-    .controller \members, ($scope, $http, $local-storage, $window, $translate, $timeout, proofofwork)->
+    .controller \members, (contract, $scope, $http, $local-storage, $window, $translate, $timeout, proofofwork)->
         $scope.loaded = ->
             $scope.model?loading is false
         
@@ -105,7 +105,7 @@ angular
         setup = init ->
             # Ensure that default language is selected
             $local-storage.language = 'en' if not $local-storage.language
-            
+
             { dashboard } = $local-storage
             usd = dashboard.rates.filter(-> it.token is \USD).0
             model.rates = dashboard.rates.filter(-> it.disabled is no).map(transform-rates dashboard)
@@ -114,12 +114,18 @@ angular
             model.you.contributed-eth = dashboard.user.contribution.total
             model.you.tokens-you-hold = dashboard.user.contribution.own
             model.transactions = dashboard.user.transactions
+            
+            err, totalInUsd <-! contract.getPresaleTotalInUsd
+            err, totalEth <-! contract.getPresaleBalanceInEth
+            err, totalSales <-! contract.getPresaleTotalSales
+            
+            # TODO update from contract
             model.progress.max = dashboard.config.panelinfo.max_cap_in_eth * usd.rate
             model.progress.min = dashboard.config.panelinfo.min_cap_in_eth * usd.rate
-            model.progress.current.usd = dashboard.campaign.total
-            model.progress.current.eth = dashboard.campaign.total / usd.rate
+            model.progress.current.usd = totalInUsd.toString!
+            model.progress.current.eth = totalEth.toString!
             model.progress.current.percent = "#{dashboard.campaign.percent}%"
-            model.progress.current.contributors = dashboard.campaign.contributions
+            model.progress.current.contributors = totalSales.toString!
             model.progress.token-price-eth = 1 / dashboard.campaign.price
             model.loading = no
             delete $http.defaults.headers.common.request-payment
@@ -229,6 +235,12 @@ angular
             $local-storage.session-id = "N"
             { location.href } = $event.target
 
+        export isLoggedIn = ->
+            $local-storage.session-id && $local-storage.session-id != "N"
+            
+        goToLoginPage = ->
+            location.href = \/login/index.html
+
         if location.href.indexOf(\members) > -1
             <-! proofofwork.make \panel
             $http
@@ -237,8 +249,11 @@ angular
                  $local-storage.dashboard = resp.data
                  init.all!
               .catch (resp)->
-                 location.href = \/login/index.html
-        else 
+                 console.log resp
+                 #goToLoginPage!
+        else if !isLoggedIn!
+            goToLoginPage!
+        else
             init.all!
 
         $scope <<<< out$

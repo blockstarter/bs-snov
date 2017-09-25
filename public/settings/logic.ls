@@ -65,7 +65,7 @@ angular
             address: ""
         export confirm = ->
             return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
-            return swal "Addresses length is wrong" if form.address.length isnt "0x0000000000000000000000000000000000000000"
+            return swal "Please enter a valid Ethereum address" if not web3.isAddress form.address
             $http
               .post \/api/updateProfile, { form.address, ...$local-storage }
               .then ->

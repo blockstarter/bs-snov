@@ -10,7 +10,7 @@ html(lang='en' ng:app="app" ng:controller="login")
     title(ng:if="true") {{ 'Login' | translate }}
     include ../common-style.jade
     style 
-      include ../style.css
+      include ../style.min.css
   body.login(ng:class="{visible: true}")
       a#signup.hiddenanchor
       a#signin.hiddenanchor

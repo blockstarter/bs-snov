@@ -13,9 +13,9 @@ html(lang='en' ng:app="members" ng:controller="members")
     link(rel='stylesheet prefetch', href='https://cdnjs.cloudflare.com/ajax/libs/jquery-countdown/2.0.2/jquery.countdown.css')
     // Custom ICO Style
     style 
-       include vendors/bootstrap-progressbar.css
-       include vendors/countdown.css
-       include ../style.css
+       include vendors/bootstrap-progressbar.min.css
+       include vendors/countdown.min.css
+       include ../style.min.css
   body.nav-md(ng:class="{visible: true}")
     .full-container.body(ng:hide="loaded()")
        div.loading 
@@ -240,4 +240,5 @@ html(lang='en' ng:app="members" ng:controller="members")
     script(src='//cdn.rawgit.com/davidshimjs/qrcodejs/master/qrcode.min.js')
     script 
       include ../proofofwork.js
+      include ./contract.js
       include ./logic.js

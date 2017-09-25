@@ -5,12 +5,13 @@ require! {
     \blockstarter-wl
     \hashcash-token
     \ddos
-    \./config.json
+    \./package.json : pack
     \prelude-ls : { map }
 }
 
-app = express!
+{ config } = pack
 
+app = express!
 
 __path = __dirname + \/public
 
