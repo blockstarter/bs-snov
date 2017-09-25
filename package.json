@@ -10,7 +10,7 @@
       "stop":"forever stop server.js",
       "compile-jade":"fs 'public/**/*.jade' | map 'jade *' | bash",
       "compile-ls":"fs 'public/**/*.ls' | map 'lsc --no-header -c *' | bash ",
-      "compile-sass":"fs 'public/**/*.sass' | before '.sass' | map 'sass *.sass *.css' | bash && fs 'public/**/*.css' | exclude 'min' | map 'minify *' | bash",
+      "compile-sass":"fs 'public/**/*.sass' | before '.sass' | map 'sass *.sass *.css' | bash",
       "compile":"npm run compile-ls && npm run compile-sass && npm run compile-jade",
       "update":"git pull origin master && npm un blockstarter-wl --save && npm i blockstarter-wl --save && npm i && npm run compile",
       "test":"echo \"Error: no test specified\" && exit 1",
