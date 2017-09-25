@@ -18,7 +18,7 @@
             span.fa.fa-angle-down
           ul.dropdown-menu.dropdown-usermenu.pull-right
             li
-              a(href='/profile/index.html')  {{ 'Profile' | translate }}
+              a(href='/profile/index.html') {{ 'Profile' | translate }}
             li
               a(href='/settings/index.html') {{ 'Settings' | translate }}
             li
@@ -30,6 +30,8 @@
             i.fa.fa-envelope-o
             span.badge.bg-orange(ng:if="model.notifications.length > 0") {{model.notifications.length}}
           ul#menu1.dropdown-menu.list-unstyled.msg_list(role='menu')
+            li(ng:if="!model.notifications || model.notifications.length == 0")
+              .no-messages No messages
             li(ng:repeat="notification in model.notifications")
               a(ng:click="notificationReadComplete(notification)")
                 span.image
