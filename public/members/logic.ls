@@ -117,16 +117,19 @@ angular
             
             err, totalInUsd <-! contract.getPresaleTotalInUsd
             err, totalEth <-! contract.getPresaleBalanceInEth
-            err, totalSales <-! contract.getPresaleTotalSales
+            err, totalSales <-! contract.getTokenTotalSales
+            progressPercent = totalInUsd.mul(100).div(contract.getMaxCapInUsd)
             
-            # TODO update from contract
-            model.progress.max = dashboard.config.panelinfo.max_cap_in_eth * usd.rate
-            model.progress.min = dashboard.config.panelinfo.min_cap_in_eth * usd.rate
+            model.progress.min = contract.getMinCapInUsd.toString!
+            model.progress.max = contract.getMaxCapInUsd.toString!
             model.progress.current.usd = totalInUsd.toString!
             model.progress.current.eth = totalEth.toString!
-            model.progress.current.percent = "#{dashboard.campaign.percent}%"
+            model.progress.current.percent = "#{progressPercent}%"
             model.progress.current.contributors = totalSales.toString!
+            
+            # TODO update from contract
             model.progress.token-price-eth = 1 / dashboard.campaign.price
+            
             model.loading = no
             delete $http.defaults.headers.common.request-payment
             

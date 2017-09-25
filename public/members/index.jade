@@ -93,7 +93,7 @@ html(lang='en' ng:app="members" ng:controller="members")
                       .w_center.w_100
                         .progress
                           .progress-bar.bg-purple(role='progressbar' aria-valuenow='{{model.progress.current.usd }}' aria-valuemin='0' aria-valuemax='{{model.progress.max }}' ng:style="{width: model.progress.current.percent}") {{model.progress.current.usd | currency}}
-                        .text-right.softcap {{ 'Softcap' | translate }}
+                        .text-right.softcap {{ 'Softcap' | translate }} {{model.progress.min | currency }}
                       .w_right
                         strong  {{model.progress.max | currency }}
                 .x_panel.status(ng:if="show.status != false")
