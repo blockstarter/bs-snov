@@ -1,5 +1,5 @@
 angular
-    .module \members, [\ngStorage, \pascalprecht.translate , \proofofwork, \contract ]
+    .module \members, [\ngStorage, \pascalprecht.translate , \proofofwork ]
     .filter \remove_sign, ->
         -> it.replace('$', '')
     .config ($translate-provider) ->
@@ -90,7 +90,7 @@ angular
             $scope.$watch \qrcode, (value)->
                 $element.empty!
                 new QRCode($element.0, value)
-    .controller \members, (contract, $scope, $http, $local-storage, $window, $translate, $timeout, proofofwork)->
+    .controller \members, ($scope, $http, $local-storage, $window, $translate, $timeout, proofofwork)->
         $scope.loaded = ->
             $scope.model?loading is false
         
@@ -115,19 +115,13 @@ angular
             model.you.tokens-you-hold = dashboard.user.contribution.own
             model.transactions = dashboard.user.transactions
             
-            err, totalInUsd <-! contract.getPresaleTotalInUsd
-            err, totalEth <-! contract.getPresaleBalanceInEth
-            err, totalSales <-! contract.getTokenTotalSales
-            progressPercent = totalInUsd.mul(100).div(contract.getMaxCapInUsd)
+            model.progress.min = dashboard.contract.minCapInUsd.toString!
+            model.progress.max = dashboard.contract.maxCapInUsd.toString!
             
-            model.progress.min = contract.getMinCapInUsd.toString!
-            model.progress.max = contract.getMaxCapInUsd.toString!
-            model.progress.current.usd = totalInUsd.toString!
-            model.progress.current.eth = totalEth.toString!
-            model.progress.current.percent = "#{progressPercent}%"
-            model.progress.current.contributors = totalSales.toString!
-            
-            # TODO update from contract
+            model.progress.current.usd = dashboard.contract.totalInUsd.toString!
+            model.progress.current.eth = dashboard.contract.totalEth.toString!
+            model.progress.current.percent = dashboard.contract.progressPercent.toString! + "%"
+            model.progress.current.contributors = dashboard.contract.totalSales
             model.progress.token-price-eth = 1 / dashboard.campaign.price
             
             model.loading = no

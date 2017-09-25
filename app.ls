@@ -7,8 +7,9 @@ require! {
     \ddos
     \./package.json : pack
     \prelude-ls : { map }
+    \./contract-api.js
 }
-
+{ getFrontendData } = contract-api
 { config } = pack
 
 app = express!
@@ -30,13 +31,20 @@ app.get \/ , (req, res)->
 
 app.use body-parser.json!
 
-
+transform = (key, data, cb)->
+  console.log data
+  switch key 
+     case \panel 
+        getFrontendData data, cb 
+     else 
+       cb null, data
+        
 create-route = (key)->
     console.log "init route /api/#{key}"
     req, resp <-! app.post "/api/#{key}"
     
     if config.performance.require-request-payment
-      ip = req.headers[\x-forwarded-for] || req.connection.remote-address.replace('::ffff:', '')
+      ip = req.headers[\x-forwarded-for] ? req.connection.remote-address.replace('::ffff:', '')
       requestpayment = req.headers.requestpayment
       return resp.status(401).end! if not requestpayment?
       [nonce_str, hash, rarity_str] =requestpayment.split('|')
@@ -49,10 +57,10 @@ create-route = (key)->
       return resp.status(401).end! if not valid 
     request = {} <<<< req.body <<<< config
     err, data <-! blockstarter-wl[key] request
-    console.log "response #{key} -> err: #{err}"
-    #console.log err, data
     return resp.status(400).send(err.response?text) if err?
-    resp.send data
+    err, transformed <-! transform key, data
+    return resp.status(500).send(err) if err?
+    resp.send transformed
 
 blockstarter-wl |> Object.keys |> map create-route
 
