@@ -1,5 +1,5 @@
 angular
-    .module \app, [\flyber, \ngStorage, \pascalprecht.translate , \proofofwork ]
+    .module \app, [\ngStorage, \pascalprecht.translate , \proofofwork ]
     .config ($translate-provider) ->
         $translate-provider.translations \en , 
             "Forgot password" : "Forgot password" 

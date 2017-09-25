@@ -1,5 +1,5 @@
 angular
-    .module \members, [\flyber, \ngStorage, \pascalprecht.translate , \proofofwork, \contract ]
+    .module \members, [\ngStorage, \pascalprecht.translate , \proofofwork, \contract ]
     .filter \remove_sign, ->
         -> it.replace('$', '')
     .config ($translate-provider) ->

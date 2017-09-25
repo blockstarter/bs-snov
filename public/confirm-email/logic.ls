@@ -1,5 +1,5 @@
 angular
-    .module \app, [\flyber, \ngStorage, \pascalprecht.translate, \members , \proofofwork ]
+    .module \app, [\ngStorage, \pascalprecht.translate, \members , \proofofwork ]
     .config ($translate-provider) ->
         $translate-provider.translations \en , 
             "Copyright © Snov.io 2017" : "Copyright © Snov.io 2017" 

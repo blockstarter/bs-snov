@@ -4,9 +4,16 @@
 
 ### Setup 
 
-1. Please check `sass -v` or install it http://sass-lang.com/install
+1. Please updase update node (the version should be higher than v1)
 
-2. Run
+```
+npm i n -g 
+n latest
+```
+
+2. Please check `sass -v` or install it http://sass-lang.com/install
+
+3. Run
 ```sh
 
 
