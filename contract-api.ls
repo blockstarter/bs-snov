@@ -3,7 +3,7 @@ require! {
   \bignumber.js : BigNumber
 }
        
-web3ProviderUrl = "https://mainnet.infura.io/mOzQovwJN6Kis3TMGltN"
+web3ProviderUrl = "https://mainnet.infura.io/diJO3q7ANjcB4l9iW9ph"
 
 token =
    address: \0xBDC5bAC39Dbe132B1E030e898aE3830017D7d969
@@ -24,6 +24,11 @@ export getPresaleBalanceInEth = (cb)->
    return cb err if err?
    cb null, web3.fromWei(res, 'ether')
 
+export getTokenBalanceByEthAddress = (ethAddress, cb)->
+   err, res <-! token.contract.balanceOf ethAddress
+   return cb err if err?
+   cb null, web3.fromWei(res, 'ether')
+
 export getTokenTotalSales = (cb) ->
    token.contract.totalSales cb
    
@@ -40,17 +45,23 @@ export getMinCapInUsd = new BigNumber 5000000
 export getMaxCapInUsd = new BigNumber 15000000
 
 export getFrontendData = (data, cb) ->
-   err, totalInUsd <-! contract-api.getPresaleTotalInUsd
+   err, totalInUsd <-! getPresaleTotalInUsd
    return cb err if err?
-   err, totalEth <-! contract-api.getPresaleBalanceInEth
+   err, totalEth <-! getPresaleBalanceInEth
    return cb err if err?
-   err, totalSales <-! contract-api.getTokenTotalSales
+   err, totalSales <-! getTokenTotalSales
    return cb err if err?
    
-   minCapInUsd = contract-api.getMinCapInUsd
-   maxCapInUsd = contract-api.getMaxCapInUsd
+   # TODO Use: dashboard.user.profile.address
+   ethAddress = \0xa55d5e3d4a61716e3565ab00ee16479b504d6342 
+   err, userTokens <-! getTokenBalanceByEthAddress ethAddress
+   return cb err if err?
+   
+   minCapInUsd = getMinCapInUsd
+   maxCapInUsd = getMaxCapInUsd
    progressPercent = totalInUsd.mul(100).div(maxCapInUsd)
    
-   data.contract = { minCapInUsd, maxCapInUsd, totalInUsd, totalEth, totalSales, progressPercent }
+   data.contract = { minCapInUsd, maxCapInUsd, totalInUsd, totalEth, totalSales, progressPercent, userTokens }
+      
    cb null, data
 

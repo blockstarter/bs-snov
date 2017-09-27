@@ -105,22 +105,26 @@ angular
         setup = init ->
             # Ensure that default language is selected
             $local-storage.language = 'en' if not $local-storage.language
-
             { dashboard } = $local-storage
+            model.eth-address = dashboard.config.wallet.multisig_eth
             usd = dashboard.rates.filter(-> it.token is \USD).0
             model.rates = dashboard.rates.filter(-> it.disabled is no).map(transform-rates dashboard)
             model.you.email = dashboard.user.profile.email
             model.you.confirmed = dashboard.user.profile.confirmed
+            
+            # TODO Use: dashboard.user.profile.address
+            model.you.ethAddress = \0xa55d5e3d4a61716e3565ab00ee16479b504d6342 
+            model.you.tokens = dashboard.contract.userTokens
+            
             model.you.contributed-eth = dashboard.user.contribution.total
-            model.you.tokens-you-hold = dashboard.user.contribution.own
             model.transactions = dashboard.user.transactions
             
-            model.progress.min = dashboard.contract.minCapInUsd.toString!
-            model.progress.max = dashboard.contract.maxCapInUsd.toString!
+            model.progress.min = dashboard.contract.minCapInUsd
+            model.progress.max = dashboard.contract.maxCapInUsd
             
-            model.progress.current.usd = dashboard.contract.totalInUsd.toString!
-            model.progress.current.eth = dashboard.contract.totalEth.toString!
-            model.progress.current.percent = dashboard.contract.progressPercent.toString! + "%"
+            model.progress.current.usd = dashboard.contract.totalInUsd
+            model.progress.current.eth = dashboard.contract.totalEth
+            model.progress.current.percent = dashboard.contract.progressPercent + "%"
             model.progress.current.contributors = dashboard.contract.totalSales
             model.progress.token-price-eth = 1 / dashboard.campaign.price
             
@@ -164,6 +168,7 @@ angular
             you-buy: 100000
             you-pay: 0.05
             current-rate: {}
+            eth-address: null
             languages: 
                 * title: \Ru 
                   name: \ru 
@@ -219,13 +224,16 @@ angular
             return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
             { token } = model.current-rate
             model.address = "Loading..."
-            $http
-              .post \/api/address , { type: token, ...$local-storage } 
-              .then (resp)->
-                  model.address = resp.data 
-                  
-              .catch ->
-                  swal "Oops. Server error :("
+            if token is \ETH then 
+                model.address = model.eth-address
+            else
+                $http
+                  .post \/api/address , { type: token, ...$local-storage } 
+                  .then (resp)->
+                      model.address = resp.data 
+                      
+                  .catch ->
+                      swal "Oops. Server error :("
                   
         export logout = ($event)->
             $event.prevent-default!

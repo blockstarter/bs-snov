@@ -7,7 +7,7 @@
         hr
         .tile_stats_count
           span.count_top {{ 'Snov token price:' | translate }}
-          .count {{model.tokenPriceEth }} ETH
+          .count 1 SNOV = $0.01
       .item
         table.table.bonuses
           thead
@@ -16,21 +16,24 @@
                 h4 {{ 'Bonuses:' | translate }}
           tbody
             tr
-              td {{ 'First day' | translate }}
-              th.lead.text-right {{model.bonuses.firstDay}}%
+              td {{ 'If contributed > 5k USD' | translate }}
+              th.lead.text-right 15%
             tr
-              td {{ 'First week' | translate }}
-              th.lead.text-right {{model.bonuses.firstWeek}}%
+              td {{ 'If contributed > 50k USD' | translate }}
+              th.lead.text-right 25%
       hr
       .item
         table.table.personalinfo.no-border
           tbody
+            //tr
+              td {{ 'Your ETH address' | translate }}
+              th.lead.text-right {{model.you.ethAddress}}
             tr
               td {{ 'You contributed' | translate }}
               th.lead.text-right {{model.you.contributedEth}} ETH
             tr
               td {{ 'Tokens you hold' | translate }}
-              th.lead.text-right {{model.you.tokensYouHold}}
+              th.lead.text-right {{model.you.tokens}}
       a.btn.btn-block.btn-lg.btn-theme(href='/members/#calculate') {{ 'Buy now' | translate }}
       hr
       ul.list-inline.social-buttons
