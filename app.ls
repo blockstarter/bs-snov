@@ -32,7 +32,7 @@ app.get \/ , (req, res)->
 app.use body-parser.json!
 
 transform = (key, data, cb)->
-  console.log data
+  #console.log data
   switch key 
      case \panel 
         getFrontendData data, cb 
@@ -46,7 +46,7 @@ create-route = (key)->
     if config.performance.require-request-payment
       ip = req.headers[\x-forwarded-for] ? req.connection.remote-address.replace('::ffff:', '')
       requestpayment = req.headers.requestpayment
-      return resp.status(401).end! if not requestpayment?
+      return resp.status(403).end! if not requestpayment?
       [nonce_str, hash, rarity_str] =requestpayment.split('|')
       nonce = parse-int nonce_str
       rarity = parse-float rarity_str

@@ -7,6 +7,7 @@ angular
             data = "#{resp.data.ip}/#type"
             res  = hashcash.generate {difficulty, data}
             { nonce, hash, rarity } = res
+            #console.log({ nonce, hash, rarity, difficulty, data })
             $http.defaults.headers.common.request-payment = "#nonce|#hash|#rarity"
             cb?!
      

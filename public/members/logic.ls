@@ -126,9 +126,6 @@ angular
             model.progress.token-price-eth = 1 / dashboard.campaign.price
             
             model.loading = no
-            delete $http.defaults.headers.common.request-payment
-            
-            proofofwork.make \address
              
         export set-current = init (rate)->
             model.current-rate = rate ? model.rates.0
@@ -250,9 +247,11 @@ angular
               .then (resp)->
                  $local-storage.dashboard = resp.data
                  init.all!
+                 proofofwork.make \address
+            
               .catch (resp)->
-                 #console.log resp
-                 goToLoginPage!
+                 if resp.status is 401
+                  goToLoginPage!
         else if !isLoggedIn!
             goToLoginPage!
         else
