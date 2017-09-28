@@ -1,0 +1,61 @@
+{
+  "name": "bs-snov",
+  "version": "0.0.1",
+  "description": "Blockstarter SNOV",
+  "main": "app.js",
+  "scripts": {
+    "start": "lsc -c *.ls && node server.js",
+    "setup": "npm i nixar minifier ng-annotate jade-cli livescript forever nodemon -g && npm i && npm run compile",
+    "forever": "lsc -c *.ls && forever start server.js",
+    "stop": "forever stop server.js",
+    "compile-jade": "fs 'public/**/*.jade' | map 'jade *' | bash",
+    "compile-ls": "fs 'public/**/*.ls' | map 'lsc --no-header -c *' | bash ",
+    "compile-sass": "fs 'public/**/*.sass' | before '.sass' | map 'sass *.sass *.css' | bash",
+    "compile": "npm run compile-ls && npm run compile-sass && npm run compile-jade",
+    "update": "git pull origin master && npm un blockstarter-wl --save && npm i blockstarter-wl --save && npm i && npm run compile",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon --exec 'npm run compile' --ext .ls,.sass,.jade"
+  },
+  "author": "Blockstarter",
+  "license": "ISC",
+  "nodemonConfig": {
+    "delay": "0"
+  },
+  "dependencies": {
+    "bignumber.js": "^4.0.4",
+    "blockstarter-wl": "0.0.34",
+    "body-parser": "^1.18.1",
+    "ddos": "^0.1.24",
+    "ethereumjs-tx": "^1.3.3",
+    "ethereumjs-util": "^5.1.2",
+    "express": "^4.15.4",
+    "hashcash-token": "^1.0.0",
+    "prelude-ls": "^1.1.2",
+    "serve-static": "^1.12.6",
+    "web3": "^0.18.4"
+  },
+  "config": {
+    "isBrowser": false,
+    "project": "Snovio",
+    "apiKey": "TEST-APIKEY",
+    "transport": null,
+    "baseUrl": "http://root.flyber.net",
+    "returnUrl": "https://bs-snov-askucher.c9users.io/reset/index.html",
+    "confirmUrl": "https://bs-snov-askucher.c9users.io/confirm-email/index.html",
+    "requestLimits": {
+      "burst": 10,
+      "limit": 5
+    },
+    "performance": {
+      "keepStaticInMemory": false,
+      "useDdosProtection": true,
+      "requireRequestPayment": true
+    },
+    "server": {
+      "port": 8080,
+      "static": {
+        "maxAge": 31536000
+      }
+    }
+  }
+}
