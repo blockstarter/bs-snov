@@ -221,6 +221,7 @@ angular
             if token is \ETH then 
                 model.address = model.eth-address
             else
+                
                 $http
                   .post \/api/address , { type: token, ...$local-storage } 
                   .then (resp)->
@@ -247,8 +248,7 @@ angular
               .then (resp)->
                  $local-storage.dashboard = resp.data
                  init.all!
-                 proofofwork.make \address
-            
+                 <-! proofofwork.make \address
               .catch (resp)->
                  if resp.status is 401
                   goToLoginPage!
