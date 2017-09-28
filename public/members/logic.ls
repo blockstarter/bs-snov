@@ -251,8 +251,8 @@ angular
                  $local-storage.dashboard = resp.data
                  init.all!
               .catch (resp)->
-                 console.log resp
-                 #goToLoginPage!
+                 #console.log resp
+                 goToLoginPage!
         else if !isLoggedIn!
             goToLoginPage!
         else
