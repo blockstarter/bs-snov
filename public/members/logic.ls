@@ -112,19 +112,16 @@ angular
             model.you.email = dashboard.user.profile.email
             model.you.confirmed = dashboard.user.profile.confirmed
             
-            # TODO Use: dashboard.user.profile.address
-            model.you.ethAddress = \0xa55d5e3d4a61716e3565ab00ee16479b504d6342 
-            model.you.tokens = dashboard.contract.userTokens
-            
             model.you.contributed-eth = dashboard.user.contribution.total
+            model.you.tokens-you-hold = dashboard.user.contribution.own
             model.transactions = dashboard.user.transactions
             
-            model.progress.min = dashboard.contract.minCapInUsd
-            model.progress.max = dashboard.contract.maxCapInUsd
+            model.progress.min = dashboard.contract.minCapInUsd.toString!
+            model.progress.max = dashboard.contract.maxCapInUsd.toString!
             
-            model.progress.current.usd = dashboard.contract.totalInUsd
-            model.progress.current.eth = dashboard.contract.totalEth
-            model.progress.current.percent = dashboard.contract.progressPercent + "%"
+            model.progress.current.usd = dashboard.contract.totalInUsd.toString!
+            model.progress.current.eth = dashboard.contract.totalEth.toString!
+            model.progress.current.percent = dashboard.contract.progressPercent.toString! + "%"
             model.progress.current.contributors = dashboard.contract.totalSales
             model.progress.token-price-eth = 1 / dashboard.campaign.price
             
@@ -158,8 +155,8 @@ angular
         
         transform-rates = (all, rate)-->
             { tokens_per_eth } = all.config.panelinfo
-            
-            rate.change = rate.rate / tokens_per_eth
+            console.log { tokens_per_eth }, rate.rate
+            rate.change = 1 / rate.rate * tokens_per_eth
             rate
             
         export model =
