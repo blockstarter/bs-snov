@@ -108,7 +108,8 @@ angular
             { dashboard } = $local-storage
             usd = dashboard.rates.filter(-> it.token is \USD).0
             model.eth-address = dashboard.config.wallet.multisig_eth
-            model.rates = dashboard.rates.filter(-> it.disabled is no).map(transform-rates dashboard)
+            model.rates = dashboard.rates.filter(-> it.disabled is no).map(transform-rates usd)
+            console.log model.rates
             model.you.email = dashboard.user.profile.email
             model.you.confirmed = dashboard.user.profile.confirmed
             model.you.valid-address = dashboard.user.profile.address.index-of('0x') is 0
@@ -134,8 +135,12 @@ angular
             change-price!
         export show = {}
         export change-price = ->
+            buy = new BigNumber(model.you-buy ? 0)
+            bonus = 
+                | buy.gte(5000000)  => 1.25 
+                | _ => 1.15
             model.you-pay = 
-                model.you-buy * model.current-rate.change
+                new BigNumber(model.you-buy).mul(model.current-rate.change).div(bonus)
         update-time = init ->
             update = ([head, ...tail])->
                 if model.timer[head] > 0
@@ -152,10 +157,8 @@ angular
         time-part = (name)->
            parse-int start.filter(-> it.1 is name).0?0 ? 0
         
-        transform-rates = (all, rate)-->
-            { tokens_per_eth } = all.config.panelinfo
-            console.log { tokens_per_eth }, rate.rate
-            rate.change = 1 / rate.rate * tokens_per_eth
+        transform-rates = (usd, rate)-->
+            rate.change = new BigNumber(rate.rate).div(usd.rate).div(100)
             rate
             
         export model =
@@ -252,6 +255,7 @@ angular
                  init.all!
                  <-! proofofwork.make \address
               .catch (resp)->
+                 console.log resp
                  if resp.status is 401
                   goToLoginPage!
         else if !isLoggedIn!

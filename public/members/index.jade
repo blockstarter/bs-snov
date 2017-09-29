@@ -126,7 +126,7 @@ html(lang='en' ng:app="members" ng:controller="members")
                       .col-md-3.col-sm-3.col-xs-6.tile_stats_count(ng:repeat="row in model.rates")
                         span.count_top
                           img(ng:src='{{row.img}}' alt='{{row.token}}')
-                        .count {{row.change}}
+                        .count {{row.total}}
                         span.count_bottom {{row.token}}
                     //-.currency.tile_count
                       .col-md-3.col-sm-3.col-xs-6.tile_stats_count
