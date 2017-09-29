@@ -26,9 +26,9 @@
                 i.fa.fa-sign-out.pull-right
                 |  {{ 'Log Out' | translate }}
         li.dropdown(role='presentation')
-          a.dropdown-toggle.info-number(href='javascript:;', data-toggle='dropdown', aria-expanded='false')
+          a.dropdown-toggle.info-number(href='javascript:;' data-toggle='dropdown' aria-expanded='false' ng:if="model.notifications.length > 0")
             i.fa.fa-envelope-o
-            span.badge.bg-orange(ng:if="model.notifications.length > 0") {{model.notifications.length}}
+            span.badge.bg-orange {{model.notifications.length}}
           ul#menu1.dropdown-menu.list-unstyled.msg_list(role='menu')
             li(ng:if="!model.notifications || model.notifications.length == 0")
               .no-messages No messages
