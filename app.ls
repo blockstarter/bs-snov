@@ -59,7 +59,6 @@ create-route = (key)->
     request = {} <<<< req.body <<<< config
     delete request.dashboard
     delete request.performance
-    console.log request
     err, data <-! blockstarter-wl[key] request
     return resp.status(400).send(err.response?text) if err?
     err, transformed <-! transform key, data
