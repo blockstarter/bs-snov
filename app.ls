@@ -50,7 +50,7 @@ create-route = (key)->
       [nonce_str, hash, rarity_str] =requestpayment.split('|')
       nonce = parse-int nonce_str
       rarity = parse-float rarity_str
-      difficulty = 70000
+      difficulty = 20000
       data = "#ip/#key"
       valid =
          hashcash-token.validate({ nonce, hash, rarity, data , difficulty } )

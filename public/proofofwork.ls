@@ -10,7 +10,7 @@ angular
             cb resp.data.ip
         make: (type, cb)->
             ip <-! get-ip!
-            difficulty = 70000
+            difficulty = 20000
             data = "#{ip}/#type"
             res  = hashcash.generate { difficulty, data }
             { nonce, hash, rarity } = res
