@@ -29,13 +29,13 @@
           a(href="/settings/" style="font-size: 1.5rem") 
             | Please setup your Ethereum address to receive SNOV tokens
       
-      .item(ng-if="model.you.ethAddress")
+      .item(ng:show="model.you.validAddress")
         table.table.personalinfo.no-border
           tbody
             //tr
               td {{ 'Your ETH address' | translate }}
               th.lead.text-right {{model.you.ethAddress}}
-            tr
+            //tr
               td {{ 'You contributed' | translate }}
               th.lead.text-right {{model.you.contributedEth}} ETH
             tr
