@@ -6,9 +6,7 @@ angular
         $translate-provider.translations \ru ,
             "Copyright © Snov.io 2017" : "Copyright © Snov.io 2017" 
         $translate-provider.preferred-language \en
-    .run (proofofwork)->
-        proofofwork.make \confirmEmail
-    .controller \confirm, ($scope, $http, $local-storage)->
+    .controller \confirm, ($scope, $http, $local-storage, proofofwork)->
         getUrlParam = (name, url) ->
           if !url
             url = window.location.href
@@ -26,7 +24,7 @@ angular
             confirmation-id: getUrlParam \confirmation-id
             confirmed: no
         confirm = ->
-            return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
+            <-! proofofwork.make \confirmEmail
             $http
               .post \/api/confirmEmail, { form.confirmation-id, ...$local-storage }
               .then ->

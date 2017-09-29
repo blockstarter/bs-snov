@@ -25,16 +25,16 @@ angular
             "Tokensale status" : "Tokensale status" 
             "Calculate" : "Calculate" 
             "Your buy" : "Your buy" 
-            "Snov tokens" : "Snov tokens" 
+            "SNOV tokens" : "SNOV tokens" 
             "Your pay" : "Your pay" 
             "Please make sure your deposit equals or exceeds the minimum purchase amount (at the current exchange rate it is 0.012 BTC)" : "Please make sure your deposit equals or exceeds the minimum purchase amount (at the current exchange rate it is 0.012 BTC)" 
             "Your transaction history" : "Your transaction history" 
             "Date" : "Date" 
             "Transaction ID" : "Transaction ID" 
             "Address Source" : "Address Source" 
-            "Snov assigned" : "Snov assigned" 
+            "SNOV assigned" : "SNOV assigned" 
             "Token crowdsale pool:" : "Token crowdsale pool:" 
-            "Snov token price:" : "Snov token price:" 
+            "SNOV token price:" : "SNOV token price:" 
             "Bonuses:" : "Bonuses:" 
             "First day" : "First day" 
             "First week" : "First week" 
@@ -64,10 +64,10 @@ angular
             "Tokensale status" : "Статус продажи токенов" 
             "Calculate" : "Калькулятор" 
             "Your buy" : "Вы покупаете" 
-            "Snov tokens" : "Snov токены"
+            "Snov tokens" : "SNOV токены"
             "Your pay" : "Вы платите" 
             "Please make sure your deposit equals or exceeds the minimum purchase amount (please check the minimum amount in WP)" : "Пожалуйста, убедитесь, что ваш депозит равен или превышает минимальную сумму покупки (посмотрите минимальный курс в ВП)" 
-            "Snov assigned" : "количество Snov" 
+            "SNOV assigned" : "количество SNOV" 
             "Address Source" : "Источник адреса" 
             "Transaction ID" : "Номер транзакции" 
             "Date" : "Дата" 
@@ -78,7 +78,7 @@ angular
             "First week" : "Первая неделя"
             "First day" : "Первый день" 
             "Bonuses:" : "Бонусы:" 
-            "Snov token price:" : "Стоимость токена Snov:" 
+            "Snov token price:" : "Стоимость токена SNOV:" 
             "Token crowdsale pool:" : "Пул предпродажи токенов:"
             "Copyright © Snov.io 2017" : "Copyright © Snov.io 2017"
         $translate-provider.preferred-language \en
@@ -106,15 +106,14 @@ angular
             # Ensure that default language is selected
             $local-storage.language = 'en' if not $local-storage.language
             { dashboard } = $local-storage
-            model.eth-address = dashboard.config.wallet.multisig_eth
             usd = dashboard.rates.filter(-> it.token is \USD).0
+            model.eth-address = dashboard.config.wallet.multisig_eth
             model.rates = dashboard.rates.filter(-> it.disabled is no).map(transform-rates dashboard)
             model.you.email = dashboard.user.profile.email
             model.you.confirmed = dashboard.user.profile.confirmed
-            
+            model.you.valid-address = dashboard.user.profile.address.index-of('0x') is 0
             model.you.contributed-eth = dashboard.user.contribution.total
-            model.you.tokens = dashboard.contract.userTokens
-            model.you.ethAddress = dashboard.user.profile.address if dashboard.user.profile.type == 'eth'
+            model.you.tokens-you-hold = dashboard.user.contribution.own
             model.transactions = dashboard.user.transactions
             
             model.progress.min = dashboard.contract.minCapInUsd.toString!

@@ -63,10 +63,6 @@ angular
     .controller \settings, ($scope, $http, $local-storage)->
         export form =
             address: ""
-            
-        {profile} = $localStorage.dashboard.user
-        form.address = profile.address if profile.type == 'eth'
-        
         export confirm = ->
             return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
             return swal "Please enter a valid Ethereum address" if not web3.isAddress form.address
@@ -76,5 +72,4 @@ angular
                   swal "Done"
               .catch (resp)->
                   swal resp.data
-                  
         $scope <<<< out$

@@ -23,7 +23,7 @@
               th.lead.text-right 25%
       hr
       
-      div(ng-if="!model.you.ethAddress")
+      div(ng:hide="model.you.validAddress")
         h4 Your tokens
         .alert.alert-warning 
           a(href="/settings/" style="font-size: 1.5rem") 

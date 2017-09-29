@@ -109,15 +109,15 @@ html(lang='en' ng:app="members" ng:controller="members")
                     .clearfix
                   .x_content
                     .tile_count
-                      .col-md-4.col-sm-4.col-xs-12.text-center.tile_stats_count
+                      .col-md-6.col-sm-6.col-xs-12.text-center.tile_stats_count
                         .count
                           i.fa.fa-dollar.purple
                           | {{model.progress.current.usd | currency | remove_sign}} USD
-                      .col-md-4.col-sm-4.col-xs-12.text-center.tile_stats_count
+                      //-.col-md-4.col-sm-4.col-xs-12.text-center.tile_stats_count
                         .count
                           i.fa.fa-diamond.purple
                           | {{model.progress.current.eth | currency | remove_sign}} ETH
-                      .col-md-4.col-sm-4.col-xs-12.text-center.tile_stats_count
+                      .col-md-6.col-sm-6.col-xs-12.text-center.tile_stats_count
                         .count
                           i.fa.fa-user.purple
                           | {{model.progress.current.contributors}}
@@ -186,7 +186,7 @@ html(lang='en' ng:app="members" ng:controller="members")
                         .form-group
                           h5 {{ 'Your buy' | translate }}
                           input#coin-amount.form-control(type='text' ng:model="model.youBuy" ng:change="changePrice()")
-                          label {{ 'Snov tokens' | translate }}
+                          label {{ 'SNOV tokens' | translate }}
                         a.direction(href='javascript:void(0)', data-direction='right')
                           i.fa.fa-arrow-right(aria-hidden='true')
                       .right
