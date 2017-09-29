@@ -113,7 +113,8 @@ angular
             model.you.confirmed = dashboard.user.profile.confirmed
             
             model.you.contributed-eth = dashboard.user.contribution.total
-            model.you.tokens-you-hold = dashboard.user.contribution.own
+            model.you.tokens = dashboard.contract.userTokens
+            model.you.ethAddress = dashboard.user.profile.address if dashboard.user.profile.type == 'eth'
             model.transactions = dashboard.user.transactions
             
             model.progress.min = dashboard.contract.minCapInUsd.toString!

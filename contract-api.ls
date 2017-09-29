@@ -52,8 +52,7 @@ export getFrontendData = (data, cb) ->
    err, totalSales <-! getTokenTotalSales
    return cb err if err?
    
-   # TODO Use: dashboard.user.profile.address
-   ethAddress = \0xa55d5e3d4a61716e3565ab00ee16479b504d6342 
+   ethAddress = dashboard.user.profile.address 
    err, userTokens <-! getTokenBalanceByEthAddress ethAddress
    return cb err if err?
    

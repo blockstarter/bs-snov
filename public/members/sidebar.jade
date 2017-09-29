@@ -22,7 +22,14 @@
               td {{ 'If contributed > 50k USD' | translate }}
               th.lead.text-right 25%
       hr
-      .item
+      
+      div(ng-if="!model.you.ethAddress")
+        h4 Your tokens
+        .alert.alert-warning 
+          a(href="/settings/" style="font-size: 1.5rem") 
+            | Please setup your Ethereum address to receive SNOV tokens
+      
+      .item(ng-if="model.you.ethAddress")
         table.table.personalinfo.no-border
           tbody
             //tr
@@ -34,6 +41,7 @@
             tr
               td {{ 'Tokens you hold' | translate }}
               th.lead.text-right {{model.you.tokens}}
+              
       a.btn.btn-block.btn-lg.btn-theme(href='/members/#calculate') {{ 'Buy now' | translate }}
       hr
       ul.list-inline.social-buttons
