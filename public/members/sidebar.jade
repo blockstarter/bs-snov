@@ -3,7 +3,7 @@
       .x_content.tile_count
         .tile_stats_count
           span.count_top {{ 'Token crowdsale pool:' | translate }}
-          .count {{model.progress.max | currency }}
+          .count ${{model.progress.max | cut }}
         hr
         .tile_stats_count
           span.count_top {{ 'Snov token price:' | translate }}
