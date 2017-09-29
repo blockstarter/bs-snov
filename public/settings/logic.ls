@@ -60,9 +60,11 @@ angular
         $translate-provider.preferred-language \en
     .run (proofofwork)->
         proofofwork.make \updateProfile
-    .controller \settings, ($scope, $http, $local-storage)->
+    .controller \settings, ($scope, $http, $local-storage, $root-scope)->
         export form =
             address: ""
+        $root-scope.$watch \address, (value)->
+            form.address = value
         export confirm = ->
             return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
             return swal "Please enter a valid Ethereum address" if not web3.isAddress form.address

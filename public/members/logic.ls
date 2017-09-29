@@ -90,7 +90,7 @@ angular
             $scope.$watch \qrcode, (value)->
                 $element.empty!
                 new QRCode($element.0, value)
-    .controller \members, ($scope, $http, $local-storage, $window, $translate, $timeout, proofofwork)->
+    .controller \members, ($scope, $http, $local-storage, $root-scope, $window, $translate, $timeout, proofofwork)->
         $scope.loaded = ->
             $scope.model?loading is false
         
@@ -124,6 +124,8 @@ angular
             model.progress.current.percent = dashboard.contract.progressPercent.toString! + "%"
             model.progress.current.contributors = dashboard.contract.totalSales
             model.progress.token-price-eth = 1 / dashboard.campaign.price
+            
+            $root-scope.address = dashboard.user.profile.address
             
             model.loading = no
              
