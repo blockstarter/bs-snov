@@ -55,7 +55,11 @@ create-route = (key)->
       valid =
          hashcash-token.validate({ nonce, hash, rarity, data , difficulty } )
       return resp.status(401).end! if not valid 
+    
     request = {} <<<< req.body <<<< config
+    delete request.dashboard
+    delete request.performance
+    console.log request
     err, data <-! blockstarter-wl[key] request
     return resp.status(400).send(err.response?text) if err?
     err, transformed <-! transform key, data

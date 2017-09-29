@@ -25,6 +25,7 @@ export getPresaleBalanceInEth = (cb)->
    cb null, web3.fromWei(res, 'ether')
 
 export getTokenBalanceByEthAddress = (ethAddress, cb)->
+   return cb null, 0 if ethAddress.index-of('0x') isnt 0 
    err, res <-! token.contract.balanceOf ethAddress
    return cb err if err?
    cb null, web3.fromWei(res, 'ether')
@@ -44,6 +45,8 @@ export getMinCapInUsd = new BigNumber 5000000
 
 export getMaxCapInUsd = new BigNumber 15000000
 
+
+
 export getFrontendData = (data, cb) ->
    err, totalInUsd <-! getPresaleTotalInUsd
    return cb err if err?
@@ -52,7 +55,7 @@ export getFrontendData = (data, cb) ->
    err, totalSales <-! getTokenTotalSales
    return cb err if err?
    
-   ethAddress = dashboard.user.profile.address 
+   ethAddress = data.user.profile.address 
    err, userTokens <-! getTokenBalanceByEthAddress ethAddress
    return cb err if err?
    
