@@ -114,7 +114,7 @@ angular
             model.you.confirmed = dashboard.user.profile.confirmed
             model.you.valid-address = dashboard.user.profile.address.index-of('0x') is 0
             model.you.contributed-eth = dashboard.user.contribution.total
-            model.you.tokens-you-hold = dashboard.user.contribution.own
+            model.you.tokens-you-hold = dashboard.contrac
             model.transactions = dashboard.user.transactions
             
             model.progress.min = dashboard.contract.minCapInUsd.toString!
@@ -134,6 +134,7 @@ angular
             model.current-rate = rate ? model.rates.0
             change-price!
         export show = {}
+        export collapse = {}
         export change-price = ->
             buy = new BigNumber(model.you-buy ? 0)
             bonus = 

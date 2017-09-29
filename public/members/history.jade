@@ -3,13 +3,14 @@
     h2 {{ 'Your transaction history' | translate }}
     ul.nav.navbar-right.panel_toolbox
       li
-        a.collapse-link
-          i.fa.fa-chevron-up
+        a.collapse-link(ng:click="collapse.history = !(collapse.history)")
+          i.fa.fa-chevron-up(ng:hide="collapse.history")
+          i.fa.fa-chevron-down(ng:show="collapse.history")
       li
         a.close-link(ng:click="show.history = false")
           i.fa.fa-close
     .clearfix
-  .x_content
+  .x_content(ng:hide="collapse.history")
     #datatable_wrapper.dataTables_wrapper.form-inline.dt-bootstrap.no-footer
       table#datatable-checkbox.table.table-striped.bulk_action(role='grid', aria-describedby='datatable-checkbox_info')
         thead

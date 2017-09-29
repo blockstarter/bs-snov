@@ -50,8 +50,8 @@ export getMaxCapInUsd = new BigNumber 15000000
 export getFrontendData = (data, cb) ->
    err, totalInUsd <-! getPresaleTotalInUsd
    return cb err if err?
-   err, totalEth <-! getPresaleBalanceInEth
-   return cb err if err?
+   #err, totalEth <-! getPresaleBalanceInEth
+   #return cb err if err?
    err, totalSales <-! getTokenTotalSales
    return cb err if err?
    

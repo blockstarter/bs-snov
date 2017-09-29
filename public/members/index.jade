@@ -15,7 +15,7 @@ html(lang='en' ng:app="members" ng:controller="members")
     style 
        include vendors/bootstrap-progressbar.min.css
        include vendors/countdown.min.css
-       include ../style.min.css
+       include ../style.css
   body.nav-md(ng:class="{visible: true}")
     .full-container.body(ng:hide="loaded()")
        div.loading 
@@ -37,13 +37,14 @@ html(lang='en' ng:app="members" ng:controller="members")
                     h2 {{ 'Crowdsale starts in' | translate }}
                     ul.nav.navbar-right.panel_toolbox
                       li
-                        a.collapse-link
-                          i.fa.fa-chevron-up
+                        a.collapse-link(ng:click="collapse.counter = !(collapse.counter)")
+                          i.fa.fa-chevron-up(ng:hide="collapse.counter")
+                          i.fa.fa-chevron-down(ng:show="collapse.counter")
                       li
                         a.close-link(ng:click="show.counter = false")
                           i.fa.fa-close
                     .clearfix
-                  .x_content
+                  .x_content(ng:hide="collapse.counter")
                     .countdown.countdown-container.col-md-10.col-md-offset-1.col-xs-12(data-border-color='rgba(0, 0, 0, .8)')
                       .clock
                         .clock-item.clock-days.countdown-time-value.col-xs-3.col-sm-3.col-md-3
@@ -80,16 +81,17 @@ html(lang='en' ng:app="members" ng:controller="members")
                     h2 {{ 'Tokensale progress' | translate }}
                     ul.nav.navbar-right.panel_toolbox
                       li
-                        a.collapse-link
-                          i.fa.fa-chevron-up
+                        a.collapse-link(ng:click="collapse.saleprogress = !(collapse.saleprogress)")
+                          i.fa.fa-chevron-up(ng:hide="collapse.saleprogress")
+                          i.fa.fa-chevron-down(ng:show="collapse.saleprogress")
                       li
                         a.close-link(ng:click="show.saleprogress = false")
                           i.fa.fa-close
                     .clearfix
-                  .x_content
+                  .x_content(ng:hide="collapse.saleprogress")
                     .widget_summary
                       .w_left
-                        strong 0
+                        strong $0
                       .w_center.w_100
                         .progress
                           .progress-bar.bg-purple(role='progressbar' aria-valuenow='{{model.progress.current.usd }}' aria-valuemin='0' aria-valuemax='{{model.progress.max }}' ng:style="{width: model.progress.current.percent}") {{model.progress.current.usd | currency}}
@@ -101,13 +103,14 @@ html(lang='en' ng:app="members" ng:controller="members")
                     h2 {{ 'Tokensale status' | translate }}
                     ul.nav.navbar-right.panel_toolbox
                       li
-                        a.collapse-link
-                          i.fa.fa-chevron-up
+                        a.collapse-link(ng:click="collapse.status = !(collapse.status)")
+                          i.fa.fa-chevron-up(ng:hide="collapse.status")
+                          i.fa.fa-chevron-down(ng:show="collapse.status")
                       li
                         a.close-link(ng:click="show.status = false")
                           i.fa.fa-close
                     .clearfix
-                  .x_content
+                  .x_content(ng:hide="collapse.status")
                     .tile_count
                       .col-md-6.col-sm-6.col-xs-12.text-center.tile_stats_count
                         .count
@@ -174,13 +177,14 @@ html(lang='en' ng:app="members" ng:controller="members")
                     h2 {{ 'Calculate' | translate }}
                     ul.nav.navbar-right.panel_toolbox
                       li
-                        a.collapse-link
-                          i.fa.fa-chevron-up
+                        a.collapse-link(ng:click="collapse.calculate = !(collapse.calculate)")
+                          i.fa.fa-chevron-up(ng:hide="collapse.calculate")
+                          i.fa.fa-chevron-down(ng:show="collapse.calculate")
                       li
                         a.close-link(ng:click="show.calculate = false")
                           i.fa.fa-close
                     .clearfix
-                  .x_content
+                  .x_content(ng:hide="collapse.calculate")
                     .calculator
                       .left
                         .form-group
