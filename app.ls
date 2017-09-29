@@ -50,11 +50,11 @@ create-route = (key)->
       [nonce_str, hash, rarity_str] =requestpayment.split('|')
       nonce = parse-int nonce_str
       rarity = parse-float rarity_str
-      difficulty = 20000
+      difficulty = 1000
       data = "#ip/#key"
-      valid =
-         hashcash-token.validate({ nonce, hash, rarity, data , difficulty } )
-      return resp.status(401).end! if not valid 
+      #valid =
+      #   hashcash-token.validate({ nonce, hash, rarity, data , difficulty } )
+      #return resp.status(401).end! if not valid 
     
     request = {} <<<< req.body <<<< config
     delete request.dashboard
