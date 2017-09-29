@@ -71,7 +71,8 @@ angular
             $http
               .post \/api/updateProfile, { form.address, ...$local-storage }
               .then ->
-                  swal "Done"
+                  location.href = \/members/index.html
+                  #swal "Done"
               .catch (resp)->
                   swal resp.data
         $scope <<<< out$
