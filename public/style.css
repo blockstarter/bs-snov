@@ -2189,7 +2189,9 @@ ul.social-buttons li a {
   -moz-transition: all 0.3s;
   transition: all 0.3s; }
   ul.social-buttons li a i {
-    padding: 2px 8px; }
+    display: inline-block;
+    text-align: center;
+    width: 32px; }
 
 @media (min-width: 992px) {
   footer {

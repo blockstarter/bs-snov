@@ -2,6 +2,11 @@ angular
     .module \members, [\ngStorage, \pascalprecht.translate , \proofofwork ]
     .filter \remove_sign, ->
         -> it.replace('$', '')
+    .filter \cut, ->
+        (value)->
+            return "" if not value?
+            f = new BigNumber(value).toFraction(100)
+            "#{f.0}.#{f.1}"
     .config ($translate-provider) ->
         $translate-provider.translations \en , 
             "ICO snovio dashboard" : "ICO snovio dashboard"
