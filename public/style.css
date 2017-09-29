@@ -2175,6 +2175,9 @@ th.lead {
 .table.no-border > thead > tr > td, .table.no-border > thead > tr > th {
   border: 0; }
 
+ul.social-buttons {
+  text-align: center; }
+
 ul.social-buttons li a {
   display: block;
   background-color: #8178d9;

@@ -5,8 +5,7 @@ angular
     .filter \cut, ->
         (value)->
             return "" if not value?
-            f = new BigNumber(value).toFraction(100)
-            "#{f.0}.#{f.1}"
+            parse-int value.to-string!
     .config ($translate-provider) ->
         $translate-provider.translations \en , 
             "ICO snovio dashboard" : "ICO snovio dashboard"

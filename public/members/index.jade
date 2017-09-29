@@ -94,8 +94,8 @@ html(lang='en' ng:app="members" ng:controller="members")
                         strong $0
                       .w_center.w_100
                         .progress
-                          .progress-bar.bg-purple(role='progressbar' aria-valuenow='{{model.progress.current.usd }}' aria-valuemin='0' aria-valuemax='{{model.progress.max }}' ng:style="{width: model.progress.current.percent}") {{model.progress.current.usd | currency}}
-                        .text-right.softcap {{ 'Softcap' | translate }} {{model.progress.min | currency }}
+                          .progress-bar.bg-purple(role='progressbar' aria-valuenow='{{model.progress.current.usd | cut }}' aria-valuemin='0' aria-valuemax='{{model.progress.max }}' ng:style="{width: model.progress.current.percent}") ${{model.progress.current.usd | cut}}
+                        .text-right.softcap {{ 'Softcap' | translate }} ${{model.progress.min | cut }}
                       .w_right
                         strong  {{model.progress.max | currency }}
                 .x_panel.status(ng:if="show.status != false")
@@ -196,7 +196,7 @@ html(lang='en' ng:app="members" ng:controller="members")
                       .right
                         .form-group.is-empty
                           h5 {{ 'Your pay' | translate }}
-                          input#coin-price.form-control(type='text' value='{{model.youPay | cut}}' disabled='')
+                          input#coin-price.form-control(type='text' value='{{model.youPay}}' disabled='')
                           .btn-group
                             button.btn.btn-dark.dropdown-toggle(data-toggle='dropdown' type='button' aria-expanded='false')
                               a#calculator-currency-btn.btn-select.current-currency(data-code='{{model.currentRate.token}}') {{model.currentRate.fullname}}
