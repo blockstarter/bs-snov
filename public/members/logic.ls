@@ -209,7 +209,10 @@ angular
                       model.address = resp.data 
                       
                   .catch ->
-                      swal "Oops. Server error :("
+                      model.address = "Cannot obtain address :("
+                      model.warning =
+                        * 'Please ask administrator for help a.stegno@gmail.com'
+                        ...
                   
         export logout = ($event)->
             $event.prevent-default!
