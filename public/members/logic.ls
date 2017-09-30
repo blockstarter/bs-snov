@@ -224,9 +224,9 @@ angular
                  init.all!
                  <-! proofofwork.make \address
               .catch (resp)->
-                 console.log resp
-                 if resp.status is 401
-                  goToLoginPage!
+                 #console.log resp
+                 #if resp.status is 401
+                 goToLoginPage!
         else if !isLoggedIn!
             goToLoginPage!
         else
