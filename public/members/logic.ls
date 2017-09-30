@@ -12,7 +12,7 @@ angular
             "ICO snovio dashboard" : "snovio ICO панель управления"
             "Thank you for registration. Please" : "Спасибо, что зарегистрировались. Пожалуйста" 
             "confirm your email" : "подтвердите ваш адрес электронной почты"
-            "There are no any transactions yet" : "Пока никаких транзакций нет"
+            "There are no transactions yet" : "Пока никаких транзакций нет"
             "Ru" : "Рус" 
             "En" : "Анг"
             "Log Out" : "Выход" 
