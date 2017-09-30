@@ -179,7 +179,7 @@ html(lang='en' ng:app="members" ng:controller="members")
                               .col-md-12.col-sm-12.col-xs-12
                                 p.lead
                                   | {{ 'Please make sure your deposit equals or exceeds the minimum purchase amount (please check the minimum amount in WP)' | translate }}
-                                .warning
+                                .warning(ng:if="model.warning.length > 0")
                                   div(ng:repeat="warning in model.warning") {{warning | translate}}
                               .clearfix
                 include ./history
