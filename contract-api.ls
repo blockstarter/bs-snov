@@ -63,7 +63,7 @@ export getFrontendData = (data, cb) ->
    maxCapInUsd = getMaxCapInUsd
    progressPercent = totalInUsd.mul(100).div(maxCapInUsd)
    
-   data.contract = { minCapInUsd, maxCapInUsd, totalInUsd, totalEth, totalSales, progressPercent, userTokens }
+   data.contract = { minCapInUsd, maxCapInUsd, totalInUsd, totalSales, progressPercent, userTokens }
       
    cb null, data
 
