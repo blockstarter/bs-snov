@@ -105,9 +105,10 @@ angular
         export collapse = {}
         export change-price = ->
             buy = new BigNumber(model.you-buy ? 0)
-            bonus = 
-                | buy.gte(5000000)  => 1.25 
-                | _ => 1.15
+            bonus =
+                | buy.gte(5000000)  => 1.25
+                | buy.gte(500000)  => 1.15
+                | _ => 1
             model.you-pay = 
                 new BigNumber(model.you-buy).mul(model.current-rate.change).div(bonus)
         update-time = init ->
