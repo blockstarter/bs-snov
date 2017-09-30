@@ -2,10 +2,11 @@ angular
     .module \members, [\ngStorage, \pascalprecht.translate , \proofofwork ]
     .filter \remove_sign, ->
         -> it.replace('$', '')
-    .filter \cut, ->
+    .filter \cut, ($filter)->
         (value)->
             return "" if not value?
-            parse-int value.to-string!
+            #parse-int value.to-string!
+            $filter('currency')(value, '', 0)
     .config ($translate-provider) ->
         $translate-provider.translations \en , []
         $translate-provider.translations \ru ,
