@@ -1,6 +1,10 @@
 html, body {
   height: 100%; }
 
+.btn {
+  text-overflow: ellipsis;
+  overflow: hidden; }
+
 body {
   visibility: hidden; }
   body.visible {
@@ -3902,6 +3906,10 @@ a.hiddenanchor {
 .login_content form input[type="submit"], #content form .submit {
   float: left;
   margin-left: 38px; }
+
+.submit {
+  display: inline-block;
+  min-width: 219px; }
 
 .button a {
   background: url(http://cssdeck.com/uploads/media/items/8/8bcLQqF.png) 0 -112px no-repeat;
