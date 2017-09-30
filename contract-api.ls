@@ -50,8 +50,8 @@ export getMaxCapInUsd = new BigNumber 15000000
 export getFrontendData = (data, cb) ->
    err, totalInUsd <-! getPresaleTotalInUsd
    return cb err if err?
-   #err, totalEth <-! getPresaleBalanceInEth
-   #return cb err if err?
+   err, totalEth <-! getPresaleBalanceInEth
+   return cb err if err?
    err, totalSales <-! getTokenTotalSales
    return cb err if err?
    
@@ -63,7 +63,7 @@ export getFrontendData = (data, cb) ->
    maxCapInUsd = getMaxCapInUsd
    progressPercent = totalInUsd.mul(100).div(maxCapInUsd)
    
-   data.contract = { minCapInUsd, maxCapInUsd, totalInUsd, totalSales, progressPercent, userTokens }
+   data.contract = { minCapInUsd, maxCapInUsd, totalInUsd, totalEth, totalSales, progressPercent, userTokens }
       
    cb null, data
 
