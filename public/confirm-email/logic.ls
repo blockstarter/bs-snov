@@ -1,10 +1,8 @@
 angular
     .module \app, [\ngStorage, \pascalprecht.translate, \members , \proofofwork ]
     .config ($translate-provider) ->
-        $translate-provider.translations \en , 
-            "Copyright © Snov.io 2017" : "Copyright © Snov.io 2017" 
         $translate-provider.translations \ru ,
-            "Copyright © Snov.io 2017" : "Copyright © Snov.io 2017" 
+            "Copyright © Snovio 2017" : "Copyright © Snovio 2017" 
         $translate-provider.preferred-language \en
     .controller \confirm, ($scope, $http, $local-storage, proofofwork)->
         getUrlParam = (name, url) ->

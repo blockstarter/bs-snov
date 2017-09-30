@@ -2,19 +2,6 @@
 angular
     .module \app, [\ngStorage, \pascalprecht.translate , \proofofwork ]
     .config ($translate-provider) ->
-        $translate-provider.translations \en , 
-            "Login Form" : "Login Form" 
-            "Lost your password?" : "Lost your password?" 
-            "Check here to confirm that you are not a U.S. citizen, resident or entity (a “U.S. Person”) nor are you obtaining PGL Tokens or signing on behalf of a U.S. Person." : "Check here to confirm that you are not a U.S. citizen, resident or entity (a “U.S. Person”) nor are you obtaining PGL Tokens or signing on behalf of a U.S. Person." 
-            "Check here to confirm that you have read, understand and agree to the" : "Check here to confirm that you have read, understand and agree to the" 
-            "Terms of Use" : "Terms of Use" 
-            "and" : "and" 
-            "Privacy Policy" : "Privacy Policy" 
-            "New to site?" : "New to site?" 
-            "Create Account" : "Create Account" 
-            "Submit" : "Submit" 
-            "Already a member ?" : "Already a member ?" 
-            "Log in" : "Log in"
         $translate-provider.translations \ru ,
             "Login Form" : "Форма входа" 
             "Lost your password?" : "Забыли пароль?" 

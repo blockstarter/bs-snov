@@ -116,10 +116,6 @@ html(lang='en' ng:app="members" ng:controller="members")
                         .count
                           i.fa.fa-dollar.purple
                           | ${{model.progress.current.usd | cut}} USD
-                      //-.col-md-4.col-sm-4.col-xs-12.text-center.tile_stats_count
-                        .count
-                          i.fa.fa-diamond.purple
-                          | {{model.progress.current.eth | currency | remove_sign}} ETH
                       .col-md-6.col-sm-6.col-xs-12.text-center.tile_stats_count
                         .count
                           i.fa.fa-user.purple
@@ -131,47 +127,6 @@ html(lang='en' ng:app="members" ng:controller="members")
                           img(ng:src='{{row.img}}' alt='{{row.token}}')
                         .count {{row.total | cut}}
                         span.count_bottom {{row.token}}
-                    //-.currency.tile_count
-                      .col-md-3.col-sm-3.col-xs-6.tile_stats_count
-                        span.count_top
-                          img(src='https://tokensale.snov.io/members/images/co-dollar.svg', alt='USD')
-                        .count 12,562,365
-                        span.count_bottom USD
-                      .col-md-3.col-sm-3.col-xs-6.tile_stats_count
-                        span.count_top
-                          img(src='https://tokensale.snov.io/members/images/btc.jpg', alt='BTC')
-                        .count 56.356
-                        span.count_bottom BTC
-                      .col-md-3.col-sm-3.col-xs-6.tile_stats_count
-                        span.count_top
-                          img(src='https://tokensale.snov.io/members/images/ethereum.png', alt='', eth='')
-                        .count 259,475,153
-                        span.count_bottom ETH
-                      .col-md-3.col-sm-3.col-xs-6.tile_stats_count
-                        span.count_top
-                          img(src='https://tokensale.snov.io/members/images/dash.png', alt='DASH')
-                        .count 1,652,256,356
-                        span.count_bottom DASH
-                      .col-md-3.col-sm-3.col-xs-6.tile_stats_count
-                        span.count_top
-                          img(src='https://tokensale.snov.io/members/images/euro.png', alt='EUR')
-                        .count 362,365
-                        span.count_bottom EUR
-                      .col-md-3.col-sm-3.col-xs-6.tile_stats_count
-                        span.count_top
-                          img(src='https://tokensale.snov.io/members/images/litecoin.png', alt='LTC')
-                        .count 362,365.256
-                        span.count_bottom LTC
-                      .col-md-3.col-sm-3.col-xs-6.tile_stats_count
-                        span.count_top
-                          img(src='https://tokensale.snov.io/members/images/doge.png', alt='DOGE')
-                        .count 9,475,153
-                        span.count_bottom DOGE
-                      .col-md-3.col-sm-3.col-xs-6.tile_stats_count
-                        span.count_top
-                          img(src='https://tokensale.snov.io/members/images/waves.svg', alt='WAVES')
-                        .count 52,256,356
-                        span.count_bottom WAVES
                 #calculate.x_panel.calculate(ng:if="show.calculate != false")
                   .x_title
                     h2 {{ 'Calculate' | translate }}

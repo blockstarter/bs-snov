@@ -12,6 +12,7 @@ angular
             "ICO snovio dashboard" : "snovio ICO панель управления"
             "Thank you for registration. Please" : "Спасибо, что зарегистрировались. Пожалуйста" 
             "confirm your email" : "подтвердите ваш адрес электронной почты"
+            "There are no any transactions yet" : "Пока никаких транзакций нет"
             "Ru" : "Рус" 
             "En" : "Анг"
             "Log Out" : "Выход" 
@@ -77,7 +78,6 @@ angular
             usd = dashboard.rates.filter(-> it.token is \USD).0
             model.eth-address = dashboard.config.wallet.multisig_eth
             model.rates = dashboard.rates.filter(-> it.disabled is no).map(transform-rates usd)
-            console.log model.rates
             model.you.email = dashboard.user.profile.email
             model.you.confirmed = dashboard.user.profile.confirmed
             model.you.valid-address = dashboard.user.profile.address.index-of('0x') is 0
@@ -89,7 +89,6 @@ angular
             model.progress.max = dashboard.contract.maxCapInUsd.toString!
             
             model.progress.current.usd = dashboard.contract.totalInUsd.toString!
-            model.progress.current.eth = dashboard.contract.totalEth.toString!
             model.progress.current.percent = dashboard.contract.progressPercent.toString! + "%"
             model.progress.current.contributors = dashboard.contract.totalSales
             model.progress.token-price-eth = 1 / dashboard.campaign.price

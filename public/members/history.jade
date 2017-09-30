@@ -26,3 +26,5 @@
               a(href='{{row.url}}') {{row.tx}}
             td {{row.address}}
             td {{row.assigned}}
+          tr(ng:if="model.transactions.length === 0")
+            td(colspan="4") {{ 'There are no any transactions yet' | translate }}
