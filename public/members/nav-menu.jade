@@ -2,7 +2,7 @@
     nav
       .allert-box(ng:hide="model.you.confirmed")
         | {{ 'Thank you for registration. Please' | translate }} 
-        a(href="{{confirmEmailAddress()}}" target="blank") {{ 'confirm your email' | translate }}
+        span(href="{{confirmEmailAddress()}}" target="blank") {{ 'confirm your email' | translate }}
       a.navbar-brand.page-scroll(href='/members/index.html')
         img.logo(src='https://snov.io/assets/img/logo-white.svg', alt='Snov.io')
       ul.nav.navbar-nav.navbar-right

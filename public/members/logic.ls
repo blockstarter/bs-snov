@@ -94,7 +94,7 @@ angular
             model.progress.current.contributors = dashboard.contract.totalSales
             model.progress.token-price-eth = 1 / dashboard.campaign.price
             
-            $root-scope.address = dashboard.user.profile.address
+            $root-scope.user = dashboard.user
             
             model.loading = no
              
@@ -131,6 +131,7 @@ angular
             rate
             
         export model =
+            warning: []
             loading: yes
             address: "Loading..."
             you-buy: 100000
@@ -189,11 +190,16 @@ angular
             "https://" + model.you.email.replace(/^[^@]+@/ig,'')
             
         export buy = ($event) !->
+            model.warning = []
             return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
             { token } = model.current-rate
             model.address = "Loading..."
             if token is \ETH then 
                 model.address = model.eth-address
+                model.warning =
+                    * 'Recommended Fee'
+                    * 'Gas Limit: 150000' 
+                    * 'Gas Price: 0.000000021 Ether (21 Gwei)'
             else
                 
                 $http

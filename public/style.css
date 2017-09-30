@@ -1390,6 +1390,13 @@ ul.quick-list {
     padding: 2px;
     margin-top: 10px; }
 
+.warning {
+  padding: 10px;
+  background: #ffffe5;
+  color: #b99045;
+  border: 1px solid #f9d799;
+  border-radius: 5px; }
+
 .widget_summary {
   width: 100%;
   display: -ms-inline-flexbox;
