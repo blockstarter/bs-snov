@@ -115,7 +115,7 @@ html(lang='en' ng:app="members" ng:controller="members")
                       .col-md-6.col-sm-6.col-xs-12.text-center.tile_stats_count
                         .count.big_count
                           i.fa.fa-dollar.purple
-                          | ${{model.progress.current.usd | cut}} USD
+                          | {{model.progress.current.usd | cut}} USD
                       .col-md-6.col-sm-6.col-xs-12.text-center.tile_stats_count
                         .count.big_count
                           i.fa.fa-user.purple
