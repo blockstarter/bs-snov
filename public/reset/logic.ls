@@ -1,11 +1,5 @@
 angular
-    .module \app, [\ngStorage, \pascalprecht.translate , \proofofwork ]
-    .config ($translate-provider) ->
-        $translate-provider.translations \ru ,
-            "Forgot password" : "Забыли пароль" 
-            "Please enter your email so we can send you a link to restore the access to your account." : "Пожалуйста, введите адрес электронной почты, чтобы мы могли отправить вам ссылку для восстановления доступа к вашей учетной записи." 
-            "Restore the access to your account" : "Восстановить доступ к вашей учетной записи" 
-        $translate-provider.preferred-language \en
+    .module \app, [\ngStorage, \pascalprecht.translate , \proofofwork, \languages ]
     .run (proofofwork)->
         proofofwork.make \resetPassword
     .controller \restore, ($scope, $http, $local-storage, $translate)->

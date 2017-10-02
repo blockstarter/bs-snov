@@ -1,5 +1,5 @@
 angular
-    .module \members, [\ngStorage, \pascalprecht.translate , \proofofwork ]
+    .module \members, [\ngStorage, \pascalprecht.translate , \proofofwork, \languages ]
     .filter \remove_sign, ->
         -> it.replace('$', '')
     .filter \cut, ($filter)->
@@ -7,51 +7,6 @@ angular
             return "" if not value?
             #parse-int value.to-string!
             $filter('currency')(value, '', 0)
-    .config ($translate-provider) ->
-        $translate-provider.translations \en , []
-        $translate-provider.translations \ru ,
-            "ICO snovio dashboard" : "snovio ICO панель управления"
-            "Thank you for registration. Please" : "Спасибо, что зарегистрировались. Пожалуйста" 
-            "confirm your email" : "подтвердите ваш адрес электронной почты"
-            "There are no transactions yet" : "Пока никаких транзакций нет"
-            "Ru" : "Рус" 
-            "En" : "Анг"
-            "Log Out" : "Выход" 
-            "If contributed" : "Если внести"
-            "Settings" : "Настройки" 
-            "Profile" : "Профиль" 
-            "Film festivals used to be do-or-die moments for movie makers. They were where..." : "Кинофестивали раньше были для кинорежиссеров, и они были там ..." 
-            "3 mins ago" : "3 минуты назад" 
-            "John Smith" : "Джон Смит"
-            "See All Alerts" : "Просмотреть все предупреждения" 
-            "Crowdsale starts in" : "Начало предпродажи начнется через" 
-            "Days" : "Дней" 
-            "Minutes" : "Минут" 
-            "Seconds" : "Секунд" 
-            "Tokensale progress" : "Прогресс продажи токенов" 
-            "Softcap" : "Softcap" 
-            "Tokensale status" : "Статус продажи токенов" 
-            "Calculate" : "Калькулятор" 
-            "Your buy" : "Вы покупаете" 
-            "Snov tokens" : "SNOV токены"
-            "Your pay" : "Вы платите" 
-            "Please make sure your deposit equals or exceeds the minimum purchase amount (please check the minimum amount in WP)" : "Пожалуйста, убедитесь, что ваш депозит равен или превышает минимальную сумму покупки (посмотрите минимальный курс в ВП)" 
-            "SNOV assigned" : "Количество SNOV" 
-            "Make a deposit" : "Внести депозит"
-            "Address Source" : "Источник адреса" 
-            "Transaction ID" : "Номер транзакции" 
-            "Date" : "Дата" 
-            "Your transaction history" : "История транзакций"  
-            "Buy now" : "Купить сейчас" 
-            "Tokens you hold" : "Ваши токены" 
-            "You contributed" : "Внесено" 
-            "First week" : "Первая неделя"
-            "First day" : "Первый день" 
-            "Bonuses:" : "Бонусы:" 
-            "Snov token price:" : "Стоимость токена SNOV:" 
-            "Token crowdsale pool:" : "Пул предпродажи токенов:"
-            "Copyright © Snov.io 2017" : "Copyright © Snov.io 2017"
-        $translate-provider.preferred-language \en
     .directive \qrcode, ->
         restrict: \A
         scope: 

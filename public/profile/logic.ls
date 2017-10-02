@@ -1,41 +1,5 @@
 angular
-    .module \app, [\ngStorage, \pascalprecht.translate , \members , \proofofwork ]
-    .config ($translate-provider) ->
-        $translate-provider.translations \ru ,
-            "ICO snovio dashboard" : "snovio ICO панель управления"  
-            "Thank you for registration. Please" : "Спасибо, что зарегистрировались. Пожалуйста" 
-            "confirm your email" : "подтвердите ваш адрес электронной почты" 
-            "Copyright © Snov.io 2017" : "Copyright © Snov.io 2017" 
-            "Buy now" : "Купить сейчас" 
-            "Tokens you hold" : "Ваши токены" 
-            "You contributed" : "Внесено" 
-            "First week" : "Первая неделя"
-            "First day" : "Первый день" 
-            "Bonuses:" : "Бонусы:" 
-            "Snov token price:" : "Стоимость токена Snov:" 
-            "Token crowdsale pool:" : "Пул предпродажи токенов:" 
-            "Snov assigned" : "количество Snov" 
-            "Address Source" : "Источник адреса" 
-            "Transaction ID" : "Номер транзакции" 
-            "Date" : "Дата" 
-            "Your transaction history" : "История транзакций" 
-            "Save changes" : "Сохранить изменения" 
-            "Confirm password" : "Подтвердите пароль" 
-            "New password" : "Новый пароль"
-            "Current password" : "Текущий пароль" 
-            "Email" : "Эл. адрес" 
-            "Username" : "Имя пользователя" 
-            "User Profile" : "Профиль пользователя" 
-            "See All Alerts" : "Просмотреть все предупреждения" 
-            "Film festivals used to be do-or-die moments for movie makers. They were where..." : "Кинофестивали раньше были для кинорежиссеров, и они были там ..." 
-            "3 mins ago" : "3 минуты назад" 
-            "John Smith" : "Джон Смит" 
-            "Log Out" : "Выход" 
-            "Settings" : "Настройки" 
-            "Profile" : "Профиль" 
-            "Ru" : "Рус" 
-            "En" : "Анг" 
-        $translate-provider.preferred-language \en
+    .module \app, [\ngStorage, \pascalprecht.translate , \members , \proofofwork, \languages ]
     .run (proofofwork)->
         proofofwork.make \updateProfile
     .controller \profile, ($scope, $http, $local-storage, $root-scope)->

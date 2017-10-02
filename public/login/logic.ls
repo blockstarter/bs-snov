@@ -1,21 +1,6 @@
 
 angular
-    .module \app, [\ngStorage, \pascalprecht.translate , \proofofwork ]
-    .config ($translate-provider) ->
-        $translate-provider.translations \ru ,
-            "Login Form" : "Форма входа" 
-            "Lost your password?" : "Забыли пароль?" 
-            "Check here to confirm that you are not a U.S. citizen, resident or entity (a “U.S. Person”) nor are you obtaining PGL Tokens or signing on behalf of a U.S. Person." : "Отметьте здесь, чтобы подтвердить, что вы не являетесь гражданином США, резидентом или юридическим лицом (« лицо США »), и вы не получаете токены PGL или не подписываете от имени человека США" 
-            "Check here to confirm that you have read, understand and agree to the" : "Отметьте здесь, чтобы подтвердить, что вы прочитали, поняли и согласны с " 
-            "Terms of Use" : "Условиями использования" 
-            "and" : "и" 
-            "Privacy Policy" : "Политикой конфиденциальности" 
-            "New to site?" : "Что нового на сайте?" 
-            "Create Account" : "Регистрация" 
-            "Submit" : "Выполнить" 
-            "Already a member ?" : "Уже участник ?" 
-            "Log in" : "Авторизоваться"
-        $translate-provider.preferred-language \en
+    .module \app, [\ngStorage, \pascalprecht.translate , \proofofwork, \languages ]
     .run (proofofwork)->
         proofofwork.make \auth
     .controller \login, ($scope, $http, $local-storage)->
