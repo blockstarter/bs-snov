@@ -1587,15 +1587,19 @@ span.right
     overflow: hidden
     text-overflow: ellipsis
     margin: 0 1rem
+  .big_count
+    font-size: 30px
+    font-weight: 400
   &:before
     margin-top: -10px
 
 @media (min-width: 768px) and (max-width: 1199px)
-  .status .tile_count .tile_stats_count .count
-    font-size: 16px
-  .tile_stats_count .big_count
-    font-size: 22px
-    font-weight: 400
+  .status .tile_count .tile_stats_count 
+    .count
+      font-size: 16px
+    .big_count
+      font-size: 22px
+      font-weight: 400
 
 .currency.tile_count
   margin-top: 35px
@@ -2274,25 +2278,28 @@ ul.social-buttons li a
     width: 12px
 
 @media (min-width: 768px)
-  .sidebar .tile_count .tile_stats_count .count
-    font-size: 24px
-  .tile_stats_count .big_count
-    font-size: 30px
-    font-weight: 400
+  .sidebar .tile_count .tile_stats_count 
+    .count
+      font-size: 24px
+    .big_count
+      font-size: 30px
+      font-weight: 400
 
 @media (min-width: 992px) and (max-width: 1100px)
-  .sidebar .tile_count .tile_stats_count .count, th.lead
-    font-size: 24px
-  .tile_stats_count .big_count
-    font-size: 30px
-    font-weight: 400
+  .sidebar .tile_count .tile_stats_count 
+    .count, th.lead
+      font-size: 24px
+    .big_count
+      font-size: 30px
+      font-weight: 400
 
 @media (min-width: 768px) and (max-width: 991px)
-  .sidebar .tile_count .tile_stats_count .count, th.lead
-    font-size: 17px
-  .tile_stats_count .big_count
-    font-size: 24px
-    font-weight: 400
+  .sidebar .tile_count .tile_stats_count 
+    .count, th.lead
+      font-size: 17px
+    .big_count
+      font-size: 24px
+      font-weight: 400
 
 @media (min-width: 768px)
   .tile_count .tile_stats_count span
