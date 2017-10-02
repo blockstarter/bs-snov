@@ -76,7 +76,7 @@ angular
             update <[ seconds minutes hours days ]>
             $timeout update-time, 1000
         
-        distance = new Date(2017, 9, 3, 0, 0, 0, 0).get-time! - new Date!.get-time!
+        distance = Date.UTC(2017, 9, 31, 12, 0, 0, 0) - new Date!.get-time!
         start = humanizeDuration(distance, { delimiter: ';', units: ['d', 'h', 'm', 's'] }).split(";").map(-> it.split(' '))
         
         time-part = (name)->
