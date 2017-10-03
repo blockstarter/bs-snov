@@ -44,7 +44,8 @@ angular
             model.progress.min = dashboard.contract.minCapInUsd.toString!
             model.progress.max = dashboard.contract.maxCapInUsd.toString!
             
-            model.progress.current.usd = dashboard.contract.totalInUsd.toString!
+            model.progress.current.usd = dashboard.contract.totalInUsd
+            model.progress.current.eth = dashboard.contract.totalEth
             model.progress.current.percent = dashboard.contract.progressPercent.toString! + "%"
             model.progress.current.contributors = dashboard.contract.totalSales
             model.progress.token-price-eth = 1 / dashboard.campaign.price
