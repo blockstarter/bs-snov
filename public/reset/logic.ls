@@ -3,12 +3,6 @@ angular
     .run (proofofwork)->
         proofofwork.make \resetPassword
     .controller \restore, ($scope, $http, $local-storage, $translate)->
-        
-        init = (func)->
-            s = init.scripts = init.scripts ? []
-            init.all = -> s.for-each(-> it!)
-            s.push func
-            func
             
         export $local-storage
         
@@ -22,7 +16,7 @@ angular
             return null
           if !results[2]
             return ''
-          decodeURIComponent results[2].replace(/\+/g, ' ')
+          decodeURIComponent results.2.replace(/\+/g, ' ')
 
         export model =
             passwordReset: false
@@ -45,6 +39,5 @@ angular
                .catch (resp)->
                    swal resp.data
                    
-        init.all!
         $scope <<<< out$
         window.ngscope = {} <<<< out$

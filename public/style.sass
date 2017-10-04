@@ -366,7 +366,7 @@ body .full-container.body .right_col
 .top_nav .allert-box
   padding: 15px
   position: absolute
-  left: 30%
+  left: 32%
   font-size: 16px
   a
     color: #f3db42
@@ -960,8 +960,9 @@ h2
     display: block
     text-overflow: ellipsis
     overflow: hidden
-    white-space: nowrap
+    white-space: normal
     font-size: 22px
+    text-align: left
     small
       margin-left: 10px
   span
@@ -1361,7 +1362,7 @@ ul.msg_list li
   .open .dropdown-menu
     position: absolute
     background: #fff
-    margin-top: 0
+    margin-top: 1px
     border: 1px solid #d9dee4
     -webkit-box-shadow: none
     right: 0
@@ -1370,8 +1371,8 @@ ul.msg_list li
   .language-picker
     border-left: 1px solid rgba(255, 255, 255, 0.1)
     &.open .dropdown-menu
-      width: 55px
-      min-width: 55px
+      width: 58px
+      min-width: 58px
     .fa-angle-down
       margin-left: .5rem
   .open .dropdown-menu.msg_list
@@ -2193,6 +2194,8 @@ span.right
   min-height: 130px
   img
     width: 150px
+  h4
+    word-wrap: break-word
 
 th.lead
   font-size: 22px
@@ -2296,7 +2299,7 @@ ul.social-buttons li a
 @media (min-width: 768px) and (max-width: 991px)
   .sidebar .tile_count .tile_stats_count 
     .count, th.lead
-      font-size: 17px
+      font-size: 15px
     .big_count
       font-size: 24px
       font-weight: 400

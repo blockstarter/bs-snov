@@ -3,12 +3,7 @@ angular
     .run (proofofwork)->
         proofofwork.make \forgotPassword
     .controller \restore, ($scope, $http, $local-storage, $translate)->
-        
-        init = (func)->
-            s = init.scripts = init.scripts ? []
-            init.all = -> s.for-each(-> it!)
-            s.push func
-            func
+    
             
         export $local-storage
 
@@ -28,6 +23,4 @@ angular
                    model.emailSent = true
                .catch (resp)->
                    swal resp.data
-                   
-        init.all!
         $scope <<<< out$
