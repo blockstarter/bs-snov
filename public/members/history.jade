@@ -17,14 +17,14 @@
           tr
             th {{ 'Date' | translate }}
             th {{ 'Transaction ID' | translate }}
-            th {{ 'Address Source' | translate }}
-            th {{ 'SNOV assigned' | translate }}
+            th {{ 'From address' | translate }}
+            th {{ 'Amount sent' | translate }}
         tbody
           tr(ng:repeat="row in model.transactions")
             th(scope='row') {{row.date | date: 'dd/MM/yyyy hh:mm'}}
             td
-              a(href='{{row.url}}') {{row.tx}}
+              a(href='{{row.url}}') {{row.tx | shorten_tx}}
             td {{row.address}}
-            td {{row.assigned}}
+            td {{row.assigned}} {{row.token}}
           tr(ng:if="model.transactions.length === 0")
             td(colspan="4") {{ 'There are no transactions yet' | translate }}

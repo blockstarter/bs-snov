@@ -2,11 +2,16 @@ angular
     .module \members, [\ngStorage, \pascalprecht.translate , \proofofwork, \languages ]
     .filter \remove_sign, ->
         -> it.replace('$', '')
+        
     .filter \cut, ($filter)->
         (value)->
             return "" if not value?
             #parse-int value.to-string!
             $filter('currency')(value, '', 0)
+            
+    .filter \shorten_tx, ->
+        -> it.slice(0, 6) + '...' + it.slice(-4)
+        
     .directive \qrcode, ->
         restrict: \A
         scope: 
@@ -91,7 +96,7 @@ angular
             warning: []
             loading: yes
             address: "Loading..."
-            you-buy: 100000
+            you-buy: 500000
             you-pay: 0.05
             current-rate: {}
             eth-address: null
