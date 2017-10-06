@@ -78,7 +78,7 @@ html(lang='en' ng:app="members" ng:controller="members")
                     .clearfix
                 .x_panel.saleprogress(ng:if="show.saleprogress != false")
                   .x_title
-                    h2 {{ 'Pre-sale progress is LIVE' | translate }}
+                    h2 {{ 'Tokensale progress' | translate }}
                     ul.nav.navbar-right.panel_toolbox
                       li
                         a.collapse-link(ng:click="collapse.saleprogress = !(collapse.saleprogress)")
@@ -95,7 +95,7 @@ html(lang='en' ng:app="members" ng:controller="members")
                       .w_center.w_100
                         .progress
                           .progress-bar.bg-purple(role='progressbar' aria-valuenow='{{model.progress.current.usd | cut }}' aria-valuemin='0' aria-valuemax='{{model.progress.max }}' ng:style="{width: model.progress.current.percent}") ${{model.progress.current.usd | cut}}
-                        .text-right.softcap {{ 'Softcap' | translate }} ${{model.progress.min | cut }}
+                       // .text-right.softcap {{ 'Softcap' | translate }} ${{model.progress.min | cut }}
                       .w_right
                         strong  ${{model.progress.max | cut }}
                 .x_panel.status(ng:if="show.status != false")

@@ -1450,17 +1450,6 @@ ul.quick-list {
     height: 26px;
     border-radius: 50px;
     border: 3px solid #fff; }
-  .progress:before {
-    content: "";
-    position: absolute;
-    top: -4px;
-    width: 26px;
-    height: 26px;
-    border-radius: 50px;
-    border: 3px solid #fff;
-    left: 30%;
-    background: #9b59b6;
-    z-index: 50; }
   .progress:after {
     z-index: 51;
     right: -5px;
@@ -3863,7 +3852,7 @@ a.hiddenanchor {
   min-width: 219px; }
 
 .button a {
-  background: url(http://cssdeck.com/uploads/media/items/8/8bcLQqF.png) 0 -112px no-repeat;
+  background: url(//cssdeck.com/uploads/media/items/8/8bcLQqF.png) 0 -112px no-repeat;
   color: #7e7e7e;
   font-size: 17px;
   padding: 2px 0 2px 40px;
