@@ -4562,3 +4562,31 @@ ul.notifications
 
   to
     transform: rotate(360deg)
+    
+ul.msg_list li
+  background: #f7f7f7
+  padding: 5px
+  display: -ms-flexbox
+  display: flex
+  margin: 6px 6px 0
+  width: 96% !important
+  &:last-child
+    margin-bottom: 6px
+    padding: 10px
+  a
+    padding: 3px 5px !important
+    .image img
+      border-radius: 2px 2px 2px 2px
+      -webkit-border-radius: 2px 2px 2px 2px
+      float: left
+      margin-right: 10px
+      width: 32px
+    .time
+      font-size: 11px
+      font-style: italic
+      font-weight: bold
+      position: absolute
+      right: 35px
+    .message
+      display: block !important
+      font-size: 11px

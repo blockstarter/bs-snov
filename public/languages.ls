@@ -72,6 +72,8 @@ ru = {
 "You are able to buy SNOV Tokens using BTC, ETH, LTC, DASH, ZEC, ETC, or USD (wire transfer for any amount over $1,000)." : "Вы можете купить токены SNOV с использованием BTC, ETH, LTC, DASH, ZEC, ETC или USD (банковский перевод на любую сумму более 1000 долларов США)." 
 "User Settings" : "Пользовательские настройки"   
 "ICO snovio dashboard " : "snovio ICO панель управления"
+"Received the snov token! It shown in my wallet! Thank you team" : "Получил токены! Они отображаются в моем кошельке! Спасибо команде за работу!"
+"Snovio ICO has most helpful support team" : "У ICO Snovio самая крутая служба поддержки"
 }
 
 angular
