@@ -11,7 +11,6 @@ angular
             else
                 results.1 or 0
         utm_label = $location.hash!
-        console.log utm_label
         $location.hash ""
         export form =
             email: null
