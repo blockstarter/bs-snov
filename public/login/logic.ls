@@ -3,12 +3,21 @@ angular
     .module \app, [\ngStorage, \pascalprecht.translate , \proofofwork, \languages ]
     .run (proofofwork)->
         proofofwork.make \auth
-    .controller \login, ($scope, $http, $local-storage)->
+    .controller \login, ($scope, $http, $local-storage, $location)->
+        url-param = (name) ->
+            results = new RegExp('[?&]' + name + '=([^&#]*)').exec(window.location.href)
+            if results == null
+                null
+            else
+                results.1 or 0
+        utm_label = $location.hash!
+        console.log utm_label
+        $location.hash ""
         export form =
             email: null
             username: ""
             password: null
-            reference: \native
+            reference: utm_label ? \native
             accept-location: no 
             accept-privacy: no
             autoregister: no
