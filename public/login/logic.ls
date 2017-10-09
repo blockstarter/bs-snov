@@ -28,6 +28,7 @@ angular
             return swal "Please accept location" if not form.accept-location
             return swal "Please accept privacy" if not form.accept-privacy
             return swal "Email is required" if not form.email?
+            return swal "Please put valid email" if form.email.index-of('@') is -1
             return swal "Password is required" if not form.password?
             
             $http.post \/api/auth, form
