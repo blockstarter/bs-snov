@@ -3,14 +3,14 @@ angular
     .module \app, [\ngStorage, \pascalprecht.translate , \proofofwork, \languages ]
     .run (proofofwork)->
         proofofwork.make \auth
-    .controller \login, ($scope, $http, $local-storage, $location)->
+    .controller \login, ($scope, $http, $local-storage)->
         url-param = (name) ->
             results = new RegExp('[?&]' + name + '=([^&#]*)').exec(window.location.href)
             if results == null
                 null
             else
                 results.1 or 0
-        utm_label = Cookies.get('utm')
+        utm_label = Cookies.get \utm
         export form =
             email: null
             username: ""
@@ -24,8 +24,8 @@ angular
         export enter = ($event)->
             $event.prevent-default!
             return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
-            return swal "Please accept location" if not form.accept-location
-            return swal "Please accept privacy" if not form.accept-privacy
+            return swal "Please accept location" if location.hash is \#signup and not form.accept-location
+            return swal "Please accept privacy" if location.hash is \#signup and not form.accept-privacy
             return swal "Email is required" if not form.email?
             return swal "Please put valid email" if form.email.index-of(\@) is -1
             return swal "Password is required" if not form.password?

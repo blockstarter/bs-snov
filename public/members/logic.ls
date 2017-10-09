@@ -178,7 +178,10 @@ angular
         export logout = ($event)->
             $event.prevent-default!
             $local-storage.session-id = "N"
-            { location.href } = $event.target
+            $local-storage.dashboard = {}
+            #console.log $event.target.href
+            
+            location.href = $event.target.href
 
         export isLoggedIn = ->
             $local-storage.session-id && $local-storage.session-id != "N"

@@ -42,7 +42,7 @@ html(lang='en' ng:app="app" ng:controller="login")
               .clearfix.text-left
                 a(href='/restore/index.html') {{ 'Lost your password?' | translate }}
                 hr
-              +accept-conditions
+              //-+accept-conditions
               .clearfix
               div
                 a.btn.btn-theme.btn-block.btn-lg.submit(href='/members/index.html' ng:click="enter($event)") {{ 'Log in' | translate }}
