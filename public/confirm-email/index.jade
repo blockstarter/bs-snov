@@ -35,6 +35,8 @@ html(lang='en' ng:app="app" ng:controller="members")
                           .col-md-3.col-sm-3.col-md-offset-4.col-sm-offset-4.col-xs-12
                             a.btn.btn-theme.btn-lg.submit.btn-block(ng:click="goToMembers()") {{ 'Go To Members' | translate }}
                           .clearfix
+                    div(ng:hide="form.confirmed")
+                        a.btn.btn-default(ng:click="resend()") {{ 'Resend' | translate }}
                     .clearfix
               include ../members/sidebar
         // /page content
