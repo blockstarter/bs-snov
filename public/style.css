@@ -666,7 +666,7 @@ table.countries_list, table.tile td ul li a, table.tile_info {
 .nav > li > a {
   position: relative;
   display: block;
-  padding: 13px 15px 12px; }
+  padding: 13px 13px 12px; }
 .nav.side-menu > li.active, .nav.side-menu > li.current-page {
   border-right: 5px solid #8178d9; }
 .nav li.current-page {
@@ -1256,6 +1256,12 @@ div.box {
   border: 1px solid #8080ff;
   background-color: #e5e5ff; }
 
+.info-text {
+  padding-bottom: 10px;
+  max-width: 1000px;
+  margin: 0 auto;
+  color: gray; }
+
 ul.msg_list li {
   background: #f7f7f7;
   padding: 5px;
@@ -1318,7 +1324,8 @@ ul.msg_list li {
   left: auto;
   width: 220px; }
 .navbar-nav .language-picker {
-  border-left: 1px solid rgba(255, 255, 255, 0.1); }
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  width: 58px; }
   .navbar-nav .language-picker.open .dropdown-menu {
     width: 58px;
     min-width: 58px; }
