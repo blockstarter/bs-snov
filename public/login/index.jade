@@ -17,12 +17,12 @@ html(lang='en' ng:app="app" ng:controller="login")
       .login_wrapper
         mixin accept-conditions
            .form-group
-                .col-md-6.col-sm-6.col-xs-12.text-left
+                .col-md-12.col-sm-12.col-xs-12.text-left
                   .checkbox
                     label
                       input(type='checkbox', value='' ng:model="form.acceptLocation")
                       | {{ 'Check here to confirm that you are not a U.S. citizen, resident or entity (a “U.S. Person”) nor are you obtaining SNOV Tokens or signing on behalf of a U.S. Person.' | translate }}
-                .col-md-6.col-sm-6.col-xs-12.text-left
+                .col-md-12.col-sm-12.col-xs-12.text-left
                   .checkbox
                     label
                       input(type='checkbox', value='' ng:model="form.acceptPrivacy")
@@ -31,13 +31,13 @@ html(lang='en' ng:app="app" ng:controller="login")
                       |  {{ 'and' | translate }}  
                       a(href='//tokensale.snov.io/privacypolicy/') {{ 'Privacy Policy' | translate }}
                       | .
-                .col-md-6.col-sm-6.col-xs-12.text-left
+                .col-md-12.col-sm-12.col-xs-12.text-left
                   .checkbox
                     label
                       input(type='checkbox', value='' ng:model="form.saftAgreement")
                       | {{ 'Check here to confirm that you understand and accept the ' | translate }}
                       a(href="//tokensale.snov.io/saft/")  SAFT agreement.
-                .col-md-6.col-sm-6.col-xs-12.text-left
+                .col-md-12.col-sm-12.col-xs-12.text-left
                   .checkbox
                     label
                       input(type='checkbox', value='' ng:model="form.tokenRisks")
