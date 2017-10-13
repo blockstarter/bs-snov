@@ -18,7 +18,7 @@ angular
             confirmation-id: getUrlParam \confirmation-id
             confirmed: no
         export resend = ->
-            <-! proofofwork.make \resendConfirmEmail
+            # <-! proofofwork.make \resendConfirmEmail
             $http
               .post \/api/resendConfirmEmail,  { $local-storage.session-id }
               .then ->
@@ -26,7 +26,7 @@ angular
               .catch (resp)->
                   swal resp.data
         confirm = ->
-            <-! proofofwork.make \confirmEmail
+            # <-! proofofwork.make \confirmEmail
             $http
               .post \/api/confirmEmail, { form.confirmation-id, ...$local-storage }
               .then ->

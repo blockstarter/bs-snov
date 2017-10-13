@@ -1,7 +1,7 @@
 angular
     .module \app, [\ngStorage, \pascalprecht.translate , \proofofwork, \languages ]
-    .run (proofofwork)->
-        proofofwork.make \resetPassword
+    # .run (proofofwork)->
+    #     proofofwork.make \resetPassword
     .controller \restore, ($scope, $http, $local-storage, $translate)->
             
         export $local-storage

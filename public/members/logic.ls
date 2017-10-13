@@ -7,7 +7,7 @@ angular
         (value)->
             return "" if not value?
             #parse-int value.to-string!
-            $filter('currency')(value, '', 0)
+            $filter('currency')(value, '', 2)
             
     .filter \shorten_tx, ->
         -> it.slice(0, 6) + '...' + it.slice(-4)
@@ -190,13 +190,13 @@ angular
             location.href = \/login/index.html
 
         if location.href.indexOf(\members) > -1
-            <-! proofofwork.make \panel
+            # <-! proofofwork.make \panel
             $http
               .post \/api/panel, { $local-storage.session-id }
               .then (resp)->
                  $local-storage.dashboard = resp.data
                  init.all!
-                 <-! proofofwork.make \address
+                #  <-! proofofwork.make \address
               .catch (resp)->
                  #console.log resp
                  #if resp.status is 401

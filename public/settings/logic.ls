@@ -1,7 +1,7 @@
 angular
     .module \app, [\ngStorage, \pascalprecht.translate, \members , \proofofwork, \languages ]
-    .run (proofofwork)->
-        proofofwork.make \updateProfile
+    # .run (proofofwork)->
+    #     proofofwork.make \updateProfile
     .controller \settings, ($scope, $http, $local-storage, $root-scope)->
         web3 = new Web3! # web3 is used only to verify Ethereum addresses on Settings page.
         export form =

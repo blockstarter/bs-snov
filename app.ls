@@ -43,8 +43,8 @@ create-route = (key)->
     console.log "init route /api/#{key}"
     req, resp <-! app.post "/api/#{key}"
     
+    ip = req.headers[\x-forwarded-for] ? req.connection.remote-address.replace('::ffff:', '')
     if config.performance.require-request-payment
-      ip = req.headers[\x-forwarded-for] ? req.connection.remote-address.replace('::ffff:', '')
       requestpayment = req.headers.requestpayment
       return resp.status(403).end! if not requestpayment?
       [nonce_str, hash, rarity_str] = requestpayment.split('|')

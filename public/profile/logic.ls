@@ -1,7 +1,7 @@
 angular
     .module \app, [\ngStorage, \pascalprecht.translate , \members , \proofofwork, \languages ]
-    .run (proofofwork)->
-        proofofwork.make \updateProfile
+    # .run (proofofwork)->
+    #     proofofwork.make \updateProfile
     .controller \profile, ($scope, $http, $local-storage, $root-scope)->
         export form =
             username: ""
