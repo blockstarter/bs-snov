@@ -14,7 +14,7 @@ angular
             form.username = value.profile.name
             form.email = value.profile.email
         export save = ->
-            return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
+            # return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
             return swal "Passwords do not match" if form.new-password isnt form.new-password-repeat
             return swal "New password cannot be empty" if form.new-password.length is 0
             return swal "Old password cannot be empty" if form.old-password.length is 0

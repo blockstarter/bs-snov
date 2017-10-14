@@ -15,7 +15,7 @@ angular
             
         export restore = ($event)->
             $event.prevent-default!
-            return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
+            # return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
             return swal "Email is required" if not form.email?
             $http.post \/api/forgotPassword, form 
                .then (resp)->

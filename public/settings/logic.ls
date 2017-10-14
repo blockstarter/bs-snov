@@ -11,7 +11,7 @@ angular
             if value.profile.address.index-of('0x') > -1
                form.address = value.profile.address
         export confirm = ->
-            return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
+            # return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
             return swal "Please enter a valid Ethereum address" if not web3.isAddress form.address
             $http
               .post \/api/updateProfile, { form.address, ...$local-storage }

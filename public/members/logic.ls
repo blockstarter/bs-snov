@@ -153,7 +153,7 @@ angular
             
         export buy = ($event) !->
             model.warning = []
-            return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
+            # return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
             { token } = model.current-rate
             model.address = "Loading..."
             if token is \ETH then 

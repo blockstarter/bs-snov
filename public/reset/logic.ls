@@ -28,7 +28,7 @@ angular
             
         export reset = ($event)->
             $event.prevent-default!
-            return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
+            # return swal "Please try again in 2 seconds" if not $http.defaults.headers.common.request-payment?
             return swal "New password is required" if not form.new-password?
             return swal "Repeat your new password" if not form.new-password-again?
             return swal "Passwords do not match" if form.new-password-again isnt form.new-password
