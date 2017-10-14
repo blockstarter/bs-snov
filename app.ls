@@ -1,5 +1,6 @@
 require! {
     \express
+    \nocache
     \body-parser
     \serve-static
     \blockstarter-wl
@@ -13,11 +14,12 @@ require! {
 { config } = pack
 
 app = express!
+app.use nocache!
 
 __path = __dirname + \/public
 
 if config.performance.keep-static-in-memory
-  app.use(serve-static(__path, { max-age: \1y }))
+  app.use(serve-static(__path, { max-age: \0 }))
 else
   app.use express.static( __path )
 
