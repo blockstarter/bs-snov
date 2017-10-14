@@ -7,7 +7,7 @@ angular
         (value)->
             return "" if not value?
             #parse-int value.to-string!
-            $filter('currency')(value, '', 2)
+            $filter('currency')(value, '', 0)
             
     .filter \shorten_tx, ->
         -> it.slice(0, 6) + '...' + it.slice(-4)
