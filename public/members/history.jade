@@ -19,6 +19,7 @@
             th {{ 'Transaction ID' | translate }}
             th {{ 'From address' | translate }}
             th {{ 'Amount sent' | translate }}
+            th {{ 'SNOV tokens' | translate }}
         tbody
           tr(ng:repeat="row in model.transactions")
             th(scope='row') {{row.date | date: 'dd/MM/yyyy hh:mm'}}
@@ -26,5 +27,6 @@
               a(href='{{row.url}}') {{row.tx | shorten_tx}}
             td {{row.address}}
             td {{row.assigned}} {{row.token}}
+            td {{row.assignedTokens}}
           tr(ng:if="model.transactions.length === 0")
-            td(colspan="4") {{ 'There are no transactions yet' | translate }}
+            td(colspan="5") {{ 'There are no transactions yet' | translate }}

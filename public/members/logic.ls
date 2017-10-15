@@ -43,8 +43,8 @@ angular
             model.you.confirmed = dashboard.user.profile.confirmed
             model.you.valid-address = dashboard.user.profile.address.index-of('0x') is 0
             model.you.contributed-eth = dashboard.user.contribution.total
-            model.you.tokens = dashboard.contract.userTokens
-            model.transactions = dashboard.user.transactions
+            model.transactions = dashboard.user.profile.transaction ? []
+            model.you.tokens = model.transactions.reduce ((acc, tx) -> acc + tx.assignedTokens), 0
             
             model.progress.min = dashboard.contract.minCapInUsd.toString!
             model.progress.max = dashboard.contract.maxCapInUsd.toString!
