@@ -71,7 +71,7 @@ angular
                 | buy.gte(500000)  => 1.15
                 | _ => 1
             model.you-pay = 
-                new BigNumber(model.you-buy).mul(model.current-rate.change).div(bonus)
+                new BigNumber(model.you-buy).mul(model.current-rate.change).div(bonus).round(8)
         update-time = init ->
             update = ([head, ...tail])->
                 if model.timer[head] > 0

@@ -43,7 +43,7 @@ export getPresaleTotalInUsd = (cb) ->
    
 export getMinCapInUsd = new BigNumber 5000000
 
-export getMaxCapInUsd = new BigNumber 15000000
+export getMaxCapInUsd = new BigNumber 10000000
 
 export getFrontendData = (data, cb) ->
    err, totalInUsd <-! getPresaleTotalInUsd
